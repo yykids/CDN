@@ -1,4 +1,4 @@
-## Contents > CDN > Overview
+## Contents > CDN > Release Notes
 
 ### 2016.12.08
 
