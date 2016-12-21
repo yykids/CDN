@@ -7,4 +7,4 @@
 * CORS(Cross-Origin Resource Sharing) 지원
 
 #### 버그 수정
-* Global Purge API가 동작하지 않던 문제 수정
+* Global Purge 기능이 동작하지 않던 문제 수정
