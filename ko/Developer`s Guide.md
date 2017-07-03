@@ -2,7 +2,7 @@
 
 > ※ 본 문서는 CDN에서 제공하는 Public API에 대한 명세입니다.
 
-## CDN
+## CDN API 
 
 [API 도메인]
 
@@ -25,6 +25,7 @@
 |값|	타입|	설명|
 |---|---|---|
 |Authorization|	String|	secret key|
+
 - secret key는 CDN Console 상단의 [URL & Appkey]을 클릭하여 확인하실 수 있습니다.
 
 [Path parameter]
@@ -32,6 +33,7 @@
 |값|	타입|	설명|
 |---|---|---|
 |appKey|	String|	appKey|
+
 - appKey는 CDN Console 상단의 [URL & Appkey]을 클릭하여 확인하실 수 있습니다.
 
 [Query parameter]
@@ -144,6 +146,7 @@
 |값|	타입|	설명|
 |---|---|---|
 |Authorization|	String|	secret key|
+
 - secret key는 CDN Console 상단의 [URL & Appkey]을 클릭하여 확인하실 수 있습니다.
 
 [Path parameter]
@@ -151,6 +154,7 @@
 |값|	타입|	설명|
 |---|---|---|
 |appKey|	String|	appKey|
+
 - appKey는 CDN Console 상단의 [URL & Appkey]을 클릭하여 확인하실 수 있습니다.
 
 [Query parameter]
@@ -229,6 +233,7 @@
 |값|	타입|	설명|
 |---|---|---|
 |Authorization|	String|	secret key|
+
 - secret key는 CDN Console 상단의 [URL & Appkey]을 클릭하여 확인하실 수 있습니다.
 
 [Path parameter]
@@ -236,6 +241,7 @@
 |값|	타입|	설명|
 |---|---|---|
 |appKey|	String|	appKey|
+
 - appKey는 CDN Console 상단의 [URL & Appkey]을 클릭하여 확인하실 수 있습니다.
 
 [Query parameter]
@@ -308,6 +314,7 @@
 |값|	타입|	설명|
 |---|---|---|
 |Authorization|	String|	secret key|
+
 - secret key는 CDN Console 상단의 [URL & Appkey]을 클릭하여 확인하실 수 있습니다.
 
 [Path parameter]
@@ -315,6 +322,7 @@
 |값|	타입|	설명|
 |---|---|---|
 |appKey|	String|	appKey|
+
 - appKey는 CDN Console 상단의 [URL & Appkey]을 클릭하여 확인하실 수 있습니다.
 
 
@@ -366,6 +374,7 @@
 |값|	타입|	설명|
 |---|---|---|
 |Authorization|	String|	secret key|
+
 - secret key는 CDN Console 상단의 [URL & Appkey]을 클릭하여 확인하실 수 있습니다.
 
 [Path parameter]
@@ -373,6 +382,7 @@
 |값|	타입|	설명|
 |---|---|---|
 |appKey|	String|	appKey|
+
 - appKey는 CDN Console 상단의 [URL & Appkey]을 클릭하여 확인하실 수 있습니다.
 
 
@@ -413,7 +423,7 @@
 |purgeSeq|	String|	Purge 요청 번호|
 
 
-### CDN Purge 조회
+### Purge 조회
 
 #### 요청
 
@@ -428,6 +438,7 @@
 |값|	타입|	설명|
 |---|---|---|
 |Authorization|	String|	secret key|
+
 - secret key는 CDN Console 상단의 [URL & Appkey]을 클릭하여 확인하실 수 있습니다.
 
 [Path parameter]
@@ -435,6 +446,7 @@
 |값|	타입|	설명|
 |---|---|---|
 |appKey|	String|	appKey|
+
 - appKey는 CDN Console 상단의 [URL & Appkey]을 클릭하여 확인하실 수 있습니다.
 
 
@@ -483,8 +495,9 @@
 |- type|	String|	Purge Type("ITEM", "WILDCARD", "ALL") |
 |- path|	String| purge 요청 항목 |
 
-### CDN 상태 코드
-[표] CDN 상태 코드
+## CDN 코드 
+
+### CDN 상태 
 
 |값|설명|
 |---|---|
@@ -496,3 +509,5 @@
 |SUSPEND | 정지|
 |CLOSING| 사용 종료중|
 |CLOSE| 사용 종료|
+
+[표] CDN 상태 
