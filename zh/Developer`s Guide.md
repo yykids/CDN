@@ -2,13 +2,13 @@
 
 > ※ 본 문서는 CDN에서 제공하는 Public API에 대한 명세입니다.
 
-## CDN API 
+## CDN API
 
 [API 도메인]
 
 |환경|	도메인|
 |---|---|
-|Real|	http://api-gw.cloud.toast.com/tc-cdn|
+|Real|	https://api-gw.cloud.toast.com/tc-cdn|
 
 ### CDN 생성
 
@@ -495,9 +495,9 @@
 |- type|	String|	Purge Type("ITEM", "WILDCARD", "ALL") |
 |- path|	String| purge 요청 항목 |
 
-## CDN 코드 
+## CDN 코드
 
-### CDN 상태 
+### CDN 상태 코드
 
 |값|설명|
 |---|---|
@@ -510,4 +510,4 @@
 |CLOSING| 사용 종료중|
 |CLOSE| 사용 종료|
 
-[표] CDN 상태 
+[표1] CDN 상태 코드
