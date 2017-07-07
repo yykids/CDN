@@ -299,66 +299,6 @@
 |- resultMessage|	String|	실패 메시지|
 
 
-### CDN 삭제
-
-#### 요청
-
-[URL]
-
-|Http method|	URI|
-|---|---|
-|DELETE|	/v1.0/appKeys/{appKey}/distributions|
-
-[Header parameter]
-
-|값|	타입|	설명|
-|---|---|---|
-|Authorization|	String|	secret key|
-
-- secret key는 CDN Console 상단의 [URL & Appkey]을 클릭하여 확인하실 수 있습니다.
-
-[Path parameter]
-
-|값|	타입|	설명|
-|---|---|---|
-|appKey|	String|	appKey|
-
-- appKey는 CDN Console 상단의 [URL & Appkey]을 클릭하여 확인하실 수 있습니다.
-
-
-[Query parameter]
-
-|값|	타입|	필수|	설명|
-|---|---|---|---|
-|domains| List | O | 삭제할 도메인(서비스) 이름 리스트 |
-|- domain|	String|	O| 삭제할 도메인(서비스) 이름 |
-
-[Sample json request]
-```
-{
-	"domains": [ "sample.cdn.toastcloud.com" ]
-}
-```
-
-#### 응답
-
-```
-{
-    "header": {
-        "resultCode": Integer,
-        "resultMessage": String,
-        "isSuccessful": Boolean
-    }
-}
-```
-|값|	타입|	설명|
-|---|---|---|
-|header|	Object|	헤더 영역|
-|- isSuccessful|	Boolean|	성공여부|
-|- resultCode|	Integer|	실패 코드|
-|- resultMessage|	String|	실패 메시지|
-
-
 ### Purge
 
 #### 요청
@@ -392,7 +332,7 @@
 |---|---|---|---|
 |domain|	String|	O| Purge할 도메인(서비스) 이름 |
 |purgeType| List | O | Purge Type("ITEM", "WILDCARD", "ALL") |
-|purgeList|	String|	O| purge 항목 리스트 (여러 개를 입력할 경우 \\n 토큰으로 분리하여 입력해주세요.) |
+|purgeList|	String|	X| purge 항목 리스트 (여러 개를 입력할 경우 \\n 토큰으로 분리하여 입력해주세요, purgeType이 ALL인 경우 입력하지 않아도됩니다.) |
 
 [Sample json request]
 ```
@@ -455,8 +395,6 @@
 |값|	타입|	필수|	설명|
 |---|---|---|---|
 |domain|	String|	O| Purge할 도메인(서비스) 이름 |
-|purgeType| List | O | Purge Type("ITEM", "WILDCARD", "ALL") |
-|purgeList|	String|	O| purge 항목 리스트 (여러 개를 입력할 경우 \\n 토큰으로 분리하여 입력해주세요.) |
 
 
 #### 응답
