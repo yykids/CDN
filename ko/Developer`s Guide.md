@@ -38,20 +38,20 @@
 
 [Query parameter]
 
-|값|	타입|	필수|	설명|
-|---|---|---|---|
-|distributions| List| O | 생성할 CDN의 오브젝트 리스트|
-|- region|	String|	O|	서비스 지역 ("LOCAL": 대한민국, "GLOBAL" : 글로벌)|
-|- description|	String|	X| 설명|
-|- domainAlias|	String|	X| Domain alias (개인 혹은 회사가 소유한 도메인 사용)|
-|- useOrigin|	String|	O| Cache 만료 설정 ("Y": 원본 설정 사용, "N":사용자 설정 사용) |
-|- maxAge|	Integer|	X| Cache 만료 시간(초) |
-|- referrerType|	String|	O|	Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
-|- referrers|	String|	X|	Referrers (여러 개 입력시 \\n 토큰으로 분리하여 입력해주세요. )|
-|- origins|	List|	O |	원본 서버 오브젝트 리스트 |
-|-- origin|	String|	O |	원본서버 (domain or ip)|
-|-- originPath|	String|	X |	원본서버 하위 경로 |
-|-- port|	Integer|	O |	원본서버 포트|
+|값|	타입|	필수| 기본값 |	설명|
+|---|---|---|---|---|
+|distributions| List| O | - | 생성할 CDN의 오브젝트 리스트|
+|- region|	String|	O|-|서비스 지역 ("LOCAL": 대한민국, "GLOBAL" : 글로벌)|
+|- description|	String|	X| - | 설명|
+|- domainAlias|	String|	X| - | Domain alias (개인 혹은 회사가 소유한 도메인 사용)|
+|- useOrigin|	String|	O|-| Cache 만료 설정 ("Y": 원본 설정 사용, "N":사용자 설정 사용) |
+|- maxAge|	Integer|	X|0| Cache 만료 시간(초) |
+|- referrerType|	String|	O|-|	Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
+|- referrers|	String|	X|-|	Referrers (여러 개 입력시 \\n 토큰으로 분리하여 입력해주세요. )|
+|- origins|	List|	O |-|	원본 서버 오브젝트 리스트 |
+|-- origin|	String|	O |-|	원본서버 (domain or ip)|
+|-- originPath|	String|	X |-	|원본서버 하위 경로 |
+|-- port|	Integer|	O |-	|원본서버 포트|
 
 [Sample request json]
 ```
@@ -159,9 +159,9 @@
 
 [Query parameter]
 
-|값|	타입|	필수|	설명|
-|---|---|---|---|
-|domain| String | O | 조회할 도메인(서비스 이름)|
+|값|	타입|	필수| 기본값 |	설명|
+|---|---|---|---|---|
+|domain| String | O | - | 조회할 도메인(서비스 이름)|
 
 #### 응답
 
@@ -246,19 +246,19 @@
 
 [Query parameter]
 
-|값|	타입|	필수|	설명|
-|---|---|---|---|
-|domain| String | O | 수정할 도메인(서비스 이름)|
-|- description|	String|	X| 설명|
-|- useOrigin|	String|	O| Cache 만료 설정 ("Y": 원본 설정 사용, "N":사용자 설정 사용) |
-|- domainAlias|	String|	X| Domain alias (개인 혹은 회사가 소유한 도메인 사용)
-|- maxAge|	Integer|	X| Cache 만료 시간(초) |
-|- referrerType|	String|	O|	Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
-|- referrers|	String|	X|	Referrers (여러 개 입력시 \\n 토큰으로 분리하여 입력해주세요. )|
-|- origins|	List|	O |	원본서버|
-|-- origin|	String|	O |	원본서버 (domain or ip)|
-|-- originPath|	String|	X |	원본서버 하위 경로 |
-|-- port|	Integer|	O |	원본서버 포트|
+|값|	타입|	필수| 기본값	| 설명|
+|---|---|---|---|---|
+|domain| String | O | - | 수정할 도메인(서비스 이름)|
+|- description|	String|	X| - | 설명|
+|- useOrigin|	String|	O| - | Cache 만료 설정 ("Y": 원본 설정 사용, "N":사용자 설정 사용) |
+|- domainAlias|	String|	X |- | Domain alias (개인 혹은 회사가 소유한 도메인 사용)
+|- maxAge|	Integer|	X| 0 | Cache 만료 시간(초) |
+|- referrerType|	String|	O| - |	Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
+|- referrers|	String|	X | - |	Referrers (여러 개 입력시 \\n 토큰으로 분리하여 입력해주세요. )|
+|- origins|	List|	O |-|	원본서버|
+|-- origin|	String|	O | -|	원본서버 (domain or ip)|
+|-- originPath|	String|	X | -|	원본서버 하위 경로 |
+|-- port|	Integer|	O | -|	원본서버 포트|
 
 
 [Sample request json]
@@ -328,11 +328,11 @@
 
 [Query parameter]
 
-|값|	타입|	필수|	설명|
-|---|---|---|---|
-|domain|	String|	O| Purge할 도메인(서비스) 이름 |
-|purgeType| List | O | Purge Type("ITEM", "WILDCARD", "ALL") |
-|purgeList|	String|	X| purge 항목 리스트 (여러 개를 입력할 경우 \\n 토큰으로 분리하여 입력해주세요, purgeType이 ALL인 경우 입력하지 않아도됩니다.) |
+|값|	타입|	필수|	기본값 |설명|
+|---|---|---|---|---|
+|domain|	String|	O| - | Purge할 도메인(서비스) 이름 |
+|purgeType| List | O | - |Purge Type("ITEM", "WILDCARD", "ALL") |
+|purgeList|	String|	X| -| purge 항목 리스트 (여러 개를 입력할 경우 \\n 토큰으로 분리하여 입력해주세요, purgeType이 ALL인 경우 입력하지 않아도됩니다.) |
 
 [Sample json request]
 ```
@@ -392,9 +392,9 @@
 
 [Query parameter]
 
-|값|	타입|	필수|	설명|
+|값|	타입|	필수| 기본값 |	설명|
 |---|---|---|---|
-|domain|	String|	O| Purge할 도메인(서비스) 이름 |
+|domain|	String|	O| -| Purge할 도메인(서비스) 이름 |
 
 
 #### 응답
