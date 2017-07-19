@@ -1,4 +1,4 @@
-## Contents > CDN > Getting Started 
+## Contents > CDN > Getting Started
 
 본 문서에서는 웹콘솔을 이용하여 CDN Service를 구성하고 이용하는 방법을 설명합니다.
 
@@ -7,7 +7,7 @@
 1.[Contents] > [CDN] > [CDN Service] > [CDN 생성] 버튼을 클릭하면 CDN 서비스를 생성할 수 있는 [그림 1]의 Create Service 화면으로 이동합니다.  
 CDN Service에 이용될 도메인 명은 자동으로 생성됩니다. 소유하고 있는 도메인이 있는 경우, Domain Alias 기능을 이용해서 서비스할 수 있습니다.
 
-![[그림 1] Create Service 화면](http://static.toastoven.net/prod_cdn/img_01.png)
+![[그림 1] Create Service 화면](http://static.toastoven.net/prod_cdn/img_001.png)
 <center>[그림 1] Create Service 화면</center>
 
 
@@ -20,7 +20,8 @@ CDN Service에 추가적인 설명을 입력합니다.
 4.'원본 서버 이름'을 입력합니다.  
 TOAST Cloud의 Infrastructure에서 생성한 Instance나 기존에 보유하고 있는 서버를 이용하여 서비스할 수 있습니다.  
 원본 서버는 IP 또는 도메인 형태로 입력이 가능하며, Port를 지정할 수 있습니다.  
-URL path 형태는 지원하지 않으므로 반드시 도메인 또는 IP 형태로만 입력해 주십시오.  
+URL path 형태의 하위 경로는 원본 경로에 입력해주세요.
+
 
 5.Domain Alias을 설정합니다.  
 CDN Service 생성이 완료 되면 \*.cdn.toastcloud.com 형태의 Service 도메인이 자동으로 발급되며, 발급된 도메인을 그대로 서비스에 이용하실 수 있습니다.  
@@ -55,7 +56,7 @@ Regular expression 형태의 입력을 지원하며 여러개의 referrer를 제
 
 [그림 2]와 같이 변경 가능한 항목들이 활성화 됩니다.
 
-![[그림 2] 변경 가능한 Service 기본 정보](http://static.toastoven.net/prod_cdn/img_02.png)
+![[그림 2] 변경 가능한 Service 기본 정보](http://static.toastoven.net/prod_cdn/img_002.png)
 <center>[그림 2] 변경 가능한 Service 기본 정보</center>
 
 3.변경 가능한 항목은 설명, 원본 서버 정보, Domain Alias 설정입니다.  
@@ -132,7 +133,7 @@ Cache 만료 시간 값을 이용하여 원하는 시간으로 Cache 만료 설�
 
 1.[Contents] > [CDN] > [CDN Service] > [통계] 탭을 클릭합니다.  
 
-![[그림 6] CDN 통계 조회](http://static.toastoven.net/prod_cdn/img_06.png)
+![[그림 6] CDN 통계 조회](http://static.toastoven.net/prod_cdn/img_006.png)
 <center>[그림 6] CDN 통계 조회</center>
 
 2.통계를 확인하기 원하는 CDN Service를 선택합니다.  
