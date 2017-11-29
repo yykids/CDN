@@ -50,7 +50,7 @@
 |- referrers|	String|	X|-|	Referrers (여러 개 입력시 \\n 토큰으로 분리하여 입력해주세요. )|
 |- origins|	List|	O |-|	원본 서버 오브젝트 리스트 |
 |-- origin|	String|	O |-|	원본서버 (domain or ip)|
-|-- originPath|	String|	X |-	|원본서버 하위 경로 |
+|-- originPath|	String|	X |-	|원본서버 하위 경로 (/를 포함한 경로로 입력해주세요.) |
 |-- port|	Integer|	O |-	|원본서버 포트|
 
 [Sample request json]
@@ -299,7 +299,7 @@
 |- resultMessage|	String|	실패 메시지|
 
 
-### 캐시 재배포 (Purge)
+### 캐시 재배포(Purge)
 
 #### 요청
 
