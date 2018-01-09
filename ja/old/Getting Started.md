@@ -28,7 +28,7 @@ CDN Service 생성이 완료 되면 \*.cdn.toastcloud.com 형태의 Service 도�
 하지만 개인 혹은 회사가 소유한 도메인을 이용하여 CDN Service를 제공해야 할 경우, 'Domain Alias' 설정을 이용하실 수 있습니다.  
 Domain Alias 란 TOAST Cloud에서 제공하는 도메인 외에 개인 혹은 회사가 소유한 도메인으로도 CDN 서비스가 가능하도록 하는 서비스입니다.  
 Domain Alias 항목에 소유한 도메인 주소를 설정하고, 해당 도메인의 네임서버 설정을 변경해 주세요.  
-TOAST Cloud에서 발급받은 CDN Service 주소를 CNAME 레코드로 추가 해주시면 소유한 도메인으로도 서비스가 가능합니다.  ·[Domain Alias 사용예 보기]
+TOAST Cloud에서 발급받은 CDN Service 주소를 CNAME 레코드로 추가 해주시면 소유한 도메인으로도 서비스가 가능합니다.  
 
 6.캐시를 설정합니다.
 
@@ -36,12 +36,12 @@ TOAST Cloud에서 발급받은 CDN Service 주소를 CNAME 레코드로 추가 �
 - Cache 만료 설정을 이용하여 cache 만료 시간을 사용자화 가능합니다. “원본 설정사용" 옵션이 기본 값입니다. Cache 만료 시간을 지정하고 싶은 경우 “Cache 만료 시간”을 변경합니다.
 
 > 주의  
-> 만일 원본 서버 설정에 Cache 만료 시간이 지정되어 있다면 "Cache 만료 시간" 값은 무시됩니다. CDN service 를 이용해 만료시간을 지정하고 싶은 경우 원본 서버의 Cache 만료 설정을 제거합니다.
+> 만일 원본 서버 설정에 Cache 만료 시간이 지정되어 있다면 콘솔에서 설정한 "Cache 만료 시간" 값은 무시됩니다. CDN service 를 이용해 만료시간을 지정하고 싶은 경우 원본 서버의 Cache 만료 설정을 제거합니다.
 
 - Referrers 접근 관리  
-특정 referrer의 경우 사용자 contents에 접근을 제한할 수 있습니다.  
-Blacklist 타입을 이용할 경우 Referrer에 입력된 Referrer 리스트는 접근이 제한되며, Whitelist 타입을 이용할 경우 접근이 허용됩니다.  
-Regular expression 형태의 입력을 지원하며 여러개의 referrer를 제어하고 싶은 경우 다음 라인에 연속하여 입력합니다.  
+  특정 referrer의 경우 사용자 contents에 접근을 제한할 수 있습니다.  
+  Blacklist 타입을 이용할 경우 Referrer에 입력된 Referrer 리스트는 접근이 제한되며, Whitelist 타입을 이용할 경우 접근이 허용됩니다.  
+  Regular expression 형태의 입력을 지원하며 여러개의 referrer를 제어하고 싶은 경우 다음 라인에 연속하여 입력합니다.  
 
 7.[CDN 생성] 버튼을 클릭하면 CDN 서비스 생성 요청이 완료됩니다.  
 생성 요청 이후 서비스 배포가 완료까지 수 분 정도(최대 한시간) 소요됩니다. 배포가 완료된 후 서비스 이용이 가능합니다.
@@ -73,9 +73,9 @@ Regular expression 형태의 입력을 지원하며 여러개의 referrer를 제
 
 3.Cache 만료 설정에서 만료 설정 방식을 선택합니다.  
  - 원본 설정 사용  
-원본 서버의 Cache 만료설정을 이용하도록 설정합니다.
+  원본 서버의 Cache 만료설정을 이용하도록 설정합니다.
  - 사용자 설정 사용  
-Cache 만료 시간 값을 이용하여 원하는 시간으로 Cache 만료 설정이 가능합니다.
+  Cache 만료 시간 값을 이용하여 원하는 시간으로 Cache 만료 설정이 가능합니다.
 
 > 주의  
 > 만일 원본 서버 설정에 Cache 만료 시간이 지정되어 있다면 [그림3]에서 입력한 Cache 만료 시간 값은 무시됩니다. CDN service 를 이용해 만료시간을 지정하고 싶으면 원본 서버의 Cache 만료 설정을 제거합니다.
@@ -95,20 +95,20 @@ Cache 만료 시간 값을 이용하여 원하는 시간으로 Cache 만료 설�
 <center>[그림 4] Cache 재배포</center>
 
 3.Cache 재배포 타입을 선택합니다. 3가지 타입의 Cache 재배포 방식을 제공합니다.  
-- Item  
-정확한 파일명과 경로 설정을 통해 원하는 파일만 재배포 가능합니다.  
-예) /path/to/file1.jpg
-- Wildcard  
-파일명과 경로명에 와일드카드 문자를 이용가능합니다.  
-* : 임의의 문자열  
-? : 1개의 문자  
-＼ : Escape 문자
-예) /images/games/\*.jpg  
-/\*/sports/\*.jpg  
-/images/sports/ac?e/\*.jpg  
+- Item: 정확한 파일명과 경로 설정을 통해 원하는 파일만 재배포 가능합니다.  
+  - 예) /path/to/file1.jpg
+- Wildcard: 파일명과 경로명에 와일드카드 문자를 이용가능합니다.  
+- 임의의 문자열  
+  - ? : 1개의 문자  
+  - ＼ : Escape 문자
+  - 예) /images/games/\*.jpg  
+  - /\*/sports/\*.jpg  
+  - /images/sports/ac?e/\*.jpg  
 - All  
-모든 캐시를 한꺼번에 재배포 합니다.  
+  모든 캐시를 한꺼번에 재배포 합니다.  
+
 4.선택한 Cache 재배포 타입에 맞게 재배포할 파일을 지정합니다.  
+
 5.[Cache 재배포] 버튼을 클릭해 재배포 요청을 합니다.  
 재배포 까지는 수 분의 시간이 소요됩니다. (용량에 따라 소요 시간은 달라질 수 있습니다.)
 

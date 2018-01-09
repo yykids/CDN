@@ -50,7 +50,7 @@
 |- referrers|	String|	X|-|	Referrers (여러 개 입력시 \\n 토큰으로 분리하여 입력해주세요. )|
 |- origins|	List|	O |-|	원본 서버 오브젝트 리스트 |
 |-- origin|	String|	O |-|	원본서버 (domain or ip)|
-|-- originPath|	String|	X |-	|원본서버 하위 경로 |
+|-- originPath|	String|	X |-	|원본서버 하위 경로 (/를 포함한 경로로 입력해주세요.) |
 |-- port|	Integer|	O |-	|원본서버 포트|
 
 [Sample request json]
@@ -122,13 +122,13 @@
 |- description|  String| 설명 |
 |- status| String| CDN 상태 ([표] CDN 상태 참고) |
 |- createTime|  String| 생성일시 |
-|- useOrigin| String| 원본 서버 설정 사용 여부("Y": 원본서버 설정 사용, "ㅜN": 사용자 설정) |
+|- useOrigin| String| 원본 서버 설정 사용 여부("Y": 원본서버 설정 사용, "N": 사용자 설정) |
 |- maxAge| String| Cache 만료시간(초) |
 |- referrerType|  String| Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
 |- referrers| String| referrers 리스트 |
 |- origins|  List| 원본 서버 오브젝트 리스트 |
 |-- origin|	String|	원본 서버(domain or ip) |
-|-- originPath|	String|	원본서버 하위 경로 |
+|-- originPath|	String|	원본서버 하위 경로 (/를 포함한 하위 path를 입력해주세요.) |
 |-- port|	Integer| 원본서버 포트|
 
 ### CDN 조회
@@ -299,7 +299,7 @@
 |- resultMessage|	String|	실패 메시지|
 
 
-### Purge
+### 캐시 재배포(Purge)
 
 #### 요청
 
@@ -363,7 +363,7 @@
 |purgeSeq|	String|	Purge 요청 번호|
 
 
-### Purge 조회
+### 캐시 재배포(Purge) 조회
 
 #### 요청
 
