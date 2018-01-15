@@ -115,12 +115,12 @@ TOAST Cloud에서 발급받은 CDN 서비스 주소를 CNAME 레코드로 추가
 * Item: 정확한 파일명과 경로 설정을 통해 원하는 파일만 재배포 가능합니다.  
 	* 예) /path/to/file1.jpg
 * Wildcard: 파일명과 경로명에 와일드카드 문자를 이용가능합니다.  
-	* 임의의 문자열  
+	* \* : 임의의 문자열  
 	* ? : 1개의 문자  
 	* \\ : Escape 문자  
-		* 예) /images/games/\*.jpg  
-		* /\*/sports/\*.jpg  
-		* /images/sports/ac?e/\*.jpg
+		* 예) /images/games/\\*.jpg  
+		* /\\*/sports/\\*.jpg  
+		* /images/sports/ac?e/\\*.jpg
 * All: 모든 캐시를 한꺼번에 재배포 합니다.  
 
 4.선택한 캐시 재배포 타입에 맞게 재배포할 파일을 지정합니다.  
@@ -145,7 +145,7 @@ TOAST Cloud에서 발급받은 CDN 서비스 주소를 CNAME 레코드로 추가
 
 ## 통계 확인하기
 
-네트워크 전송량, 상태 코드별 통계 및 Top 콘텐츠에 대한 통계를 확인할 수 있습니다. 
+네트워크 전송량, HTTP 상태코드 별 통계 및 Top 콘텐츠에 대한 통계를 확인할 수 있습니다. 
 
 1.[Contents Delivery] > [CDN] 의 [통계] 탭을 클립합니다.
 
