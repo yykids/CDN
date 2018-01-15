@@ -105,17 +105,16 @@ TOAST Cloud에서 발급받은 CDN 서비스 주소를 CNAME 레코드로 추가
 <center>[그림 4] Cache 재배포</center>
 
 3.캐시 재배포 타입을 선택합니다. 3가지 타입의 캐시 재배포 방식을 제공합니다.  
-- Item: 정확한 파일명과 경로 설정을 통해 원하는 파일만 재배포 가능합니다.  
-    - 예) /path/to/file1.jpg
-- Wildcard: 파일명과 경로명에 와일드카드 문자를 이용가능합니다.  
-- 임의의 문자열  
-     - ? : 1개의 문자  
-    - ＼ : Escape 문자
-    - 예) /images/games/\*.jpg  
-    - /\*/sports/\*.jpg  
-    - /images/sports/ac?e/\*.jpg  
-- All  
-  모든 캐시를 한꺼번에 재배포 합니다.  
+* Item: 정확한 파일명과 경로 설정을 통해 원하는 파일만 재배포 가능합니다.  
+  * 예) /path/to/file1.jpg  
+* Wildcard: 파일명과 경로명에 와일드카드 문자를 이용가능합니다.  
+  * 임의의 문자열  
+  * ? : 1개의 문자  
+  * \\ : Escape 문자
+    * 예) /images/games/\*.jpg  
+    * /\*/sports/\*.jpg  
+    * /images/sports/ac?e/\*.jpg  
+* All: 모든 캐시를 한꺼번에 재배포 합니다.  
 
 4.선택한 캐시 재배포 타입에 맞게 재배포할 파일을 지정합니다.  
 
