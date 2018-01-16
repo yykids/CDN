@@ -53,35 +53,35 @@ TOAST Cloud에서 발급받은 CDN 서비스 주소를 CNAME 레코드로 추가
 	> [참고]   
 	> 설정한 Callback URL을 통해 Path Variable과 Response Body로 CDN 서비스 정보가 전달됩니다. 
 
-	- Path Variable    
-	    - {appkey} : CDN상품 앱 키
-	    - {domain} : 서비스의 도메인 이름 (e.g. xxxx.cdn.toastcloud.com) 
-	    - {status} : 서비스 상태 코드    
-	
-	- Response Body   
-	```json
-	{
-		 "domain": String,
-	   "domainAlias": String,
-	   "region": String,
-	   "description": String,
-	   "status": String,
-	   "createTime": Long,
-	   "useOrigin": String,
-	   "maxAge": String,
-	   "referrerType": String,
-	   "referrers": String,
-	   "origins": [
-	   	{
-	   		"origin": String,
-	      	"originPath": String,
-	      	"port": Integer,
-	   	}
-	   ],
-	  "callbackHttpMethod" :  String,
-		"callbackUrl" : String
-	}
-	```
+	> - Path Variable    
+	>     - {appkey} : CDN상품 앱 키
+	>     - {domain} : 서비스의 도메인 이름 (e.g. xxxx.cdn.toastcloud.com) 
+	>     - {status} : 서비스 상태 코드    
+	>
+	> - Response Body   
+	> ```json
+	> {
+	>	 "domain": "String",
+	>    "domainAlias": "String",
+	>    "region": "String",
+	>    "description": "String",
+	>    "status": "String",
+	>    "createTime": "Long",
+	>    "useOrigin": "String",
+	>    "maxAge": "String",
+	>    "referrerType": "String",
+	>    "referrers": "String",
+	>    "origins": [
+	>    	{
+	>    		"origin": "String",
+	>       	"originPath": "String",
+	>       	"port": "Integer",
+	>    	}
+	>    ],
+	>   "callbackHttpMethod" : "String",
+	>	"callbackUrl" : "String"
+	> }
+	>```
 
 8.[확인] 버튼을 클릭하면 CDN 서비스 생성 요청이 완료됩니다.  
 
