@@ -6,7 +6,7 @@ TOAST CDN에서 제공하는 Public API를 설명합니다.
 
 ### 사전 준비
 
-API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey) 필요합니다. 앱 키와 보안 키는 [그림 1]과 같이 웹 콘솔 상단의 [URL&Appkey]을 클릭하여 확인할 수 있습니다.
+API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니다. 앱 키와 보안 키는 [그림 1]과 같이 웹 콘솔 상단의 [URL&Appkey]을 클릭하여 확인할 수 있습니다.
 
 ![[그림 1] 앱 키 및 보안 키 확인](http://static.toastoven.net/prod_cdn/img_08.png)
 <center>[그림 1] 앱 키 및 보안 키 확인</center>
@@ -22,7 +22,7 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey) 필요
 #### Path 파라미터
 
 모든 API는 appKey를 path 파라미터를 지정하도록 되어 있습니다.
-* 예) api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/**{appKey}**/distributions
+* 예) /v1.0/appKeys/**{appKey}**/distributions
 
 | 이름 | 설명 |
 | --- | --- |
@@ -89,18 +89,18 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey) 필요
 
 | 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
 | --- | --- | --- | --- | --- | --- |
-| distributions | List | O | | | 생성할 CDN의 오브젝트 리스트 |
-| distributions[0].region | String | O | | | 서비스 지역 ("LOCAL": 대한민국, "GLOBAL" : 글로벌) |
-| distributions[0].useOrigin | String | O | | | Cache 만료 설정 ("Y": 원본 설정 사용, "N":사용자 설정 사용) |
-| distributions[0].referrerType | String | O | | | Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
-| distributions[0].description | String | X | | | 설명 |
-| distributions[0].domainAlias | String | X | | | Domain alias (개인 혹은 회사가 소유한 도메인 사용) |
+| distributions | List | O | - | | 생성할 CDN의 오브젝트 리스트 |
+| distributions[0].region | String | O | - | | 서비스 지역 ("LOCAL": 대한민국, "GLOBAL" : 글로벌) |
+| distributions[0].useOrigin | String | O | - | | Cache 만료 설정 ("Y": 원본 설정 사용, "N":사용자 설정 사용) |
+| distributions[0].referrerType | String | O | - | | Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
+| distributions[0].description | String | X | - | | 설명 |
+| distributions[0].domainAlias | String | X | - | | Domain alias (개인 혹은 회사가 소유한 도메인 사용) |
 | distributions[0].maxAge | Integer | X | 0 | | Cache 만료 시간(초) |
-| distributions[0].referrers | String | X | | | Referrers (여러 개 입력시 \n 토큰으로 분리하여 입력해주세요.) |
-| distributions[0].origins | List | O | | | 원본 서버 오브젝트 리스트 |
-| distributions[0].origins[0].origin | String | O | | | 원본서버 (domain or ip) |
-| distributions[0].origins[0].port | String | O | | | 원본서버 포트 |
-| distributions[0].origins[0].originPath | String | X | | | 원본서버 하위 경로 (/를 포함한 경로로 입력해주세요.) |
+| distributions[0].referrers | String | X | - | | Referrers (여러 개 입력시 \n 토큰으로 분리하여 입력해주세요.) |
+| distributions[0].origins | List | O | - | | 원본 서버 오브젝트 리스트 |
+| distributions[0].origins[0].origin | String | O | - | | 원본서버 (domain or ip) |
+| distributions[0].origins[0].port | String | O | - | | 원본서버 포트 |
+| distributions[0].origins[0].originPath | String | X | - | | 원본서버 하위 경로 (/를 포함한 경로로 입력해주세요.) |
 
 ### 응답
 
@@ -271,16 +271,16 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey) 필요
 | 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
 | --- | --- | --- | --- | --- | --- |
 | domain | String | O | - | | 수정할 도메인(서비스 이름) |
-|- useOrigin|	String|	O | - | | Cache 만료 설정 ("Y": 원본 설정 사용, "N":사용자 설정 사용) |
-|- referrerType|	String|	O| - | |	Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
-|- description|	String|	X| - | | 설명|
-|- domainAlias|	String|	X |- | | Domain alias (개인 혹은 회사가 소유한 도메인 사용)
-|- maxAge|	Integer|	X| 0 | | Cache 만료 시간(초) |
-|- referrers|	String|	X | - | |	Referrers (여러 개 입력시 \\n 토큰으로 분리하여 입력해주세요. )|
-|- origins|	List|	O |-|	|원본서버|
-|-- origin|	String|	O | -|	|원본서버 (domain or ip)|
-|-- port|	Integer|	O | -|	|원본서버 포트|
-|-- originPath|	String|	X | -| |	원본서버 하위 경로 |
+| useOrigin|	String|	O | - | | Cache 만료 설정 ("Y": 원본 설정 사용, "N":사용자 설정 사용) |
+| referrerType|	String|	O| - | |	Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
+| description|	String|	X| - | | 설명|
+| domainAlias|	String|	X |- | | Domain alias (개인 혹은 회사가 소유한 도메인 사용)
+| maxAge|	Integer|	X| 0 | | Cache 만료 시간(초) |
+| referrers|	String|	X | - | |	Referrers (여러 개 입력시 \\n 토큰으로 분리하여 입력해주세요. )|
+| origins|	List|	O |-|	|원본서버|
+| origins[0].origin|	String|	O | -|	|원본서버 (domain or ip)|
+| origins[0].port|	Integer|	O | -|	|원본서버 포트|
+| origins[0].originPath|	String|	X | -| |	원본서버 하위 경로 |
 
 ### 응답
 
@@ -432,4 +432,4 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey) 필요
 |CLOSING| 사용 종료중|
 |CLOSE| 사용 종료|
 
-[표1] CDN 상태 코드
+<center>[표1] CDN 상태 코드<center>
