@@ -27,7 +27,7 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 
 #### Path 파라미터
 
-모든 API는 appKey를 path 파라미터를 지정하도록 되어 있습니다.
+모든 API는 appKey를 path 파라미터로 지정하도록 되어 있습니다.
 * 예) /v1.0/appKeys/**{appKey}**/distributions
 
 | 이름 | 설명 |
@@ -50,7 +50,8 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 }
 ```
 
-**필드**
+
+[필드]
 
 | 필드 |	타입 | 설명|
 | --- | --- | --- |
@@ -60,6 +61,8 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 | header.resultMessage | String | 결과 메시지 |
 
 #### CDN 상태 코드
+
+다음은 CDN 서비스 상태를 나타내는 상태 코드로, 
 
 |값|설명|
 |---|---|
@@ -71,6 +74,7 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 |SUSPEND | 정지|
 |CLOSING| 사용 종료중|
 |CLOSE| 사용 종료|
+
 <center>[표1] CDN 상태 코드<center>
 
 ## 서비스 API
@@ -79,13 +83,15 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 
 #### 요청
 
-**URI**
+
+[URI]
 
 | 메서드 | URI |
 | --- | --- |
 | POST | /v1.0/appKeys/{appKey}/distributions |
 
-**요청 본문**
+
+[요청 본문]
 
 ```json
 {
@@ -109,7 +115,8 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 }
 ```
 
-**필드**
+
+[필드]
 
 | 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
 | --- | --- | --- | --- | --- | --- |
@@ -120,15 +127,16 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 | distributions[0].description | String | 선택 | | 최대 255자 | 설명 |
 | distributions[0].domainAlias | String | 선택 | | 최대 255자 | Domain alias (개인 혹은 회사가 소유한 도메인 사용) |
 | distributions[0].maxAge | Integer | 선택 | 0 | | Cache 만료 시간(초) |
-| distributions[0].referrers | String | 선택 | | '\n' 토큰 포함, 최대 1024자 | Referrers (여러 개 입력시 \n 토큰으로 분리하여 입력해주세요.) |
+| distributions[0].referrers | String | 선택 | | '\n' 토큰 포함, 최대 1024자 | Referrers (여러 개 입력시 \n 토큰으로 분리하여 입력해 주세요.) |
 | distributions[0].origins | List | 필수 | | | 원본 서버 오브젝트 리스트 |
-| distributions[0].origins[0].origin | String | 필수 | | 최대 255자 | 원본서버 (domain or ip) |
-| distributions[0].origins[0].port | String | 필수 | | | 원본서버 포트 |
-| distributions[0].origins[0].originPath | String | 선택 | | 최대 8192자 | 원본서버 하위 경로 (/를 포함한 경로로 입력해주세요.) |
+| distributions[0].origins[0].origin | String | 필수 | | 최대 255자 | 원본 서버 (domain or ip) |
+| distributions[0].origins[0].port | String | 필수 | | | 원본 서버 포트 |
+| distributions[0].origins[0].originPath | String | 선택 | | 최대 8192자 | 원본 서버 하위 경로 (/를 포함한 경로로 입력해 주세요.) |
 
 #### 응답
 
-**응답 본문**
+
+[응답 본문]
 
 ```json
 {
@@ -157,7 +165,8 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 }
 ```
 
-**필드**
+
+[필드]
 
 | 필드 |	타입 | 설명|
 | --- | --- | --- |
@@ -178,24 +187,27 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 | distributions[0].referrers | String| referrers 리스트 |
 | distributions[0].origins |  List| 원본 서버 오브젝트 리스트 |
 | distributions[0].origins[0].origin | String|	원본 서버(domain or ip) |
-| distributions[0].origins[0].originPath | String|	원본서버 하위 경로 |
-| distributions[0].origins[0].port | Integer| 원본서버 포트 |
+| distributions[0].origins[0].originPath | String|	원본 서버 하위 경로 |
+| distributions[0].origins[0].port | Integer| 원본 서버 포트 |
 
 ### 서비스 조회
 
 #### 요청
 
-**URI**
+
+[URI]
 
 | 메서드 | URI |
 | --- | --- |
 | GET | /v1.0/appKeys/{appKey}/distributions |
 
-**파라미터**
+
+[파라미터]
 
 | 이름 | 타입 | 필수 여부 | 유효 범위 | 설명 |
 | --- | --- | --- | --- | --- |
 | domain | String | 필수 | 최대 255자 | 조회할 도메인(서비스 이름) |
+
 
 [예]
 ```
@@ -206,7 +218,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 
 #### 응답
 
-**응답 본문**
+
+[응답 본문]
 
 ```json
 {
@@ -234,7 +247,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 }
 ```
 
-**필드**
+
+[필드]
 
 | 필드 |	타입 | 설명|
 | --- | --- | --- |
@@ -255,20 +269,22 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 | distributions[0].referrers| String| referrers 리스트 |
 | distributions[0].origins|  List| 원본 서버 오브젝트 리스트 |
 | distributions[0].origins[0].origin|	String|	원본 서버(domain or ip) |
-| distributions[0].origins[0].originPath|	String|	원본서버 하위 경로 |
-| distributions[0].origins[0].port|	Integer| 원본서버 포트|
+| distributions[0].origins[0].originPath|	String|	원본 서버 하위 경로 |
+| distributions[0].origins[0].port|	Integer| 원본 서버 포트|
 
 ### 서비스 수정
 
 #### 요청
 
-**URI**
+
+[URI]
 
 | 메서드 | URI |
 | --- | --- |
 | PUT | /v1.0/appKeys/{appKey}/distributions |
 
-**요청 본문**
+
+[요청 본문]
 
 ```json
 {
@@ -288,7 +304,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 }
 ```
 
-**필드**
+
+[필드]
 
 | 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
 | --- | --- | --- | --- | --- | --- |
@@ -299,14 +316,15 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 | domainAlias|	String | 선택 | | 최대 255자 | Domain alias (개인 혹은 회사가 소유한 도메인 사용)
 | maxAge|	Integer |선택| 0 | | Cache 만료 시간(초) |
 | referrers|	String|	선택 | | '\n' 토큰 포함, 최대 1024자 |	Referrers (여러 개 입력시 \\n 토큰으로 분리하여 입력해주세요. )|
-| origins|	List| 필수 | | |원본서버|
-| origins[0].origin| String| 필수 | | 최대 255자	|원본서버 (domain or ip)|
-| origins[0].port|	Integer| 필수 | |	|원본서버 포트|
-| origins[0].originPath|	String|	선택 | | 최대 8192자 | 원본서버 하위 경로 |
+| origins|	List| 필수 | | |원본 서버|
+| origins[0].origin| String| 필수 | | 최대 255자	|원본 서버 (domain or ip)|
+| origins[0].port|	Integer| 필수 | |	|원본서 버 포트|
+| origins[0].originPath|	String|	선택 | | 최대 8192자 | 원본 서버 하위 경로 |
 
 #### 응답
 
-**응답 본문**
+
+[응답 본문]
 
 ```json
 {
@@ -318,7 +336,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 }
 ```
 
-**필드**
+
+[필드]
 
 | 필드 |	타입 | 설명|
 | --- | --- | --- |
@@ -331,13 +350,15 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 
 #### 요청
 
-**URI**
+
+[URI]
 
 | 메서드 | URI |
 | --- | --- |
 | DELETE | /v1.0/appKeys/{appKey}/distributions |
 
-**요청 본문**
+
+[요청 본문]
 
 ```json
 {
@@ -347,17 +368,20 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 }
 ```
 
-**필드**
+
+[필드]
 
 | 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
 | --- | --- | --- | --- | --- | --- |
 | domains | String | 필수 | | | 삭제할 도메인, 여러 도메인 입력 가능 |
 
-**여러 도메인을 입력시, 해당하는 서비스들은 모두 종료처리 됩니다.**
+**\* 여러 도메인을 입력시, 해당하는 서비스들은 모두 종료처리 됩니다.**
 
 #### 응답
 
-**응답 본문**
+
+[응답 본문]
+
 ```json
 {
     "header" : {
@@ -368,7 +392,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 }
 ```
 
-**필드**
+
+[필드]
 
 | 필드 |	타입 | 설명|
 | --- | --- | --- |
@@ -383,13 +408,15 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 
 #### 요청
 
-**URI**
+
+[URI]
 
 | 메서드 | URI |
 | --- | --- |
 |POST|	/v1.0/appKeys/{appKey}/purges|
 
-**요청 본문**
+
+[요청 본문]
 
 ```json
 {
@@ -399,17 +426,19 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 }
 ```
 
-**필드**
+
+[필드]
 
 | 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
 | --- | --- | --- | --- | --- | --- |
-|domain|	String|	필수 |  | 최대 255자 | Purge할 도메인(서비스) 이름 |
-|purgeType| List | 필수 |  | ITEM / WILDCARD / ALL | Purge Type("ITEM", "WILDCARD", "ALL") |
-|purgeList|	String|	선택 | | | purge 항목 리스트 (여러 개를 입력할 경우 \\n 토큰으로 분리하여 입력해주세요, purgeType이 ALL인 경우 입력하지 않아도됩니다.) |
+|domain|	String|	필수 |  | 최대 255자 | 재배포할 도메인(서비스) 이름 |
+|purgeType| List | 필수 |  | ITEM / WILDCARD / ALL | 재배포 타입 ("ITEM", "WILDCARD", "ALL") |
+|purgeList|	String|	선택 | | | 재배포 타겟 항목 리스트 (여러 개를 입력할 경우 \\n 토큰으로 분리하여 입력해 주세요, purgeType이 ALL인 경우 입력하지 않아도됩니다.) |
 
 #### 응답
 
-**응답 본문**
+
+[응답 본문]
 
 ```json
 {
@@ -422,7 +451,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 }
 ```
 
-**필드**
+
+[필드]
 
 | 필드 |	타입 | 설명|
 | --- | --- | --- |
@@ -430,19 +460,21 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 | header.isSuccessful |	Boolean| 성공 여부 |
 | header.resultCode | Integer | 결과 코드 |
 | header.resultMessage | String | 결과 메시지 |
-| purgeSeq | String | Purge 요청 번호 |
+| purgeSeq | Integer | 재배포 요청 번호 |
 
 ### 재배포(Purge) 조회
 
 #### 요청
 
-**URI**
+
+[URI]
 
 | 메서드 | URI |
 | --- | --- |
 |GET|	/v1.0/appKeys/{appKey}/purges|
 
-**파라미터**
+
+[파라미터]
 
 | 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
 | --- | --- | --- | --- | --- | --- |
@@ -461,7 +493,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/purges?
 
 #### 응답
 
-**응답 본문**
+
+[응답 본문]
 
 ```json
 {
@@ -496,7 +529,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/purges?
 }
 ```
 
-**필드**
+
+[필드]
 
 | 필드 |	타입 | 설명|
 | --- | --- | --- |
@@ -504,11 +538,11 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/purges?
 | header.isSuccessful |	Boolean| 성공 여부 |
 | header.resultCode | Integer | 결과 코드 |
 | header.resultMessage | String | 결과 메시지 |
-| totalItems | Integer | purge 총 개수 |
-| purges |	List|	purge 리스트|
-| purges[0].seq|	Integer|	purge 요청 번호 |
-| purges[0].progress|	Integer|	purge 진행률|
-| purges[0].purgeTime|	Long|	purge 요청 시간 |
-| purges[0].lastCheckTime|	Long|	purge 수행 마지막 체크 시간 |
-| purges[0].type|	String|	Purge Type("ITEM", "WILDCARD", "ALL") |
-| purges[0].path|	String| purge 요청 항목 |
+| totalItems | Integer | 재배포한 총 개수 |
+| purges |	List| 재배포 항목 리스트|
+| purges[0].seq|	Integer| 재배포 요청 번호 |
+| purges[0].progress|	Integer| 재배포 진행률|
+| purges[0].purgeTime|	Long| 재배포 요청 시간 |
+| purges[0].lastCheckTime|	Long| 재배포 수행 마지막 체크 시간 |
+| purges[0].type|	String|	재배포 타입 ("ITEM", "WILDCARD", "ALL") |
+| purges[0].path|	String| 재배포 요청 항목 |
