@@ -59,7 +59,7 @@ TOAST Cloud에서 발급받은 CDN 서비스 주소를 CNAME 레코드로 추가
 	>     - {status} : 서비스 상태 코드    
 	>
 	> - Response Body   
-	> ``` json
+	> ```json
 	> {
 	>	 "domain": String,
 	>    "domainAlias": String,
