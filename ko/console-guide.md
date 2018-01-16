@@ -72,11 +72,11 @@ TOAST Cloud에서 발급받은 CDN 서비스 주소를 CNAME 레코드로 추가
 	>    "referrerType": String,
 	>    "referrers": String,
 	>    "origins": [
-	>    {
-	>    	"origin": String,
-	>        "originPath": String,
-	>        "port": Integer,
-	>    }
+	>    	{
+	>    		"origin": String,
+	>       	"originPath": String,
+	>       	"port": Integer,
+	>    	}
 	>    ],
 	>   "callbackHttpMethod" :  String,
 	>	"callbackUrl" : String
@@ -160,9 +160,9 @@ TOAST Cloud에서 발급받은 CDN 서비스 주소를 CNAME 레코드로 추가
 
 > [주의] 캐시 재배포 사용량 제한    
 > 서비스별로 캐시 재배포 사용 횟수가 제한되므로 제한 사용량을 초과한 경우 사용량이 초기화된 이후에 다시 사용할 수 있습니다.   
-> - ITEM 타입: 시간당 60회 제한, 한 번에 요청할 수 있는 최대 Path 수: 1000개 제한  
-> - Wildcard 타입: 시간당 60회 제한, 한 번에 요청할 수 있는 최대 Path : 10개 제한  
-> - ALL 타입: 시간당 5회 제한  
+>   - ITEM 타입: 시간당 60회 제한, 한 번에 요청할 수 있는 최대 Path 수: 1000개 제한  
+>   - Wildcard 타입: 시간당 60회 제한, 한 번에 요청할 수 있는 최대 Path : 10개 제한  
+>   - ALL 타입: 시간당 5회 제한  
 
 
 ## 감시설정
