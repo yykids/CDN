@@ -51,12 +51,12 @@ TOAST Cloud에서 발급받은 CDN 서비스 주소를 CNAME 레코드로 추가
 - CDN 서비스 생성 및 수정, 재시작 후 "서비스 중" 상태로 바뀌고 난 후 특정 URL을 호출할 필요가 있을 때 설정할 수 있습니다. 지원되는 HTTP 메서드는 GET, POST, PUT 메서드입니다.
 
 	> [참고]   
-	> 설정한 Callbackc URL로 Path Variable과 Response Body로 콜백이 발생한 서비스에 대한 정보를 전달합니다. 
+	> 설정한 Callback URL을 통해 Path Variable과 Response Body로 CDN 서비스 정보가 전달됩니다. 
 	>
 	> - Path Variable    
-	>	{appkey} : Callback이 발생한 서비스의 CDN AppKey  
-	>   {domain} : 서비스의 도메인이름   
-	>   {status} : 서비스 상태   
+	>     - {appkey} : CDN상품 앱 키
+	>     - {domain} : 서비스의 도메인 이름 (e.g. xxxx.cdn.toastcloud.com) 
+	>     - {status} : 서비스 상태 코드    
 	>
 	> - Response Body   
 	> ```
@@ -78,7 +78,7 @@ TOAST Cloud에서 발급받은 CDN 서비스 주소를 CNAME 레코드로 추가
 	>        "port": Integer,
 	>    }
 	>    ],
-	>    "callbackHttpMethod" :  String,
+	>   "callbackHttpMethod" :  String,
 	>	"callbackUrl" : String
 	> }
 	>```
