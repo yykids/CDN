@@ -23,7 +23,7 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 
 | 이름 | 설명 |
 | --- | --- |
-| Authorization | 콘솔에서 확인한 보안 키 (SecretKey) |
+| Authorization | 콘솔에서 발급받은 보안 키 (SecretKey) |
 
 #### Path 파라미터
 
@@ -32,7 +32,7 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 
 | 이름 | 설명 |
 | --- | --- |
-| appKey | 콘솔에서 확인한 앱 키 (Appkey) | 
+| appKey | 콘솔에서 발급받은 앱 키 (Appkey) | 
 
 ### 응답 공통 정보
 
@@ -124,11 +124,11 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 | distributions[0].referrerType | String | 필수 | | BLACKLIST / WHITELIST | Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
 | distributions[0].description | String | 선택 | | 최대 255자 | 설명 |
 | distributions[0].domainAlias | String | 선택 | | 최대 255자 | Domain alias (개인 혹은 회사가 소유한 도메인 사용) |
-| distributions[0].maxAge | Integer | 선택 | 0 | | Cache 만료 시간(초) |
+| distributions[0].maxAge | Integer | 선택 | 0 | 0 ~ 2,147,483,647 | Cache 만료 시간(초), 기본 값 0은 604,800초 입니다. |
 | distributions[0].referrers | String | 선택 | | '\n' 토큰 포함, 최대 1024자 | Referrers (여러 개 입력시 \n 토큰으로 분리하여 입력해 주세요.) |
 | distributions[0].origins | List | 필수 | | | 원본 서버 오브젝트 리스트 |
 | distributions[0].origins[0].origin | String | 필수 | | 최대 255자 | 원본 서버 (domain or ip) |
-| distributions[0].origins[0].port | String | 필수 | | | 원본 서버 포트 |
+| distributions[0].origins[0].port | String | 필수 | | 0 ~ 65,536 | 원본 서버 포트 |
 | distributions[0].origins[0].originPath | String | 선택 | | 최대 8192자 | 원본 서버 하위 경로 (/를 포함한 경로로 입력해 주세요.) |
 
 #### 응답
@@ -312,11 +312,11 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 | referrerType|	String | 필수 | | BLACKLIST / WHITELIST |	Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
 | description|	String | 선택 | | 최대 255자 | 설명|
 | domainAlias|	String | 선택 | | 최대 255자 | Domain alias (개인 혹은 회사가 소유한 도메인 사용)
-| maxAge|	Integer |선택| 0 | | Cache 만료 시간(초) |
+| maxAge|	Integer |선택| 0 | 0 ~ 2,147,483,647 | Cache 만료 시간(초), 기본 값 0은 604,800초 입니다. |
 | referrers|	String|	선택 | | '\n' 토큰 포함, 최대 1024자 |	Referrers (여러 개 입력시 \\n 토큰으로 분리하여 입력해주세요. )|
 | origins|	List| 필수 | | |원본 서버|
 | origins[0].origin| String| 필수 | | 최대 255자	|원본 서버 (domain or ip)|
-| origins[0].port|	Integer| 필수 | |	|원본서 버 포트|
+| origins[0].port|	Integer| 필수 | |	0 ~ 65,536 |원본서 버 포트|
 | origins[0].originPath|	String|	선택 | | 최대 8192자 | 원본 서버 하위 경로 |
 
 #### 응답
@@ -400,7 +400,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 | header.resultCode | Integer | 결과 코드 |
 | header.resultMessage | String | 결과 지시지 |
 
-## 재배포 API
+## 캐시 재배포 API
 
 ### 캐시 재배포(Purge)
 
@@ -460,7 +460,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 | header.resultMessage | String | 결과 메시지 |
 | purgeSeq | Integer | 재배포 요청 번호 |
 
-### 재배포(Purge) 조회
+### 캐시 재배포(Purge) 조회
 
 #### 요청
 
