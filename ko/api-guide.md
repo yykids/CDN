@@ -12,10 +12,8 @@ TOAST CDN에서 제공하는 Public API를 설명합니다.
 
 ### 사전 준비
 
-API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니다. 앱 키와 보안 키는 [그림 1]과 같이 웹 콘솔 상단의 [URL&Appkey]을 클릭하여 확인할 수 있습니다.
-
-![[그림 1] 앱 키 및 보안 키 확인](http://static.toastoven.net/prod_cdn/img_08.png)
-<center>[그림 1] 앱 키 및 보안 키 확인</center>
+API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니다. 
+앱 키와 보안 키는 콘솔 상단 "URL & Appkey" 메뉴에서 확인이 가능합니다.
 
 ### 요청 공통 정보
 
