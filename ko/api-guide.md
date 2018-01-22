@@ -105,7 +105,11 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 					"port" : 80,
 					"originPath" : "/resources"
 				}
-			]
+			],
+            "callback": {
+                "httpMethod": "GET",
+                "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
+            }
 		}
 	]
 }
@@ -128,6 +132,12 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 | distributions[0].origins[0].origin | String | 필수 | | 최대 255자 | 원본 서버 (domain or ip) |
 | distributions[0].origins[0].port | String | 필수 | | 0 ~ 65,536 | 원본 서버 포트 |
 | distributions[0].origins[0].originPath | String | 선택 | | 최대 8192자 | 원본 서버 하위 경로 (/를 포함한 경로로 입력해 주세요.) |
+| distributions[0].callback | Object | 선택 | | | CDN 생성 처리 결과를 통보받을 콜백 URL (콜백 설정은 선택입력 입니다.) |
+| distributions[0].callback.httpMethod | String | 필수 | | GET/POST/PUT | 콜백의 HTTP Method |
+| distributions[0].callback.url | String | 필수 | | 최대 1024자 | 콜백 URL |
+
+
+
 
 #### 응답
 
@@ -155,7 +165,11 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
                     "origin" :  "static.toastoven.net",
                     "port" :  80
                 }
-            ]
+            ],
+            "callback": {
+                "httpMethod": "GET",
+                "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
+            }
         }
     ]
 }
@@ -185,6 +199,10 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 | distributions[0].origins[0].origin | String|	원본 서버(domain or ip) |
 | distributions[0].origins[0].originPath | String|	원본 서버 하위 경로 |
 | distributions[0].origins[0].port | Integer| 원본 서버 포트 |
+| distributions[0].callback | Object | 서비스 생성 처리 결과를 통보 받을 콜백 |
+| distributions[0].callback.httpMethod | String | 콜백의 HTTP Method |
+| distributions[0].callback.url | String | 콜백 URL |
+
 
 ### 서비스 조회
 
@@ -202,8 +220,8 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 
 | 이름 | 타입 | 필수 여부 | 유효 범위 | 설명 |
 | --- | --- | --- | --- | --- |
-| domain | String | 필수 | 최대 255자 | 조회할 도메인(서비스 이름) |
-
+| domain | String | 선택 | 최대 255자 | 조회할 도메인(서비스 이름) |
+| status | String | 선택 | CDN 상태 코드 | CDN 상태 ([표] CDN 상태 참고) |
 
 [예]
 ```
@@ -239,7 +257,11 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
             "origin" :  "static.toastoven.net",
             "port" :  80
         }
-    ]
+    ],
+    "callback": {
+        "httpMethod": "GET",
+        "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
+    }
 }
 ```
 
@@ -256,7 +278,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 | distributions[0].domain|	String|	domain 이름(서비스 이름) |
 | distributions[0].domainAlias|	String|	소유 도메인 |
 | distributions[0].region|  String| 서비스 지역 ("LOCAL": 대한민국, "GLOBAL" : 글로벌)|
-| distributions[0]. description|  String| 설명 |
+| distributions[0].description|  String| 설명 |
 | distributions[0].status| String| CDN 상태 ([표] CDN 상태 참고) |
 | distributions[0].createTime|  String| 생성일시 |
 | distributions[0].useOrigin| String| 원본 서버 설정 사용 여부("Y": 원본서버 설정 사용, "ㅜN": 사용자 설정) |
@@ -267,6 +289,10 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 | distributions[0].origins[0].origin|	String|	원본 서버(domain or ip) |
 | distributions[0].origins[0].originPath|	String|	원본 서버 하위 경로 |
 | distributions[0].origins[0].port|	Integer| 원본 서버 포트|
+| distributions[0].callback | Object | 서비스 생성 처리결과를 통보 받을 콜백 |
+| distributions[0].callback.httpMethod | String | 콜백의 HTTP Method |
+| distributions[0].callback.url | String | 콜백 URL |
+
 
 ### 서비스 수정
 
@@ -296,7 +322,11 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 				"port" : 80,
 				"originPath" : "/latest/resources"
 			}
-		]
+		],
+        "callback": {
+            "httpMethod": "GET",
+            "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
+        }
 }
 ```
 
@@ -309,13 +339,17 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 | useOrigin|	String | 필수 | | Y / N | Cache 만료 설정 ("Y": 원본 설정 사용, "N":사용자 설정 사용) |
 | referrerType|	String | 필수 | | BLACKLIST / WHITELIST |	Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
 | description|	String | 선택 | | 최대 255자 | 설명|
-| domainAlias|	String | 선택 | | 최대 255자 | Domain alias (개인 혹은 회사가 소유한 도메인 사용)
+| domainAlias|	String | 선택 | | 최대 255자 | Domain alias (개인 혹은 회사가 소유한 도메인 사용) |
 | maxAge|	Integer |선택| 0 | 0 ~ 2,147,483,647 | Cache 만료 시간(초), 기본 값 0은 604,800초 입니다. |
 | referrers|	String|	선택 | | '\n' 토큰 포함, 최대 1024자 |	Referrers (여러 개 입력시 \\n 토큰으로 분리하여 입력해주세요. )|
 | origins|	List| 필수 | | |원본 서버|
 | origins[0].origin| String| 필수 | | 최대 255자	|원본 서버 (domain or ip)|
 | origins[0].port|	Integer| 필수 | |	0 ~ 65,536 |원본서 버 포트|
 | origins[0].originPath|	String|	선택 | | 최대 8192자 | 원본 서버 하위 경로 |
+| distributions[0].callback | Object | 선택 |  | CDN 생성 처리 결과를 통보받을 콜백 URL (콜백 설정은 선택입력 입니다.) |
+| distributions[0].callback.httpMethod | String | 필수 | | GET/POST/PUT | 콜백의 HTTP Method |
+| distributions[0].callback.url | String | 필수 | | 최대 1024자 | 콜백 URL |
+
 
 #### 응답
 
