@@ -511,8 +511,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 | domain | String|	필수 |  | 최대 255자 | 도메인(서비스) 이름 |
 | page | Integer | 선택 | | | 페이지 번호 |
 | itemsPerPage | Integer | 선택 | | | 페이지당 재배포된 항목 개수 |
-| startTime | String | 선택 | | "yyyy-MM-dd'T'HH:mm:ss.SSSZ" | 기간 검색 |
-| endTime | String | 선택 | | "yyyy-MM-dd'T'HH:mm:ss.SSSZ" | 기간 검색  |
+| startTime | String | 선택 | | "yyyy-MM-ddTHH:mm:ss.SSSZ" ex)"2018-02-22T09:00:00.000Z" (UTC) | 기간 검색 |
+| endTime | String | 선택 | | "yyyy-MM-ddTHH:mm:ss.SSSZ" ex)"2018-02-22T09:00:00.000Z" (UTC) | 기간 검색  |
 
 
 ```
