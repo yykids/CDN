@@ -1,4 +1,4 @@
-## Contents Delivery > CDN > 오류 코드
+## Content Delivery > CDN > 오류 코드
 
 | errorCode | errorMessage | 설명 |
 | --- | --- | --- |

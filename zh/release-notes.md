@@ -1,4 +1,4 @@
-## Contents Delivery > CDN > Release Notes
+## Content Delivery > CDN > Release Notes
 
 ### 2018.01.25
 

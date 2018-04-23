@@ -1,4 +1,4 @@
-## Contents Delivery > CDN > API Guide
+## Content Delivery > CDN > API Guide
 
 TOAST CDN에서 제공하는 Public API를 설명합니다.
 
