@@ -72,6 +72,8 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 |SUSPEND | 정지|
 |CLOSING| 사용 종료중|
 |CLOSE| 사용 종료|
+|ERROR| 서비스 생성 중 오류가 발생함|
+
 
 ## 서비스 API
 

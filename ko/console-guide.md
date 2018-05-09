@@ -46,42 +46,7 @@ TOAST Cloud에서 발급받은 CDN 서비스 주소를 CNAME 레코드로 추가
   "Blacklist" 타입을 이용할 경우 Referrers에 입력된 Referrer 리스트는 접근이 제한되며, "Whitelist" 타입을 이용할 경우 접근이 허용됩니다.  
   Regular expression 형태의 입력을 지원하며 여러 개의 referrer를 제어하고 싶은 경우 다음 라인에 연속하여 입력합니다.  
 
-7.필요시 Callback 을 설정합니다.
-
-- CDN 서비스 생성 및 수정, 재시작 후 "서비스 중" 상태로 바뀌고 난 후 특정 URL을 호출할 필요가 있을 때 설정할 수 있습니다. 지원되는 HTTP 메서드는 GET, POST, PUT 메서드입니다.
-
-	> [참고]   
-	> 설정한 Callback URL을 통해 Path Variable과 Response Body로 CDN 서비스 정보가 전달됩니다. 
-	>
-	> - Path Variable    
-	>     - {appkey} : CDN상품 앱 키
-	>     - {domain} : 서비스의 도메인 이름 (e.g. xxxx.cdn.toastcloud.com) 
-	>     - {status} : 서비스 상태 코드    
-	>
-	> - Response Body   
-	> ```
-	> {
-	>	 "domain": String,
-	>    "domainAlias": String,
-	>    "region": String,
-	>    "description": String,
-	>    "status": String,
-	>    "createTime": Long,
-	>    "useOrigin": String,
-	>    "maxAge": String,
-	>    "referrerType": String,
-	>    "referrers": String,
-	>    "origins": [
-	>    	{
-	>    		"origin": String,
-	>       	"originPath": String,
-	>       	"port": Integer,
-	>    	}
-	>    ],
-	>   "callbackHttpMethod" :  String,
-	>	"callbackUrl" : String
-	> }
-	>```
+7.콜백이 필요한 경우 Callback 정보를 입력합니다. 콜백과 관련한 상세한 내용은 문서의 [콜백 설정]을 참고해주세요.
 
 8.[확인] 버튼을 클릭하면 CDN 서비스 생성 요청이 완료됩니다.  
 
@@ -129,6 +94,56 @@ TOAST Cloud에서 발급받은 CDN 서비스 주소를 CNAME 레코드로 추가
 특정 referrer의 경우 사용자 콘텐츠에 접근 가능 여부를 관리할 수 있습니다. Regular expression 형태로 입력하고 여러 개의 referrer를 제어할 경우 입력 창에 라인을 추가하여 입력합니다.    
 5.캐시 설정 후 특정 URL 호출이 필요한 경우 Callback URL을 설정할 수 있습니다.    
 6.[확인] 버튼을 클릭해 캐시 설정을 변경합니다.  
+
+
+## 콜백 설정
+
+CDN 서비스 변경 작업(생성,수정,정지/재개,삭제)은 변경 요청 후 최대 수십분이 소요될 수있습니다. 
+서비스 변경 작업이 완료된 후 미리 설정한 콜백 URL로 서비스 변경 작업의 완료 여부와 서비스 정보를 전달 받을 수 있습니다. 
+
+
+1. 서비스 생성 또는 수정시 콜백을 전달 받을 콜백 URL 과 콜백 HTTP Method를 입력합니다. 
+2. Request URI의 Query Parameter로 CDN 서비스 변경 작업에 대한 결과를 받고자 하는 경우 콜백 URL에 Path 변수를 포함하여 입력해주세요. 
+
+| Path Variable | 설명 | 예시 전달 값  |
+| --- | --- |--- |
+| {appKey} | CDN 상품의 앱 키 | 콘솔에서 발급받은 앱 키 |
+| {domain} | CDN 서비스 이름 | xxxxxx.cdn.toastcloud.com |
+| {status} | 현재 CDN 서비스의 상태 | OPEN, SUSPEND, CLOSE, ERROR |
+| {isSuccessful} | 서비스 변경 작업 성공 여부 | "true" 또는 "false" |
+
+> 예시 
+> GET http://test.callback.com?appKey={appKey}&domain={domain}&status={status}&deploySuccess={isSuccessful}
+
+3. 콜백 전달시 CDN 서비스의 정보를 요청 본문(Request Body)로 전달합니다. 
+
+```
+	 {
+		"domain": String,
+	    "domainAlias": String,
+	    "region": String,
+	    "description": String,
+	    "status": String,
+	    "createTime": Long,
+	    "useOrigin": String,
+	    "maxAge": String,
+	    "referrerType": String,
+	    "referrers": String,
+	    "origins": [
+	    	{
+	    		"origin": String,
+	       		"originPath": String,
+	       		"port": Integer,
+	    	}
+	    ],
+	   "callbackHttpMethod" : String,
+	   "callbackUrl" : String
+	 }
+```
+
+
+
+
 
 ## Cache 재배포
 
