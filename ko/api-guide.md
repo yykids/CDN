@@ -26,7 +26,7 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 #### Path 파라미터
 
 모든 API는 appKey를 path 파라미터로 지정하도록 되어 있습니다.
-* 예) /v1.0/appKeys/**{appKey}**/distributions
+* 예) /v1.5/appKeys/**{appKey}**/distributions
 
 | 이름 | 설명 |
 | --- | --- |
@@ -86,7 +86,7 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 
 | 메서드 | URI |
 | --- | --- |
-| POST | /v1.0/appKeys/{appKey}/distributions |
+| POST | /v1.5/appKeys/{appKey}/distributions |
 
 
 [요청 본문]
@@ -215,7 +215,7 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 
 | 메서드 | URI |
 | --- | --- |
-| GET | /v1.0/appKeys/{appKey}/distributions |
+| GET | /v1.5/appKeys/{appKey}/distributions |
 
 
 [파라미터]
@@ -227,7 +227,7 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 
 [예]
 ```
-curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distributions?domain={domain}" \
+curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distributions?domain={domain}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
@@ -305,7 +305,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 
 | 메서드 | URI |
 | --- | --- |
-| PUT | /v1.0/appKeys/{appKey}/distributions |
+| PUT | /v1.5/appKeys/{appKey}/distributions |
 
 
 [요청 본문]
@@ -387,7 +387,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 
 | 메서드 | URI |
 | --- | --- |
-| DELETE | /v1.0/appKeys/{appKey}/distributions |
+| DELETE | /v1.5/appKeys/{appKey}/distributions |
 
 
 [요청 본문]
@@ -445,7 +445,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 
 | 메서드 | URI |
 | --- | --- |
-|POST|	/v1.0/appKeys/{appKey}/purges|
+|POST|	/v1.5/appKeys/{appKey}/purges|
 
 
 [요청 본문]
@@ -503,7 +503,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 
 | 메서드 | URI |
 | --- | --- |
-|GET|	/v1.0/appKeys/{appKey}/purges|
+|GET|	/v1.5/appKeys/{appKey}/purges|
 
 
 [파라미터]
@@ -518,7 +518,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/distrib
 
 
 ```
-curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.0/appKeys/{appKey}/purges?domain={domain}" \
+curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/purges?domain={domain}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
