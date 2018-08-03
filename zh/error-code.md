@@ -5,10 +5,23 @@
 | 0 | SUCCESS | 처리 성공 |
 | -1 | FAIL | 처리 실패 |
 | -2 | ASSERT | 처리 실패 |
-| 10000 | Service does not exist. | 존재 하지 않는 서비스 입니다. |
+| 10000 | Domain does not exist. | 존재 하지 않는 서비스 입니다. |
 | 10001 | There is no path to purge. | 재배포 할 Path를 입력해주세요. |
 | 10002 | The HTTP Method or url of Callback URL is not valid. | Callback URL의 HTTP Method 또는 url이 입력되지 않았습니다. |
 | 10003 | Callback url format is not valid. | Callback URL의 url 형식이 올바르지 않습니다. |
+| 10004 | Exist a creating service. Please retry after it is finished. | 요청한 작업을 수행할 수 없는 상태입니다. 이전에 요청한 작업이 완료된 후 재시도 해주세요. |
+| 10006 | Not found resource | 요청한 리소스를 찾을 수 없거나 잘못된 요청 정보 입니다. | 
+| 10007 | Alreay exists domain alias. | 이미 다른 CDN 서비스 도메인에 등록된 Domain Alias 입니다. | 
+| 10008 | Origin path must starts with a slash('/). | 원본 경로는 '/' 부터 입력해주세요.| 
+| 10009 | Origin path must not end with a slash('/). | 원본 경로의 마지막 문자로 '/'를 입력할 수 없습니다. | 
+| 10010 | Origin domain is requried. | 원본 서버는 필수 입력사항 입니다. | 
+| 10011 | Please enter origin domain without scheme. | 원본 서버에는 http://와 같은 scheme 정보를 입력할 수 없습니다. | 
+| 10012 | Please enter the origin domain in public IP or domain format. | 원본 서버 형식이 올바르지 않습니다. 도메인 또는 IP 형식으로 입력해주세요. | 
+| 10013 | Domain alias is invalid. | Domain Alias 형식이 올바르지 않습니다. | 
+| 10014 | Referrers is invalid. Enter referrers regular expression. | Referrers 형식이 올바르지 않습니다. 유효한 정규표현식인지 확인해주세요. |
+| 10015 | Please enter use orgin 'Y' or 'N'. | 캐시 만료 설정의 원본 설정 사용 여부는 'Y' 또는 'N' 으로 입력해주세요.  |
+| 10016 | Please enter origin. | 원본 서버 설정이 없거나 올바르지 않습니다. |
+| 10017 | Invalid Purge Type. Please enter purge type 'ITEM', 'WILDCARD' or 'ALL' | 재배포(Purge) 타입이 올바르지 않습니다. 타입은 'ITEM', 'WILDCARD' 또는 'ALL' 로 입력해주세요. |
 | 20001 | Failed to authenticate with AppKey. | AppKey가 유효하지 않습니다. |
 | 20002 | Failed to authenticate with the secret key. | SecretKey가 유효하지 않습니다. |
 | 30000 | Failed to process request. Please try again later. | 요청 처리에 실패하였습니다. |
