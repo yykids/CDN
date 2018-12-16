@@ -42,7 +42,9 @@ TOAST Cloud에서 발급받은 CDN 서비스 주소를 CNAME 레코드로 추가
 > 이 경우 원본 서버의 Virtual host 설정에 `*.cdn.toastcloud.com` 호스트를 등록해주셔야 합니다.
 
 * Domain Alias 사용 예
+
 CDN 서비스 생성 후 random-exam.cdn.toastcloud.com 이라는 도메인이 발급되고, 기존 고객이 소유하던 alias.nhnentcustomer.com을 이용하여 서비스 하기 위한 설정 방법입니다.
+
   1. Toast Cloud CDN 생성 이후 자동으로 발급된 random-exam.cdn.toastcloud.com 확인합니다.
   2. 기본정보 설정 탭의 Domain Alias 항목에 서비스에 사용할 고객 도메인 alias.nhnentcustomer.com 입력합니다.
   3. nhnentcustomer.com 네임서버 관리 항목에서 random-exam.cdn.toastcloud.com을 이용해 CNAME 레코드를 추가합니다. (도메인 제공 업체에 따라 설정 방법은 다를 수 있습니다. 자세한 사항은 도메인 제공 업체에게 문의해주십시오.)
@@ -58,6 +60,7 @@ CDN 서비스 생성 후 random-exam.cdn.toastcloud.com 이라는 도메인이 �
 > [주의]
 > 만일 원본 서버 설정에 캐시 만료 시간이 지정되어 있다면 콘솔에서 설정한 "Cache 만료 시간 (초)" 값은 무시됩니다.
 > CDN 서비스를 이용해 만료시간을 지정하고 싶은 경우 원본 서버의 캐시 만료 설정을 제거합니다.
+>
 > [참고]
 > 캐시 만료 기본값은 0 입니다. 기본값 0으로 설정한 경우 캐시 만료시간은 604,800(단위/초) 입니다.
 > 캐시 만료 시간은 기본값 0을 포함하여 0 ~ 2,147,483,647(단위/초)의 값을 입력할 수 있습니다.
