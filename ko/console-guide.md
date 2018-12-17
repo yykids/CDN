@@ -70,6 +70,7 @@ Referrer은 정규표현식 형태로 입력할 수 있습니다.
 * "Whitelist" 타입:
     * 특정 Referrer 에서만 접근을 허용할 경우 적합한 타입입니다.
     * 요청 헤더의 Referrer 값이 정규 표현식에 매칭 되는 문자열인 경우, 콘텐츠에 대한 접근이 허용됩니다. 매칭 되지 않는 문자인 경우 콘텐츠에 대한 접근이 제한됩니다.
+
 > [주의]
 > 요청 헤더에 Referrer가 없는 경우에는 referrer 설정의 접근 제어가 동작하지 않습니다.
 >
@@ -92,12 +93,14 @@ CDN 서비스 변경 작업(생성,수정,정지/재개,삭제 작업)은 변경
 
 1. 콜백 URL 과 콜백 HTTP Method를 입력합니다.
 2. Request URI의 Query Parameter로 CDN 서비스 변경 작업에 대한 결과를 받으려면 콜백 URL에 Path 변수를 포함하여 입력해주세요.
+
 | Path Variable | 설명 | 예시 전달 값 |
 | ------------- | --- | ------- |
 | {appKey} | CDN 상품의 앱 키 | 콘솔에서 발급받은 앱 키 |
 | {domain} | CDN 서비스 이름 | xxxxxx.cdn.toastcloud.com |
 | {status} | 현재 CDN 서비스의 상태 | OPEN, SUSPEND, CLOSE, ERROR |
 | {isSuccessful} | 서비스 변경 작업 성공 여부 (API V1.0은 지원 하지 않습니다.) | "true" 또는 "false" |
+
 > 예시
 > GET http://test.callback.com?appKey={appKey}&domain={domain}&status={status}&deploySuccess={isSuccessful}
 * 콜백 전달시 CDN 서비스의 정보를 요청 본문(Request Body)로 전달합니다.
