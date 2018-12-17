@@ -269,7 +269,6 @@ CDN 서비스 변경 작업(생성,수정,정지/재개,삭제 작업)은 변경
 ## 통계
 
 네트워크 전송량, HTTP 상태코드 별 통계 및 Top 콘텐츠에 대한 통계를 확인할 수 있습니다.
-
 1. **Contents Delivery > CDN** 의 **통계** 탭을 클립합니다.
 ![cdn_08_201812](https://static.toastoven.net/prod_cdn/cdn_08_201812.png)
 2. 통계를 확인하기 원하는 CDN 서비스를 선택합니다.
