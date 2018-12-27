@@ -314,9 +314,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 {
         "domain" : "sample.cdn.toastcloud.com",
         "useOrigin" : "N",
-        "referrerType" : "BLACKLIST",
-        "description" : "change contents",
         "maxAge": 86400,
+        "referrerType" : "BLACKLIST",
         "referrers" : "test.com",
         "origins" : [
             {
@@ -328,7 +327,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
         "callback": {
             "httpMethod": "GET",
             "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
-        }
+        },
+        "description" : "change contents"   
 }
 ```
 
@@ -348,9 +348,9 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | origins[0].origin| String| 필수 | | 최대 255자 |원본 서버 (domain or ip)|
 | origins[0].port|  Integer| 필수 | | 0 ~ 65,536 |원본서 버 포트|
 | origins[0].originPath|    String| 선택 | | 최대 8192자 | 원본 서버 하위 경로 |
-| distributions[0].callback | Object | 선택 |  | CDN 생성 처리 결과를 통보받을 콜백 URL (콜백 설정은 선택입력 입니다.) |
-| distributions[0].callback.httpMethod | String | 필수 | | GET/POST/PUT | 콜백의 HTTP Method |
-| distributions[0].callback.url | String | 필수 | | 최대 1024자 | 콜백 URL |
+| callback | Object | 선택 |  | CDN 생성 처리 결과를 통보받을 콜백 URL (콜백 설정은 선택입력 입니다.) |
+| callback.httpMethod | String | 필수 | | GET/POST/PUT | 콜백의 HTTP Method |
+| callback.url | String | 필수 | | 최대 1024자 | 콜백 URL |
 
 
 #### 응답
@@ -377,6 +377,94 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | header.isSuccessful | Boolean| 성공 여부 |
 | header.resultCode | Integer | 결과 코드 |
 | header.resultMessage | String | 결과 메시지 |
+
+
+### 서비스 부분 수정
+
+서비스 일부 설정을 변경할 경우 부분 수정 API를 이용할 수 있습니다.
+
+#### 요청
+
+
+[URI]
+
+| 메서드 | URI |
+| --- | --- |
+| PATCH | /v1.5/appKeys/{appKey}/distributions |
+
+
+[요청 본문]
+
+```json
+{
+        "domain" : "sample.cdn.toastcloud.com",
+        "useOrigin" : "N",
+        "maxAge": 86400,
+        "referrerType" : "BLACKLIST",
+        "referrers" : "test.com",
+        "origins" : [
+            {
+                "origin" : "static.resource.com",
+                "port" : 80,
+                "originPath" : "/latest/resources"
+            }
+        ],
+        "callback": {
+            "httpMethod": "GET",
+            "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
+        },
+        "description" : "change contents"       
+}
+```
+
+
+[필드]
+
+| 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
+| --- | --- | --- | --- | --- | --- |
+| domain | String | 필수 | | 최대 255자 | 수정할 도메인(서비스 이름) |
+| useOrigin|    String | 선택 | | Y / N | Cache 만료 설정 ("Y": 원본 설정 사용, "N":사용자 설정 사용) |
+| referrerType| String | 선택 | | BLACKLIST / WHITELIST | Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
+| description|  String | 선택 | | 최대 255자 | 설명|
+| domainAlias|  String | 선택 | | 최대 255자 | Domain alias (개인 혹은 회사가 소유한 도메인 사용, 여러 개 입력시 \n 토큰으로 분리하여 입력해 주세요.) |
+| maxAge|   Integer |선택| 0 | 0 ~ 2,147,483,647 | Cache 만료 시간(초), 기본 값 0은 604,800초 입니다. |
+| referrers|    String| 선택 | | '\n' 토큰 포함, 최대 1024자 |   Referrers (여러 개 입력시 \\n 토큰으로 분리하여 입력해주세요. )|
+| origins|  List| 선택 | | |원본 서버|
+| origins[0].origin| String| 선택 | | 최대 255자 |원본 서버 (domain or ip)|
+| origins[0].port|  Integer| 선택 | | 0 ~ 65,536 |원본서 버 포트|
+| origins[0].originPath|    String| 선택 | | 최대 8192자 | 원본 서버 하위 경로 |
+| callback | Object | 선택 |  | CDN 생성 처리 결과를 통보받을 콜백 URL (콜백 설정은 선택입력 입니다.) |
+| callback.httpMethod | String | 선택 | | GET/POST/PUT | 콜백의 HTTP Method |
+| callback.url | String | 선택 | | 최대 1024자 | 콜백 URL |
+
+- origins 필드는 설정시 origin, port, originPath 필드는 필수 입력 값입니다. 
+- callback 필드는 설정시 httpMethod, url 필드는 필수 입력 값 입니다. 
+
+#### 응답
+
+
+[응답 본문]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    }
+}
+```
+
+
+[필드]
+
+| 필드 |  타입 | 설명|
+| --- | --- | --- |
+| header | Object | 헤더 영역|
+| header.isSuccessful | Boolean| 성공 여부 |
+| header.resultCode | Integer | 결과 코드 |
+| header.resultMessage | String | 결과 메시지 |
+
 
 ### 서비스 삭제
 
