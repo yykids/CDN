@@ -22,6 +22,7 @@
 | 10015 | Please enter use orgin 'Y' or 'N'. | 캐시 만료 설정의 원본 설정 사용 여부는 'Y' 또는 'N' 으로 입력해주세요.  |
 | 10016 | Please enter origin. | 원본 서버 설정이 없거나 올바르지 않습니다. |
 | 10017 | Invalid Purge Type. Please enter purge type 'ITEM', 'WILDCARD' or 'ALL' | 재배포(Purge) 타입이 올바르지 않습니다. 타입은 'ITEM', 'WILDCARD' 또는 'ALL' 로 입력해주세요. |
+| 10018 | Invalid Origin Port. Please enter a number between 0 and 65,536. | 원본 서버의 포트가 올바르지 않습니다. 0~65,536 사이의 숫자로 입력해주세요. |
 | 20001 | Failed to authenticate with AppKey. | AppKey가 유효하지 않습니다. |
 | 20002 | Failed to authenticate with the secret key. | SecretKey가 유효하지 않습니다. |
 | 30000 | Failed to process request. Please try again later. | 요청 처리에 실패하였습니다. |
@@ -30,4 +31,4 @@
 | 30003 | Request not processed in current service status. | 현재 서비스 상태에서 처리할 수 없는 요청입니다. |
 | 30004 | The status of the service is unknown. | 알 수 없는 서비스의 상태입니다. |
 | 30005 | Resource not found. | 리소스를 찾을 수 없습니다. |
-| 80500 | An unknown error occurred during processing. Please contact the service provider. | 처리 중 알 수 없는 오류가 발생하였습니다. 서비스 제공자에게 문의 해주세요.
+| 80500 | An unknown error occurred during processing. Please contact the service provider. | 처리 중 알 수 없는 오류가 발생하였습니다. 서비스 제공자에게 문의 해주세요. |
