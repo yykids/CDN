@@ -126,11 +126,11 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions[0].useOrigin             | String  | 필수      |        | Y/N                         | 캐시 만료 설정("Y": 원본 설정 사용, "N":사용자 설정 사용)   |
 | distributions[0].referrerType          | String  | 필수      |        | BLACKLIST/WHITELIST         | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distributions[0].description           | String  | 선택      |        | 최대 255자                  | 설명                                                         |
-| distributions[0].domainAlias           | String  | 선택      |        | 최대 255자                  | Domain alias(개인 혹은 회사가 소유한 도메인 사용, 여러 개 입력 시 \n 토큰으로 구분해 입력해 주세요.) |
+| distributions[0].domainAlias           | String  | 선택      |        | 최대 255자                  | 도메인 별칭(개인 혹은 회사가 소유한 도메인 사용, 여러 개 입력 시 \n 토큰으로 구분해 입력해 주세요.) |
 | distributions[0].maxAge                | Integer | 선택      | 0      | 0~2,147,483,647             | 캐시 만료 시간(초), 기본값 0은 604,800초입니다.             |
 | distributions[0].referrers             | String  | 선택      |        | '\n' 토큰 포함, 최대 1024자 | 리퍼러(여러 개 입력 시 \n 토큰으로 구분해 입력해 주세요.)    |
 | distributions[0].origins               | List    | 필수      |        |                             | 원본 서버 오브젝트 목록                                      |
-| distributions[0].origins[0].origin     | String  | 필수      |        | 최대 255자                  | 원본 서버(domain or ip)                                     |
+| distributions[0].origins[0].origin     | String  | 필수      |        | 최대 255자                  | 원본 서버(domain 또는 IP)                                     |
 | distributions[0].origins[0].port       | String  | 필수      |        | 0~65,536                    | 원본 서버 포트                                               |
 | distributions[0].origins[0].originPath | String  | 선택      |        | 최대 8192자                 | 원본 서버 하위 경로(/를 포함한 경로로 입력해 주세요.)        |
 | distributions[0].callback              | Object  | 선택      |        |                             | CDN 생성 처리 결과를 통보받을 콜백 URL(콜백 설정은 선택입력입니다.) |
@@ -197,7 +197,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions[0].referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distributions[0].referrers             | String  | 리퍼러 목록                                                  |
 | distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
-| distributions[0].origins[0].origin     | String  | 원본 서버(domain or IP)                                      |
+| distributions[0].origins[0].origin     | String  | 원본 서버(domain 또는 IP)                                      |
 | distributions[0].origins[0].originPath | String  | 원본 서버 하위 경로                                          |
 | distributions[0].origins[0].port       | Integer | 원본 서버 포트                                               |
 | distributions[0].callback              | Object  | 서비스 생성 처리 결과를 통보받을 콜백                        |
@@ -287,7 +287,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | distributions[0].referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distributions[0].referrers             | String  | 리퍼러 목록                                                  |
 | distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
-| distributions[0].origins[0].origin     | String  | 원본 서버(domain or IP)                                      |
+| distributions[0].origins[0].origin     | String  | 원본 서버(domain 또는 IP)                                      |
 | distributions[0].origins[0].originPath | String  | 원본 서버 하위 경로                                          |
 | distributions[0].origins[0].port       | Integer | 원본 서버 포트                                               |
 | distributions[0].callback              | Object  | 서비스 생성 처리 결과를 통보받을 콜백                        |
@@ -340,11 +340,11 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | useOrigin             | String  | 필수      |        | Y/N                                                          | 캐시 만료 설정(Y: 원본 설정 사용, "N":사용자 설정 사용)      |
 | referrerType          | String  | 필수      |        | BLACKLIST/WHITELIST                                          | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | description           | String  | 선택      |        | 최대 255자                                                   | 설명                                                         |
-| domainAlias           | String  | 선택      |        | 최대 255자                                                   | Domain alias(개인 혹은 회사가 소유한 도메인 사용, 여러 개 입력 시 \n 토큰으로 구분해 입력해 주세요.) |
+| domainAlias           | String  | 선택      |        | 최대 255자                                                   | 도메인 별칭(개인 혹은 회사가 소유한 도메인 사용, 여러 개 입력 시 \n 토큰으로 구분해 입력해 주세요.) |
 | maxAge                | Integer | 선택      | 0      | 0 ~ 2,147,483,647                                            | 캐시 만료 시간(초), 기본값 0은 604,800초입니다.              |
 | referrers             | String  | 선택      |        | '\n' 토큰 포함, 최대 1024자                                  | 리퍼러(여러 개 입력 시 \\n 토큰으로 구분해 입력해 주세요. )  |
 | origins               | List    | 필수      |        |                                                              | 원본 서버                                                    |
-| origins[0].origin     | String  | 필수      |        | 최대 255자                                                   | 원본 서버(domain or ip)                                      |
+| origins[0].origin     | String  | 필수      |        | 최대 255자                                                   | 원본 서버(domain 또는 IP)                                      |
 | origins[0].port       | Integer | 필수      |        | 0~65,536                                                     | 원본 서버 포트                                               |
 | origins[0].originPath | String  | 선택      |        | 최대 8192자                                                  | 원본 서버 하위 경로                                          |
 | callback              | Object  | 선택      |        | CDN 생성 처리 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.) |                                                              |
@@ -425,11 +425,11 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | useOrigin             | String  | 선택      |        | Y/N                                                          | 캐시 만료 설정(Y: 원본 설정 사용, N:사용자 설정 사용)        |
 | referrerType          | String  | 선택      |        | BLACKLIST / WHITELIST                                        | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | description           | String  | 선택      |        | 최대 255자                                                   | 설명                                                         |
-| domainAlias           | String  | 선택      |        | 최대 255자                                                   | Domain alias(개인 혹은 회사가 소유한 도메인 사용, 여러 개 입력 시 \n 토큰으로 분리하여 입력해 주세요.) |
+| domainAlias           | String  | 선택      |        | 최대 255자                                                   | 도메인 별칭(개인 혹은 회사가 소유한 도메인 사용, 여러 개 입력 시 \n 토큰으로 분리하여 입력해 주세요.) |
 | maxAge                | Integer | 선택      | 0      | 0~2,147,483,647                                              | 캐시 만료 시간(초), 기본값 0은 604,800초 입니다.           |
 | referrers             | String  | 선택      |        | '\n' 토큰 포함, 최대 1024자                                  | 리퍼러(여러 개 입력 시 \\n 토큰으로 분리하여 입력해주세요. )  |
 | origins               | List    | 선택      |        |                                                              | 원본 서버                                                    |
-| origins[0].origin     | String  | 선택      |        | 최대 255자                                                   | 원본 서버(domain or IP)                                     |
+| origins[0].origin     | String  | 선택      |        | 최대 255자                                                   | 원본 서버(domain 또는 IP)                                     |
 | origins[0].port       | Integer | 선택      |        | 0 ~ 65,536                                                   | 원본 서버 포트                                               |
 | origins[0].originPath | String  | 선택      |        | 최대 8192자                                                  | 원본 서버 하위 경로                                          |
 | callback              | Object  | 선택      |        | CDN 생성 처리 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.) |                                                              |
