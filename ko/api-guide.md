@@ -290,7 +290,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | distributions[0].origins[0].origin     | String  | 원본 서버(domain 또는 IP)                                      |
 | distributions[0].origins[0].originPath | String  | 원본 서버 하위 경로                                          |
 | distributions[0].origins[0].port       | Integer | 원본 서버 포트                                               |
-| distributions[0].callback              | Object  | 서비스 생성 처리 결과를 통보받을 콜백                        |
+| distributions[0].callback              | Object  | 서비스 배포 처리 결과를 통보받을 콜백                        |
 | distributions[0].callback.httpMethod   | String  | 콜백의 HTTP Method                                           |
 | distributions[0].callback.url          | String  | 콜백 URL                                                     |
 
@@ -347,7 +347,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | origins[0].origin     | String  | 필수      |        | 최대 255자                                                   | 원본 서버(domain 또는 IP)                                      |
 | origins[0].port       | Integer | 필수      |        | 0~65,536                                                     | 원본 서버 포트                                               |
 | origins[0].originPath | String  | 선택      |        | 최대 8192자                                                  | 원본 서버 하위 경로                                          |
-| callback              | Object  | 선택      |        | CDN 생성 처리 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.) |                                                              |
+| callback              | Object  | 선택      |        | CDN 서비스 배포 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.) |                                                              |
 | callback.httpMethod   | String  | 필수      |        | GET/POST/PUT                                                 | 콜백의 HTTP Method                                           |
 | callback.url          | String  | 필수      |        | 최대 1024자                                                  | 콜백 URL                                                     |
 
@@ -432,7 +432,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | origins[0].origin     | String  | 선택      |        | 최대 255자                                                   | 원본 서버(domain 또는 IP)                                     |
 | origins[0].port       | Integer | 선택      |        | 0 ~ 65,536                                                   | 원본 서버 포트                                               |
 | origins[0].originPath | String  | 선택      |        | 최대 8192자                                                  | 원본 서버 하위 경로                                          |
-| callback              | Object  | 선택      |        | CDN 생성 처리 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.) |                                                              |
+| callback              | Object  | 선택      |        | CDN 서비스 배포 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.) |                                                              |
 | callback.httpMethod   | String  | 선택      |        | GET/POST/PUT                                                 | 콜백의 HTTP Method                                           |
 | callback.url          | String  | 선택      |        | 최대 1024자                                                  | 콜백 URL                                                     |
 
