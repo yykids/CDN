@@ -1,4 +1,5 @@
-﻿## Content Delivery > CDN > APIガイド
+﻿
+## Content Delivery > CDN > APIガイド
 
 TOAST CDNで提供するPublic APIを説明します。
 
