@@ -579,6 +579,10 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | header.resultMessage | String  | 결과 메시지    |
 | purgeSeq             | Integer | 재배포 요청 번호 |
 
+- 퍼지 API은 사용량 제한 정책이 있습니다. 자세한 내용은 콘솔 가이드 내용을 확인해주세요.
+- ITEM, WILDCARD 타입은 요청 당 퍼지 경로 개 수가 각 1000개, 10개 입니다. 
+퍼지 경로 개 수를 초과하여 요청한 경우 요청 당 퍼지 경로 개수 만큼씩 나누어 퍼지 요청이 됩니다. 이 경우 처음 퍼지 요청의 재배포 요청 번호만 응답으로 전달됩니다.   
+
 ### 캐시 재배포(Purge) 조회
 
 #### 요청
