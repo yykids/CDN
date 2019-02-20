@@ -1,4 +1,4 @@
-﻿## Content Delivery > CDN > コンソール使用ガイド
+﻿## Content Delivery > CDN > コンソール使用ガイド  
 
 ここでは、コンソールからCDNサービスを構成して利用する方法を説明します。
 
@@ -113,7 +113,7 @@ CDNサービス変更作業(作成、修正、停止/再開、削除作業)は�
 
 
 1. **HTTP Method**と**コールバックURL**を入力します。
-2. Request URIのQuery ParameterでCDNサービス変更作業の結果を受け取るには、**コールバックURL**にPath変数を含めて入力してください。
+2. Request URIのQuery ParameterでCDNサービス変更作業の結果を受け取るには、**コールバックURL**にPath変数を含めて入力してください。  
 | Path Variable | 説明 | サンプル伝達値  |
 | ------------- | --- | ------- |
 | {appKey} | CDNサービスのアプリキー | コンソールで発行されたアプリキー |
