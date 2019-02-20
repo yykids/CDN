@@ -1,4 +1,4 @@
-﻿## Content Delivery > CDN > コンソール使用ガイド  
+﻿## Content Delivery > CDN > コンソール使用ガイド
 
 ここでは、コンソールからCDNサービスを構成して利用する方法を説明します。
 
