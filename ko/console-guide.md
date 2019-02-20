@@ -278,7 +278,7 @@ CDN 서비스 변경 작업(생성, 수정, 정지/재개, 삭제 작업)은 변
 > 
 > (예시)
 > `custom1.domain-alias.com` 과 `custom2.domain-alias.com` 이 도메인 별칭으로 설정된 CDN 서비스가 있다고 가정합니다.
-> 위 CDN 서비스에 대해 **특정 파일** 타입으로 퍼지 경로 `/images/photo.png` 로 퍼지를 요청 한 경우 아래의 2개의 퍼지 경로로 퍼지가 수행됩니다. 
+> 위 CDN 서비스에 대해 **특정 파일** 타입으로 퍼지 경로 `/images/photo.png` 로 퍼지를 요청 한 경우 아래 2개의 퍼지 경로로 퍼지가 수행됩니다. 
 >
 > - custom1.domain-alias.com/images/photo.png
 > - custom2.domain-alias.com/images/photo.png 
