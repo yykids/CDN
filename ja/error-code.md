@@ -1,4 +1,5 @@
-﻿## Content Delivery > CDN > エラーコード
+﻿
+## Content Delivery > CDN > エラーコード
 
 | errorCode | errorMessage | 説明 |
 | --- | --- | --- |
