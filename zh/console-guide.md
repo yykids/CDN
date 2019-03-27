@@ -113,6 +113,7 @@ CDN服务更改操作（创建、修改、停用/重启、删除操作）在请�
 
 1.输入**HTTP Method**与**回调URL**。
 2.若欲利用Request URI的Query Parameter接收CDN服务更改操作的结果，请在**回调URL**中加入Path变量。
+
 | Path Variable | 说明 | 示例传达值 |
 | ------------- | --- | ------- |
 | {appKey} | CDN服务接口密钥 | 从控制台接收的接口密钥 |
