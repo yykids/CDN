@@ -1,42 +1,42 @@
-## Content Delivery > CDN > API Guide
+## Content Delivery > CDN > API指南
 
-TOAST CDN에서 제공하는 Public API를 설명합니다.
+介绍TOAST CDN提供的Public API。
 
-## API 공통 정보
+## API通用信息
 
-### 도메인
+### 域
 
-| 이름 | 도메인 |
-| --- | --- |
-| CDN Public API 도메인 | https://api-gw.cloud.toast.com/tc-cdn |
+| 名称              | 域                                   |
+| --------------- | ------------------------------------- |
+| CDN Public API域 | https://api-gw.cloud.toast.com/tc-cdn |
 
-### 사전 준비
+### 事前准备
 
-API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니다. 
-앱 키와 보안 키는 콘솔 상단 "URL & Appkey" 메뉴에서 확인이 가능합니다.
+若欲使用API，需要接口密钥（Appkey）和安全密钥（SecretKey）。 
+接口密钥和安全密钥可在控制台右上方的**URL & Appkey**菜单中确认。
 
-### 요청 공통 정보
+### 请求通用信息
 
-#### 요청 헤더
+#### 请求标头
 
-| 이름 | 설명 |
-| --- | --- |
-| Authorization | 콘솔에서 발급받은 보안 키 (SecretKey) |
+| 名称            | 说明                        |
+| ------------- | ------------------------- |
+| Authorization | 从控制台接收的安全密钥（SecretKey） |
 
-#### Path 파라미터
+#### Path参数
 
-모든 API는 appKey를 path 파라미터로 지정하도록 되어 있습니다.
-* 예) /v1.5/appKeys/**{appKey}**/distributions
+所有API应将appKey指定为path参数。
+* 例）/v1.5/appKeys/**{appKey}**/distributions
 
-| 이름 | 설명 |
-| --- | --- |
-| appKey | 콘솔에서 발급받은 앱 키 (Appkey) | 
+| 名称     | 说明                    |
+| ------ | --------------------- |
+| appKey | 从控制台接收的接口密钥(Appkey) |
 
-### 응답 공통 정보
+### 响应通用信息
 
-#### 헤더
+#### 标头
 
-모든 API 요청에 대해서 **200 OK** 로 응답합니다. 자세한 응답 결과는 다음의 예와 같이 응답 본문의 헤더를 참고합니다.
+对于所有API请求，以**200 OK**响应。详细响应结果如下例所示，参考响应正文的标头。
 
 ```json
 {
@@ -49,102 +49,101 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 ```
 
 
-[필드]
+【字段】
 
-| 필드 |  타입 | 설명|
-| --- | --- | --- |
-| header | Object | 헤더 영역|
-| header.isSuccessful | Boolean| 성공 여부 |
-| header.resultCode | Integer | 결과 코드 |
-| header.resultMessage | String | 결과 메시지 |
+| 字段                   | 类型      | 说明     |
+| -------------------- | ------- | ------ |
+| header               | Object  | 标头区域  |
+| header.isSuccessful  | Boolean | 是否成功  |
+| header.resultCode    | Integer | 结果代码  |
+| header.resultMessage | String  | 结果信息 |
 
-#### CDN 상태 코드
+#### CDN状态代码
 
-다음은 CDN 서비스 상태를 나타내는 상태 코드로, 서비스 조회시 서비스 상태를 확인할 수 있습니다.
+如下为显示CDN服务状态的状态代码，查询服务时可确认服务状态。
 
-|값|설명|
-|---|---|
-|OPENING|서비스 시작 중|
-|OPEN | 서비스 중|
-|MODIFYING| 수정중|
-|RESUME | 시작|
-|SUSPENDING | 정지 진행중|
-|SUSPEND | 정지|
-|CLOSING| 사용 종료중|
-|CLOSE| 사용 종료|
-|ERROR| 서비스 생성 중 오류가 발생함|
+| 值         | 说明                     |
+| ---------- | ------------------------ |
+| OPENING    | 服务启动中           |
+| OPEN       | 服务中                |
+| MODIFYING  | 修改中                  |
+| RESUME     | 开始                     |
+| SUSPENDING | 正在停止            |
+| SUSPEND    | 停止                     |
+| CLOSING    | 正在结束使用             |
+| CLOSE      | 使用结束                |
+| ERROR      | 创建服务时发生错误 |
 
 
-## 서비스 API
+## 服务API
 
-### 서비스 생성
+### 创建服务
 
-#### 요청
+#### 请求
 
 
 [URI]
 
-| 메서드 | URI |
-| --- | --- |
+| 方法  | URI                                  |
+| ---- | ------------------------------------ |
 | POST | /v1.5/appKeys/{appKey}/distributions |
 
 
-[요청 본문]
+【请求正文】
 
 ```json
 {
    "distributions":[
        {
-            "region": "LOCAL",
-            "useOrigin" : "N",
-            "referrerType" : "BLACKLIST",
-            "description" : "sample-cdn",
-            "maxAge": 86400,
-            "referrers" : "cloud.toast.com",
-            "origins" : [
-                {
-                    "origin" : "static.origin.com",
-                    "port" : 80,
-                    "originPath" : "/resources"
-                }
-            ],
+			"region": "LOCAL",
+			"useOrigin" : "N",
+			"referrerType" : "BLACKLIST",
+			"description" : "sample-cdn",
+			"maxAge": 86400,
+			"referrers" : "cloud.toast.com",
+			"origins" : [
+				{
+					"origin" : "static.origin.com",
+					"port" : 80,
+					"originPath" : "/resources"
+				}
+			],
             "callback": {
                 "httpMethod": "GET",
                 "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
             }
-        }
-    ]
+		}
+	]
 }
 ```
 
+【字段】
 
-[필드]
-
-| 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
-| --- | --- | --- | --- | --- | --- |
-| distributions | List | 필수 | | | 생성할 CDN의 오브젝트 리스트 |
-| distributions[0].region | String | 필수 | | LOCAL / GLOBAL | 서비스 지역 ("LOCAL": 대한민국, "GLOBAL" : 글로벌) |
-| distributions[0].useOrigin | String | 필수 | | Y / N | Cache 만료 설정 ("Y": 원본 설정 사용, "N":사용자 설정 사용) |
-| distributions[0].referrerType | String | 필수 | | BLACKLIST / WHITELIST | Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
-| distributions[0].description | String | 선택 | | 최대 255자 | 설명 |
-| distributions[0].domainAlias | String | 선택 | | 최대 255자 | Domain alias (개인 혹은 회사가 소유한 도메인 사용, 여러 개 입력시 \n 토큰으로 분리하여 입력해 주세요.) |
-| distributions[0].maxAge | Integer | 선택 | 0 | 0 ~ 2,147,483,647 | Cache 만료 시간(초), 기본 값 0은 604,800초 입니다. |
-| distributions[0].referrers | String | 선택 | | '\n' 토큰 포함, 최대 1024자 | Referrers (여러 개 입력시 \n 토큰으로 분리하여 입력해 주세요.) |
-| distributions[0].origins | List | 필수 | | | 원본 서버 오브젝트 리스트 |
-| distributions[0].origins[0].origin | String | 필수 | | 최대 255자 | 원본 서버 (domain or ip) |
-| distributions[0].origins[0].port | String | 필수 | | 0 ~ 65,536 | 원본 서버 포트 |
-| distributions[0].origins[0].originPath | String | 선택 | | 최대 8192자 | 원본 서버 하위 경로 (/를 포함한 경로로 입력해 주세요.) |
-| distributions[0].callback | Object | 선택 | | | CDN 생성 처리 결과를 통보받을 콜백 URL (콜백 설정은 선택입력 입니다.) |
-| distributions[0].callback.httpMethod | String | 필수 | | GET/POST/PUT | 콜백의 HTTP Method |
-| distributions[0].callback.url | String | 필수 | | 최대 1024자 | 콜백 URL |
-
+| 名称                                   | 类型    | 是否必需 | 默认值 | 有效范围                   | 说明                                                         |
+| -------------------------------------- | ------- | --------- | ------ | --------------------------- | ------------------------------------------------------------ |
+| distributions                          | List    | 必需      |        |                             | 要创建的CDN对象列表                                   |
+| distributions[0].region                | String  | 必需      |        | LOCAL/GLOBAL                | 服务地区（”LOCAL”：韩国，”GLOBAL”：全球）
+| distributions[0].useOrigin             | String  | 必需      |        | Y/N                         | 缓存到期设置（”Y”：使用原始设置，”N”：使用用户设置） |
+| distributions[0].referrerType          | String  | 必需      |        | BLACKLIST/WHITELIST         | 引用访问管理（”BLACKLIST”：黑名单，”WHITELIST”：白名单） |
+| distributions[0].description           | String  | 可选      |        | 最大255个字符                  | 说明                                                         |
+| distributions[0].domainAlias           | String  | 可选      |        | 最大255个字符                  | 域别名（使用个人或公司所有的域，输入多个时请以\n令牌区分输入。）|
+| distributions[0].maxAge                | Integer | 可选      | 0      | 0~2,147,483,647             | 缓存到期时间（秒），默认值0为604,800秒。             |
+| distributions[0].referrers             | String  | 可选      |        | 包括’\n’令牌，最大1024个字符 | 引用（输入多个时请以\n令牌区分输入。）    |
+| distributions[0].origins               | List    | 必需      |        |                             | 原始服务器对象列表                                      |
+| distributions[0].origins[0].origin     | String  | 必需      |        | 最大255个字符                  | 原始服务器（domain或IP）                                     |
+| distributions[0].origins[0].port       | String  | 必需      |        | 0~65,536                    | 原始服务器端口                                               |
+| distributions[0].origins[0].originPath | String  | 可选      |        | 最大8192个字符                 | 原始服务器下级路径（请输入带有/的路径。）        |
+| distributions[0].callback              | Object  | 可选      |        |                             | 接收CDN创建处理结果的回调URL（回调设置为可选输入。）|
+| distributions[0].callback.httpMethod   | String  | 必需      |        | GET/POST/PUT                | 回调的HTTP Method                                           |
+| distributions[0].callback.url          | String  | 必需      |        | 最大1024个字符                 | 回调URL                                                     |
 
 
 
-#### 응답
+
+#### 响应
 
 
-[응답 본문]
+【响应正文】
 
 ```json
 {
@@ -178,64 +177,64 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 ```
 
 
-[필드]
+【字段】
 
-| 필드 |  타입 | 설명|
-| --- | --- | --- |
-| header | Object | 헤더 영역|
-| header.isSuccessful | Boolean| 성공 여부 |
-| header.resultCode | Integer | 결과 코드 |
-| header.resultMessage | String | 결과 메시지 |
-| distributions | List | 생성된 CDN 오브젝트 리스트|
-| distributions[0].domain|  String| 생성된 도메인(서비스) 이름 |
-| distributions[0].domainAlias| String| 소유 도메인 |
-| distributions[0].region|  String| 서비스 지역 ("LOCAL": 대한민국, "GLOBAL" : 글로벌)|
-| distributions[0].description|  String| 설명 |
-| distributions[0].status| String| CDN 상태 ([표] CDN 상태 참고) |
-| distributions[0].createTime|  String| 생성일시 |
-| distributions[0].useOrigin| String| 원본 서버 설정 사용 여부("Y": 원본서버 설정 사용, "N": 사용자 설정) |
-| distributions[0].maxAge| String| Cache 만료시간(초) |
-| distributions[0].referrerType|  String| Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
-| distributions[0].referrers | String| referrers 리스트 |
-| distributions[0].origins |  List| 원본 서버 오브젝트 리스트 |
-| distributions[0].origins[0].origin | String|  원본 서버(domain or ip) |
-| distributions[0].origins[0].originPath | String|  원본 서버 하위 경로 |
-| distributions[0].origins[0].port | Integer| 원본 서버 포트 |
-| distributions[0].callback | Object | 서비스 생성 처리 결과를 통보 받을 콜백 |
-| distributions[0].callback.httpMethod | String | 콜백의 HTTP Method |
-| distributions[0].callback.url | String | 콜백 URL |
+| 字段                                   | 类型    | 说明                                                         |
+| -------------------------------------- | ------- | ------------------------------------------------------------ |
+| header                                 | Object  | 标头区域                                                    |
+| header.isSuccessful                    | Boolean | 是否成功                                                    |
+| header.resultCode                      | Integer | 结果代码                                                    |
+| header.resultMessage                   | String  | 结果信息                                                  |
+| distributions                          | List    | 创建的CDN对象列表                                   |
+| distributions[0].domain                | String  | 创建的域（服务）名                                   |
+| distributions[0].domainAlias           | String  | 拥有的域                                                  |
+| distributions[0].region                | String  | 服务地区（”LOCAL”：韩国，”GLOBAL”：全球）            |
+| distributions[0].description           | String  | 说明                                                         |
+| distributions[0].status                | String  | CDN状态代码（参考【表】 CDN状态代码）                                 |
+| distributions[0].createTime            | String  | 创建日期                                                    |
+| distributions[0].useOrigin             | String  | 是否使用原始服务器设置（”Y”：使用原始服务器设置，”N”：用户设置） |
+| distributions[0].maxAge                | String  | 缓存到期时间（秒）                                           |
+| distributions[0].referrerType          | String  | 引用访问管理（”BLACKLIST”：黑名单，”WHITELIST”：白名单） |
+| distributions[0].referrers             | String  | 引用列表                                                  |
+| distributions[0].origins               | List    | 原始服务器对象列表                                      |
+| distributions[0].origins[0].origin     | String  | 原始服务器（domain或IP）                                      |
+| distributions[0].origins[0].originPath | String  | 原始服务器下级路径                                          |
+| distributions[0].origins[0].port       | Integer | 原始服务器端口                                               |
+| distributions[0].callback              | Object  | 接收服务创建处理结果的回调                        |
+| distributions[0].callback.httpMethod   | String  | 回调的HTTP Method                                           |
+| distributions[0].callback.url          | String  | 回调URL                                                     |
 
 
-### 서비스 조회
+### 查询服务
 
-#### 요청
+#### 请求
 
 
 [URI]
 
-| 메서드 | URI |
-| --- | --- |
-| GET | /v1.5/appKeys/{appKey}/distributions |
+| 方法  | URI                                  |
+| ---- | ------------------------------------ |
+| GET  | /v1.5/appKeys/{appKey}/distributions |
 
 
-[파라미터]
+【参数】
 
-| 이름 | 타입 | 필수 여부 | 유효 범위 | 설명 |
-| --- | --- | --- | --- | --- |
-| domain | String | 선택 | 최대 255자 | 조회할 도메인(서비스 이름) |
-| status | String | 선택 | CDN 상태 코드 | CDN 상태 ([표] CDN 상태 참고) |
+| 名称   | 类型   | 是否必需 | 有效范围     | 说明                         |
+| ------ | ------ | --------- | ------------- | ---------------------------- |
+| domain | String | 可选      | 最大255个字符    | 要查询的域（服务名）   |
+| status | String | 选择      | CDN状态代码 | CDN状态代码（参考【表]】CDN状态代码） |
 
-[예]
+【例】
 ```
 curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distributions?domain={domain}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
 
-#### 응답
+#### 响应
 
 
-[응답 본문]
+【响应正文】
 
 ```json
 {
@@ -268,47 +267,47 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+【字段】
 
-| 필드 |  타입 | 설명|
-| --- | --- | --- |
-| header | Object | 헤더 영역|
-| header.isSuccessful | Boolean| 성공 여부 |
-| header.resultCode | Integer | 결과 코드 |
-| header.resultMessage | String | 결과 메시지 |
-| distributions |   List |  생성된 CDN 오브젝트 리스트|
-| distributions[0].domain|  String| domain 이름(서비스 이름) |
-| distributions[0].domainAlias| String| 소유 도메인 |
-| distributions[0].region|  String| 서비스 지역 ("LOCAL": 대한민국, "GLOBAL" : 글로벌)|
-| distributions[0].description|  String| 설명 |
-| distributions[0].status| String| CDN 상태 ([표] CDN 상태 참고) |
-| distributions[0].createTime|  String| 생성일시 |
-| distributions[0].useOrigin| String| 원본 서버 설정 사용 여부("Y": 원본서버 설정 사용, "ㅜN": 사용자 설정) |
-| distributions[0].maxAge| String| Cache 만료시간(초) |
-| distributions[0].referrerType|  String| Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
-| distributions[0].referrers| String| referrers 리스트 |
-| distributions[0].origins|  List| 원본 서버 오브젝트 리스트 |
-| distributions[0].origins[0].origin|   String| 원본 서버(domain or ip) |
-| distributions[0].origins[0].originPath|   String| 원본 서버 하위 경로 |
-| distributions[0].origins[0].port| Integer| 원본 서버 포트|
-| distributions[0].callback | Object | 서비스 생성 처리결과를 통보 받을 콜백 |
-| distributions[0].callback.httpMethod | String | 콜백의 HTTP Method |
-| distributions[0].callback.url | String | 콜백 URL |
+| 字段                                   | 类型    | 说明                                                         |
+| -------------------------------------- | ------- | ------------------------------------------------------------ |
+| header                                 | Object  | 标头区域                                                    |
+| header.isSuccessful                    | Boolean | 是否成功                                                    |
+| header.resultCode                      | Integer | 结果代码                                                    |
+| header.resultMessage                   | String  | 结果信息                                                  |
+| distributions                          | List    | 创建的CDN对象列表                                     |
+| distributions[0].domain                | String  | 域名（服务名）                                     |
+| distributions[0].domainAlias           | String  | 拥有的域                                                  |
+| distributions[0].region                | String  | 服务地区（”LOCAL”：韩国，”GLOBAL”：全球）             |
+| distributions[0].description           | String  | 说明                                                         |
+| distributions[0].status                | String  | CDN状态代码（参考【表】CDN状态代码）                                 |
+| distributions[0].createTime            | String  | 创建日期                                                    |
+| distributions[0].useOrigin             | String  | 是否使用原始服务器设置（”Y”：使用原始服务器设置，”N”：用户设置） |
+| distributions[0].maxAge                | String  | 缓存到期时间（秒）                                           |
+| distributions[0].referrerType          | String  | 引用访问管理（”BLACKLIST”：黑名单，”WHITELIST”：白名单） |
+| distributions[0].referrers             | String  | 引用列表                                                  |
+| distributions[0].origins               | List    | 原始服务器对象列表                                      |
+| distributions[0].origins[0].origin     | String  | 原始服务器（domain或IP）                                      |
+| distributions[0].origins[0].originPath | String  | 原始服务器下级路径                                          |
+| distributions[0].origins[0].port       | Integer | 原始服务器端口                                               |
+| distributions[0].callback              | Object  | 接收服务分发处理结果的回调                         |
+| distributions[0].callback.httpMethod   | String  | 回调的HTTP Method                                           |
+| distributions[0].callback.url          | String  | 回调URL                                                     |
 
 
-### 서비스 수정
+### 修改服务
 
-#### 요청
+#### 请求
 
 
 [URI]
 
-| 메서드 | URI |
-| --- | --- |
-| PUT | /v1.5/appKeys/{appKey}/distributions |
+| 方法  | URI                                  |
+| ---- | ------------------------------------ |
+| PUT  | /v1.5/appKeys/{appKey}/distributions |
 
 
-[요청 본문]
+【请求正文】
 
 ```json
 {
@@ -333,30 +332,30 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+【字段】
 
-| 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
-| --- | --- | --- | --- | --- | --- |
-| domain | String | 필수 | | 최대 255자 | 수정할 도메인(서비스 이름) |
-| useOrigin|    String | 필수 | | Y / N | Cache 만료 설정 ("Y": 원본 설정 사용, "N":사용자 설정 사용) |
-| referrerType| String | 필수 | | BLACKLIST / WHITELIST | Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
-| description|  String | 선택 | | 최대 255자 | 설명|
-| domainAlias|  String | 선택 | | 최대 255자 | Domain alias (개인 혹은 회사가 소유한 도메인 사용, 여러 개 입력시 \n 토큰으로 분리하여 입력해 주세요.) |
-| maxAge|   Integer |선택| 0 | 0 ~ 2,147,483,647 | Cache 만료 시간(초), 기본 값 0은 604,800초 입니다. |
-| referrers|    String| 선택 | | '\n' 토큰 포함, 최대 1024자 |   Referrers (여러 개 입력시 \\n 토큰으로 분리하여 입력해주세요. )|
-| origins|  List| 필수 | | |원본 서버|
-| origins[0].origin| String| 필수 | | 최대 255자 |원본 서버 (domain or ip)|
-| origins[0].port|  Integer| 필수 | | 0 ~ 65,536 |원본서 버 포트|
-| origins[0].originPath|    String| 선택 | | 최대 8192자 | 원본 서버 하위 경로 |
-| callback | Object | 선택 |  | CDN 생성 처리 결과를 통보받을 콜백 URL (콜백 설정은 선택입력 입니다.) |
-| callback.httpMethod | String | 필수 | | GET/POST/PUT | 콜백의 HTTP Method |
-| callback.url | String | 필수 | | 최대 1024자 | 콜백 URL |
-
-
-#### 응답
+| 名称                  | 类型    | 是否必需 | 默认值 | 有效范围                                                    | 说明                                                         |
+| --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| domain                | String  | 必需      |        | 最大255个字符                                                   | 要修改的域（服务名）                                   |
+| useOrigin             | String  | 必需      |        | Y/N                                                          | 缓存到期设置（Y：使用原始设置，”N”：使用用户设置） | 
+| referrerType          | String  | 必需      |        | BLACKLIST/WHITELIST                                          | 引用访问管理（”BLACKLIST”：黑名单，”WHITELIST”：白名单） |
+| description           | String  | 可选      |        | 最大255个字符                                                   | 说明                                                         |
+| domainAlias           | String  | 可选      |        | 最大255个字符                                                   | 域别名（使用个人或公司所有的域，输入多个时请以\n令牌区分输入。）|
+| maxAge                | Integer | 可选      | 0      | 0~2,147,483,647                                            | 缓存到期时间（秒），默认值0为604,800秒。              |
+| referrers             | String  | 可选      |        | 包括’\n’令牌，最大1024个字符                                  | 引用（输入多个时请以\\n令牌区分输入。)  |
+| origins               | List    | 必需      |        |                                                              | 原始服务器                                                    |
+| origins[0].origin     | String  | 必需      |        | 最大255个字符                                                   | 原始服务器（domain或IP）                                      |
+| origins[0].port       | Integer | 必需      |        | 0~65,536                                                     | 原始服务器端口                                               |
+| origins[0].originPath | String  | 可选      |        | 最大8192个字符                                                  | 原始服务器下级路径                                          |
+| callback              | Object  | 可选      |        | 接收CDN服务分发结果的回调URL（回调设置为可选输入。）|                                                              |
+| callback.httpMethod   | String  | 必需      |        | GET/POST/PUT                                                 | 回调的HTTP Method                                           |
+| callback.url          | String  | 必需      |        | 最大1024个字符                                                  | 回调URL                                                     |
 
 
-[응답 본문]
+#### 响应
+
+
+【响应正文】
 
 ```json
 {
@@ -369,31 +368,31 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+【字段】
 
-| 필드 |  타입 | 설명|
-| --- | --- | --- |
-| header | Object | 헤더 영역|
-| header.isSuccessful | Boolean| 성공 여부 |
-| header.resultCode | Integer | 결과 코드 |
-| header.resultMessage | String | 결과 메시지 |
+| 字段                   | 类型      | 说明     |
+| -------------------- | ------- | ------ |
+| header               | Object  | 标头区域  |
+| header.isSuccessful  | Boolean | 是否成功  |
+| header.resultCode    | Integer | 结果代码  |
+| header.resultMessage | String  | 结果信息 |
 
 
-### 서비스 부분 수정
+### 服务部分修改
 
-서비스 일부 설정을 변경할 경우 부분 수정 API를 이용할 수 있습니다.
+更改服务的部分设置时，可以使用部分修改API。
 
-#### 요청
+#### 请求
 
 
 [URI]
 
-| 메서드 | URI |
-| --- | --- |
+| 方法   | URI                                  |
+| ----- | ------------------------------------ |
 | PATCH | /v1.5/appKeys/{appKey}/distributions |
 
 
-[요청 본문]
+【请求正文】
 
 ```json
 {
@@ -418,32 +417,32 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+【字段】
 
-| 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
-| --- | --- | --- | --- | --- | --- |
-| domain | String | 필수 | | 최대 255자 | 수정할 도메인(서비스 이름) |
-| useOrigin|    String | 선택 | | Y / N | Cache 만료 설정 ("Y": 원본 설정 사용, "N":사용자 설정 사용) |
-| referrerType| String | 선택 | | BLACKLIST / WHITELIST | Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
-| description|  String | 선택 | | 최대 255자 | 설명|
-| domainAlias|  String | 선택 | | 최대 255자 | Domain alias (개인 혹은 회사가 소유한 도메인 사용, 여러 개 입력시 \n 토큰으로 분리하여 입력해 주세요.) |
-| maxAge|   Integer |선택| 0 | 0 ~ 2,147,483,647 | Cache 만료 시간(초), 기본 값 0은 604,800초 입니다. |
-| referrers|    String| 선택 | | '\n' 토큰 포함, 최대 1024자 |   Referrers (여러 개 입력시 \\n 토큰으로 분리하여 입력해주세요. )|
-| origins|  List| 선택 | | |원본 서버|
-| origins[0].origin| String| 선택 | | 최대 255자 |원본 서버 (domain or ip)|
-| origins[0].port|  Integer| 선택 | | 0 ~ 65,536 |원본서 버 포트|
-| origins[0].originPath|    String| 선택 | | 최대 8192자 | 원본 서버 하위 경로 |
-| callback | Object | 선택 |  | CDN 생성 처리 결과를 통보받을 콜백 URL (콜백 설정은 선택입력 입니다.) |
-| callback.httpMethod | String | 선택 | | GET/POST/PUT | 콜백의 HTTP Method |
-| callback.url | String | 선택 | | 최대 1024자 | 콜백 URL |
+| 名称                  | 类型    | 是否必需 | 默认值 | 有效范围                                                    | 说明                                                         |
+| --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| domain                | String  | 必需      |        | 最大255个字符                                                   | 要修改的域（服务名）                                   |
+| useOrigin             | String  | 可选      |        | Y/N                                                          | 缓存到期设置（Y：使用原始设置，N：使用用户设置）       |
+| referrerType          | String  | 可选      |        | BLACKLIST / WHITELIST                                        | 引用访问管理（”BLACKLIST”：黑名单，”WHITELIST”：白名单） |
+| description           | String  | 可选      |        | 最大255个字符                                                   | 说明                                                         |
+| domainAlias           | String  | 可选      |        | 最大255个字符                                                   | 域别名（使用个人或公司所有的域，输入多个时请以\n令牌分开输入。）|
+| maxAge                | Integer | 可选      | 0      | 0~2,147,483,647                                              | 缓存到期时间（秒），默认值0为604,800秒。           |
+| referrers             | String  | 可选      |        | 包括’\n’令牌，最大1024个字符                                  | 域别名（输入多个时请以\\n令牌分开输入。)  |
+| origins               | List    | 可选      |        |                                                              | 原始服务器                                                    |
+| origins[0].origin     | String  | 可选      |        | 最大255个字符                                                   | 原始服务器（domain或IP）                                     |
+| origins[0].port       | Integer | 可选      |        | 0~65,536                                                   | 原始服务器端口                                               |
+| origins[0].originPath | String  | 可选      |        | 最大8192个字符                                                  | 原始服务器下级路径                                          |
+| callback              | Object  | 可选      |        | 接收CDN服务分发结果的回调URL（回调设置为可选输入。）|                                                              |
+| callback.httpMethod   | String  | 可选      |        | GET/POST/PUT                                                 | 回调的HTTP Method                                           |
+| callback.url          | String  | 可选      |        | 最大1024个字符                                                  | 回调URL                                                     |
 
-- origins 필드는 설정시 origin, port, originPath 필드는 필수 입력 값입니다. 
-- callback 필드는 설정시 httpMethod, url 필드는 필수 입력 값 입니다. 
+- 设置origins字段时，origin, port, originPath字段为必须输入值。 
+- 设置callback字段时，httpMethod, url字段为必须输入值。 
 
-#### 응답
+#### 响应
 
 
-[응답 본문]
+【响应正文】
 
 ```json
 {
@@ -456,29 +455,29 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+【字段】
 
-| 필드 |  타입 | 설명|
-| --- | --- | --- |
-| header | Object | 헤더 영역|
-| header.isSuccessful | Boolean| 성공 여부 |
-| header.resultCode | Integer | 결과 코드 |
-| header.resultMessage | String | 결과 메시지 |
+| 字段                   | 类型      | 说明     |
+| -------------------- | ------- | ------ |
+| header               | Object  | 标头区域  |
+| header.isSuccessful  | Boolean | 是否成功  |
+| header.resultCode    | Integer | 结果代码  |
+| header.resultMessage | String  | 结果信息 |
 
 
-### 서비스 삭제
+### 删除服务
 
-#### 요청
+#### 请求
 
 
 [URI]
 
-| 메서드 | URI |
-| --- | --- |
+| 方法    | URI                                  |
+| ------ | ------------------------------------ |
 | DELETE | /v1.5/appKeys/{appKey}/distributions |
 
 
-[요청 본문]
+【请求正文】
 
 ```json
 {
@@ -489,18 +488,18 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+【字段】
 
-| 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
-| --- | --- | --- | --- | --- | --- |
-| domains | String | 필수 | | | 삭제할 도메인, 여러 도메인 입력 가능 |
+| 名称      | 类型     | 是否必须 | 默认值  | 有效范围 | 说明                    |
+| ------- | ------ | ----- | ---- | ----- | --------------------- |
+| domains | String | 必需    |      |       | 要删除的域，可输入多个域 |
 
-**\* 여러 도메인을 입력시, 해당하는 서비스들은 모두 종료처리 됩니다.**
+**\* 输入多个域时，对应的服务将全部终止。**
 
-#### 응답
+#### 响应
 
 
-[응답 본문]
+【响应正文】
 
 ```json
 {
@@ -513,52 +512,50 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+【字段】
 
-| 필드 |  타입 | 설명|
-| --- | --- | --- |
-| header | Object | 헤더 영역|
-| header.isSuccessful | Boolean| 성공 여부 |
-| header.resultCode | Integer | 결과 코드 |
-| header.resultMessage | String | 결과 지시지 |
+| 字段                   | 类型      | 说明     |
+| -------------------- | ------- | ------ |
+| header               | Object  | 标头区域  |
+| header.isSuccessful  | Boolean | 是否成功  |
+| header.resultCode    | Integer | 结果代码  |
+| header.resultMessage | String  | 结果信息 |
 
-## 캐시 재배포 API
+## 重新分发缓存API
 
-### 캐시 재배포(Purge)
+### 重新分发缓存（Purge）
 
-#### 요청
-
+#### 请求
 
 [URI]
 
-| 메서드 | URI |
-| --- | --- |
-|POST|  /v1.5/appKeys/{appKey}/purges|
+| 方法  | URI                           |
+| ---- | ----------------------------- |
+| POST | /v1.5/appKeys/{appKey}/purges |
 
 
-[요청 본문]
+【请求正文】
 
 ```json
 {
-    "domain": "sample.cdn.toastcloud.com",
-    "purgeType": "ITEM",
-    "purgeList":"/img_01.png"
+	"domain": "sample.cdn.toastcloud.com",
+	"purgeType": "ITEM",
+	"purgeList":"/img_01.png"
 }
 ```
 
 
-[필드]
+【字段】
 
-| 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
-| --- | --- | --- | --- | --- | --- |
-|domain|    String| 필수 |  | 최대 255자 | 재배포할 도메인(서비스) 이름 |
-|purgeType| List | 필수 |  | ITEM / WILDCARD / ALL | 재배포 타입 ("ITEM", "WILDCARD", "ALL") |
-|purgeList| String| 선택 | | | 재배포 타겟 항목 리스트 (여러 개를 입력할 경우 \\n 토큰으로 분리하여 입력해 주세요, purgeType이 ALL인 경우 입력하지 않아도됩니다.) |
+| 名称      | 类型   | 是否必须 | 默认值 | 有效范围             | 说明                                                         |
+| --------- | ------ | --------- | ------ | --------------------- | ------------------------------------------------------------ |
+| domain    | String | 必需      |        | 最大255个字            | 要重新分发的域（服务）名                                 |
+| purgeType | List   | 必需      |        | ITEM / WILDCARD / ALL | 重新分发类型("ITEM", "WILDCARD", "ALL")                       |
+| purgeList | String | 可选      |        |                       | 重新分发对象项目列表（输入多个时， 请以\\n令牌区分输入，若purgeType为ALL，也可不输入。）|
 
-#### 응답
+#### 响应
 
-
-[응답 본문]
+【响应正文】
 
 ```json
 {
@@ -572,37 +569,37 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+【字段】
 
-| 필드 |  타입 | 설명|
-| --- | --- | --- |
-| header | Object | 헤더 영역|
-| header.isSuccessful | Boolean| 성공 여부 |
-| header.resultCode | Integer | 결과 코드 |
-| header.resultMessage | String | 결과 메시지 |
-| purgeSeq | Integer | 재배포 요청 번호 |
+| 字段                   | 类型      | 说明        |
+| -------------------- | ------- | --------- |
+| header               | Object  | 标头区域     |
+| header.isSuccessful  | Boolean | 是否成功     |
+| header.resultCode    | Integer | 结果代码     |
+| header.resultMessage | String  | 结果信息    |
+| purgeSeq             | Integer | 请求重新分发编号 |
 
-### 캐시 재배포(Purge) 조회
+### 查询重新分发缓存（Purge）
 
-#### 요청
+#### 请求
 
 
 [URI]
 
-| 메서드 | URI |
-| --- | --- |
-|GET|   /v1.5/appKeys/{appKey}/purges|
+| 方法  | URI                           |
+| ---- | ----------------------------- |
+| GET  | /v1.5/appKeys/{appKey}/purges |
 
 
-[파라미터]
+【参数】
 
-| 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
-| --- | --- | --- | --- | --- | --- |
-| domain | String|  필수 |  | 최대 255자 | 도메인(서비스) 이름 |
-| page | Integer | 선택 | | | 페이지 번호 |
-| itemsPerPage | Integer | 선택 | | | 페이지당 재배포된 항목 개수 |
-| startTime | String | 선택 | | "yyyy-MM-ddTHH:mm:ss.SSSZ" ex)"2018-02-22T09:00:00.000Z" (UTC) | 기간 검색 |
-| endTime | String | 선택 | | "yyyy-MM-ddTHH:mm:ss.SSSZ" ex)"2018-02-22T09:00:00.000Z" (UTC) | 기간 검색  |
+| 名称           | 类型      | 是否必需 | 默认值  | 有效范围                                    | 说明              |
+| ------------ | ------- | ----- | ---- | ---------------------------------------- | --------------- |
+| domain       | String  | 必需    |      | 最大255个字                                  | 域（服务）名     |
+| page         | Integer | 可选    |      |                                          | 页编号          |
+| itemsPerPage | Integer | 可选    |      |                                          | 每页重新分发的项目个数 |
+| startTime    | String  | 可选    |      | “yyyy-MM-ddTHH:mm:ss.SSSZ” ex)”2018-02-22T09:00:00.000Z”(UTC) | 搜索时间段           |
+| endTime      | String  | 可选    |      | “yyyy-MM-ddTHH:mm:ss.SSSZ” ex)”2018-02-22T09:00:00.000Z”(UTC) | 搜索时间段           |
 
 
 ```
@@ -611,10 +608,10 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/purges?
  -H "Content-Type: application/json"
 ```
 
-#### 응답
+#### 响应
 
 
-[응답 본문]
+【响应正文】
 
 ```json
 {
@@ -650,19 +647,20 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/purges?
 ```
 
 
-[필드]
+【字段】
 
-| 필드 |  타입 | 설명|
-| --- | --- | --- |
-| header | Object | 헤더 영역|
-| header.isSuccessful | Boolean| 성공 여부 |
-| header.resultCode | Integer | 결과 코드 |
-| header.resultMessage | String | 결과 메시지 |
-| totalItems | Integer | 재배포한 총 개수 |
-| purges |  List| 재배포 항목 리스트|
-| purges[0].seq|    Integer| 재배포 요청 번호 |
-| purges[0].progress|   Integer| 재배포 진행률|
-| purges[0].purgeTime|  Long| 재배포 요청 시간 |
-| purges[0].lastCheckTime|  Long| 재배포 수행 마지막 체크 시간 |
-| purges[0].type|   String| 재배포 타입 ("ITEM", "WILDCARD", "ALL") |
-| purges[0].path|   String| 재배포 요청 항목 |
+| 字段                      | 类型      | 说明                                |
+| ----------------------- | ------- | --------------------------------- |
+| header                  | Object  | 标头区域                             |
+| header.isSuccessful     | Boolean | 是否成功                             |
+| header.resultCode       | Integer | 结果代码                             |
+| header.resultMessage    | String  | 结果信息                            |
+| totalItems              | Integer | 重新分发的总个数                         |
+| purges                  | List    | 重新分发项目列表                        |
+| purges[0].seq           | Integer | 重新分发请求编号                         |
+| purges[0].progress      | Integer | 重新分发进度                        |
+| purges[0].purgeTime     | Long    | 重新分发请求时间                         |
+| purges[0].lastCheckTime | Long    | 重新分发执行的最后确认时间                  |
+| purges[0].type          | String  | 重新分发类型("ITEM", "WILDCARD", "ALL") |
+| purges[0].path          | String  | 重新分发请求项目                         |
+
