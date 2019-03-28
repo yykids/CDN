@@ -114,12 +114,13 @@ CDN服务更改操作（创建、修改、停用/重启、删除操作）在请�
 1.输入**HTTP Method**与**回调URL**。
 2.若欲利用Request URI的Query Parameter接收CDN服务更改操作的结果，请在**回调URL**中加入Path变量。
 
-| Path Variable | 说明 | 示例传达值 |
-| ------------- | --- | ------- |
-| {appKey} | CDN服务接口密钥 | 从控制台接收的接口密钥 |
-| {domain} | CDN服务名 | xxxxxx.cdn.toastcloud.com |
-| {status} | 当前CDN服务状态 | OPEN, SUSPEND, CLOSE, ERROR |
-| {isSuccessful} | 服务更改操作是否成功（API V1.0不支持。）| “true”或"false" |
+    | Path Variable | 说明 | 示例传达值 |
+    | ------------- | --- | ------- |
+    | {appKey} | CDN服务接口密钥 | 从控制台接收的接口密钥 |
+    | {domain} | CDN服务名 | xxxxxx.cdn.toastcloud.com |
+    | {status} | 当前CDN服务状态 | OPEN, SUSPEND, CLOSE, ERROR |
+    | {isSuccessful} | 服务更改操作是否成功（API V1.0不支持。）| “true”或"false" |
+
 
 3.单击**确认**按钮，则完成创建CDN服务请求。
 
@@ -289,3 +290,4 @@ CDN服务更改操作（创建、修改、停用/重启、删除操作）在请�
 3.输入搜索时间段。
 4.搜索时间段内的数据周期根据所选时间段自动选择。
 5.单击**搜索**按钮。
+
