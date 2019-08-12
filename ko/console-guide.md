@@ -119,6 +119,7 @@ CDN 서비스 변경 작업(생성, 수정, 정지/재개, 삭제 작업)은 변
 
 1. **HTTP Method**와 **콜백 URL**을 입력합니다.
 2. Request URI의 Query Parameter로 CDN 서비스 변경 작업에 대한 결과를 받으려면 **콜백 URL**에 Path 변수를 포함해 입력해 주세요.
+
 | Path Variable | 설명 | 예시 전달 값 |
 | ------------- | --- | ------- |
 | {appKey} | CDN 서비스 앱 키 | 콘솔에서 발급받은 앱 키 |
