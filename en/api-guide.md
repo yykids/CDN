@@ -1,42 +1,41 @@
 ## Content Delivery > CDN > API Guide
 
-TOAST CDN에서 제공하는 Public API를 설명합니다.
+This document describes Public API provided by TOAST CDN.
 
-## API 공통 정보
+## Common API Information  
 
-### 도메인
+### Domain
 
-| 이름 | 도메인 |
-| --- | --- |
-| CDN Public API 도메인 | https://api-gw.cloud.toast.com/tc-cdn |
+| Name         | Domain                             |
+| --------------- | ------------------------------------- |
+| Public API CDN Domain | https://api-gw.cloud.toast.com/tc-cdn |
 
-### 사전 준비
+### Prerequisites
 
-API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니다. 
-앱 키와 보안 키는 콘솔 상단 "URL & Appkey" 메뉴에서 확인이 가능합니다.
+Requires Appkey and SecretKey API, which are available in **URL & Appkey** on top right of the console.  
 
-### 요청 공통 정보
+### Common Request Information
 
-#### 요청 헤더
+#### Request Header
 
-| 이름 | 설명 |
-| --- | --- |
-| Authorization | 콘솔에서 발급받은 보안 키 (SecretKey) |
+| Name          | Description                   |
+| ------------- | ----------------------------- |
+| Authorization | SecretKey issued on a console |
 
-#### Path 파라미터
+#### Path Parameter  
 
-모든 API는 appKey를 path 파라미터로 지정하도록 되어 있습니다.
-* 예) /v1.5/appKeys/**{appKey}**/distributions
+In all APIs, the appKey must be specified in the path parameter.
+* e.g.) /v1.5/appKeys/**{appKey}**/distributions
 
-| 이름 | 설명 |
-| --- | --- |
-| appKey | 콘솔에서 발급받은 앱 키 (Appkey) | 
+| Name   | Description                |
+| ------ | -------------------------- |
+| appKey | Appkey issued on a console |
 
-### 응답 공통 정보
+### Common Response Information
 
-#### 헤더
+#### Header
 
-모든 API 요청에 대해서 **200 OK** 로 응답합니다. 자세한 응답 결과는 다음의 예와 같이 응답 본문의 헤더를 참고합니다.
+Respond with **200 OK** to all API requests. For more details, see the header at the response body as below.
 
 ```json
 {
@@ -49,102 +48,101 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 ```
 
 
-[필드]
+[Fields]
 
-| 필드 |  타입 | 설명|
-| --- | --- | --- |
-| header | Object | 헤더 영역|
-| header.isSuccessful | Boolean| 성공 여부 |
-| header.resultCode | Integer | 결과 코드 |
-| header.resultMessage | String | 결과 메시지 |
+| Field                | Type    | Description       |
+| -------------------- | ------- | ----------------- |
+| header               | Object  | Header area       |
+| header.isSuccessful  | Boolean | Successful or not |
+| header.resultCode    | Integer | Result code       |
+| header.resultMessage | String  | Result message    |
 
-#### CDN 상태 코드
+#### CDN Status Codes
 
-다음은 CDN 서비스 상태를 나타내는 상태 코드로, 서비스 조회시 서비스 상태를 확인할 수 있습니다.
+Below shows the status codes of CDN service, which are available at the query of service.  
 
-|값|설명|
-|---|---|
-|OPENING|서비스 시작 중|
-|OPEN | 서비스 중|
-|MODIFYING| 수정중|
-|RESUME | 시작|
-|SUSPENDING | 정지 진행중|
-|SUSPEND | 정지|
-|CLOSING| 사용 종료중|
-|CLOSE| 사용 종료|
-|ERROR| 서비스 생성 중 오류가 발생함|
+| Value      | Description                           |
+| ---------- | ------------------------------------- |
+| OPENING    | Service is starting                   |
+| OPEN       | In service                            |
+| MODIFYING  | Under modification                    |
+| RESUME     | Resumed                               |
+| SUSPENDING | Under suspension                      |
+| SUSPEND    | Suspended                             |
+| CLOSING    | Closing                               |
+| CLOSE      | Closed                                |
+| ERROR      | Error occurred while creating service |
 
 
-## 서비스 API
+## Service API
 
-### 서비스 생성
+### Create  
 
-#### 요청
+#### Request
 
 
 [URI]
 
-| 메서드 | URI |
-| --- | --- |
-| POST | /v1.5/appKeys/{appKey}/distributions |
+| Method | URI                                  |
+| ------ | ------------------------------------ |
+| POST   | /v1.5/appKeys/{appKey}/distributions |
 
 
-[요청 본문]
+[Request Body]
 
 ```json
 {
    "distributions":[
        {
-            "region": "LOCAL",
-            "useOrigin" : "N",
-            "referrerType" : "BLACKLIST",
-            "description" : "sample-cdn",
-            "maxAge": 86400,
-            "referrers" : "cloud.toast.com",
-            "origins" : [
-                {
-                    "origin" : "static.origin.com",
-                    "port" : 80,
-                    "originPath" : "/resources"
-                }
-            ],
+			"region": "LOCAL",
+			"useOrigin" : "N",
+			"referrerType" : "BLACKLIST",
+			"description" : "sample-cdn",
+			"maxAge": 86400,
+			"referrers" : "cloud.toast.com",
+			"origins" : [
+				{
+					"origin" : "static.origin.com",
+					"port" : 80,
+					"originPath" : "/resources"
+				}
+			],
             "callback": {
                 "httpMethod": "GET",
                 "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
             }
-        }
-    ]
+		}
+	]
 }
 ```
 
+[Field]
 
-[필드]
-
-| 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
-| --- | --- | --- | --- | --- | --- |
-| distributions | List | 필수 | | | 생성할 CDN의 오브젝트 리스트 |
-| distributions[0].region | String | 필수 | | LOCAL / GLOBAL | 서비스 지역 ("LOCAL": 대한민국, "GLOBAL" : 글로벌) |
-| distributions[0].useOrigin | String | 필수 | | Y / N | Cache 만료 설정 ("Y": 원본 설정 사용, "N":사용자 설정 사용) |
-| distributions[0].referrerType | String | 필수 | | BLACKLIST / WHITELIST | Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
-| distributions[0].description | String | 선택 | | 최대 255자 | 설명 |
-| distributions[0].domainAlias | String | 선택 | | 최대 255자 | Domain alias (개인 혹은 회사가 소유한 도메인 사용, 여러 개 입력시 \n 토큰으로 분리하여 입력해 주세요.) |
-| distributions[0].maxAge | Integer | 선택 | 0 | 0 ~ 2,147,483,647 | Cache 만료 시간(초), 기본 값 0은 604,800초 입니다. |
-| distributions[0].referrers | String | 선택 | | '\n' 토큰 포함, 최대 1024자 | Referrers (여러 개 입력시 \n 토큰으로 분리하여 입력해 주세요.) |
-| distributions[0].origins | List | 필수 | | | 원본 서버 오브젝트 리스트 |
-| distributions[0].origins[0].origin | String | 필수 | | 최대 255자 | 원본 서버 (domain or ip) |
-| distributions[0].origins[0].port | String | 필수 | | 0 ~ 65,536 | 원본 서버 포트 |
-| distributions[0].origins[0].originPath | String | 선택 | | 최대 8192자 | 원본 서버 하위 경로 (/를 포함한 경로로 입력해 주세요.) |
-| distributions[0].callback | Object | 선택 | | | CDN 생성 처리 결과를 통보받을 콜백 URL (콜백 설정은 선택입력 입니다.) |
-| distributions[0].callback.httpMethod | String | 필수 | | GET/POST/PUT | 콜백의 HTTP Method |
-| distributions[0].callback.url | String | 필수 | | 최대 1024자 | 콜백 URL |
-
+| Name                                   | Type    | Required | Default | Valid Range                                  | Description                                                  |
+| -------------------------------------- | ------- | -------- | ------- | -------------------------------------------- | ------------------------------------------------------------ |
+| distributions                          | List    | Required |         |                                              | List of CDN objects to create                                |
+| distributions[0].region                | String  | Required |         | LOCAL/GLOBAL                                 | Service region ("LOCAL": Korea, "GLOBAL": Global)            |
+| distributions[0].useOrigin             | String  | Required |         | Y/N                                          | Cache expiration setting ("Y": Original setting, "N":User-configured) |
+| distributions[0].referrerType          | String  | Required |         | BLACKLIST/WHITELIST                          | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| distributions[0].description           | String  | Optional |         | Up to  255 characters                        | Description                                                  |
+| distributions[0].domainAlias           | String  | Optional |         | Up to 255 characters                         | Domain alias (Use personal or company-owned domains; delimit by \n tokens.) |
+| distributions[0].maxAge                | Integer | Optional | 0       | 0~2,147,483,647                              | Cache expiration time (second); default 0 refers to 604,800 seconds. |
+| distributions[0].referrers             | String  | Optional |         | Up to 1024 characters, including '\n' tokens | Referrers (Delimit by \n tokens.)                            |
+| distributions[0].origins               | List    | Required |         |                                              | List of origin server objects                                |
+| distributions[0].origins[0].origin     | String  | Required |         | Up to 255 characters                         | Origin server (domain or IP)                                 |
+| distributions[0].origins[0].port       | String  | Required |         | 0~65,536                                     | Origin server port                                           |
+| distributions[0].origins[0].originPath | String  | Optional |         | Up to 8192 characters                        | Lower paths of origin server (path must include /.)          |
+| distributions[0].callback              | Object  | Optional |         |                                              | Callback URL to receive processing result of CDN creation (callback setting is optional.) |
+| distributions[0].callback.httpMethod   | String  | Required |         | GET/POST/PUT                                 | HTTP method of callback                                      |
+| distributions[0].callback.url          | String  | Required |         | Up to 1024 characters                        | Callback URL                                                 |
 
 
 
-#### 응답
+
+#### Response
 
 
-[응답 본문]
+[Response Body]
 
 ```json
 {
@@ -178,64 +176,64 @@ API를 사용하기 위해서는 앱 키(Appkey)와 보안 키(SecretKey)가 필
 ```
 
 
-[필드]
+[Field]
 
-| 필드 |  타입 | 설명|
-| --- | --- | --- |
-| header | Object | 헤더 영역|
-| header.isSuccessful | Boolean| 성공 여부 |
-| header.resultCode | Integer | 결과 코드 |
-| header.resultMessage | String | 결과 메시지 |
-| distributions | List | 생성된 CDN 오브젝트 리스트|
-| distributions[0].domain|  String| 생성된 도메인(서비스) 이름 |
-| distributions[0].domainAlias| String| 소유 도메인 |
-| distributions[0].region|  String| 서비스 지역 ("LOCAL": 대한민국, "GLOBAL" : 글로벌)|
-| distributions[0].description|  String| 설명 |
-| distributions[0].status| String| CDN 상태 ([표] CDN 상태 참고) |
-| distributions[0].createTime|  String| 생성일시 |
-| distributions[0].useOrigin| String| 원본 서버 설정 사용 여부("Y": 원본서버 설정 사용, "N": 사용자 설정) |
-| distributions[0].maxAge| String| Cache 만료시간(초) |
-| distributions[0].referrerType|  String| Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
-| distributions[0].referrers | String| referrers 리스트 |
-| distributions[0].origins |  List| 원본 서버 오브젝트 리스트 |
-| distributions[0].origins[0].origin | String|  원본 서버(domain or ip) |
-| distributions[0].origins[0].originPath | String|  원본 서버 하위 경로 |
-| distributions[0].origins[0].port | Integer| 원본 서버 포트 |
-| distributions[0].callback | Object | 서비스 생성 처리 결과를 통보 받을 콜백 |
-| distributions[0].callback.httpMethod | String | 콜백의 HTTP Method |
-| distributions[0].callback.url | String | 콜백 URL |
+| Field                                  | Type    | Description                                                  |
+| -------------------------------------- | ------- | ------------------------------------------------------------ |
+| header                                 | Object  | Header area                                                  |
+| header.isSuccessful                    | Boolean | Successful or not                                            |
+| header.resultCode                      | Integer | Result code                                                  |
+| header.resultMessage                   | String  | Result message                                               |
+| distributions                          | List    | List of created CDN objects                                  |
+| distributions[0].domain                | String  | Created domain (service) name                                |
+| distributions[0].domainAlias           | String  | Owned domain                                                 |
+| distributions[0].region                | String  | Service region  ("LOCAL": Korea, "GLOBAL": Global)           |
+| distributions[0].description           | String  | Description                                                  |
+| distributions[0].status                | String  | CDN status code (see CDN status codes in [Table])            |
+| distributions[0].createTime            | String  | Date and time of creation                                    |
+| distributions[0].useOrigin             | String  | Whether to set origin server <br />("Y": Origin server setting, "N": User-configured) |
+| distributions[0].maxAge                | String  | Cache expiration time (second)                               |
+| distributions[0].referrerType          | String  | Referrer access control ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| distributions[0].referrers             | String  | List of referrers                                            |
+| distributions[0].origins               | List    | List of origin server objects                                |
+| distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                 |
+| distributions[0].origins[0].originPath | String  | Lower paths of origin server                                 |
+| distributions[0].origins[0].port       | Integer | Origin server port                                           |
+| distributions[0].callback              | Object  | Callback to receive service processing results               |
+| distributions[0].callback.httpMethod   | String  | HTTP method of callback                                      |
+| distributions[0].callback.url          | String  | Callback URL                                                 |
 
 
-### 서비스 조회
+### Get
 
-#### 요청
+#### Request
 
 
 [URI]
 
-| 메서드 | URI |
-| --- | --- |
-| GET | /v1.5/appKeys/{appKey}/distributions |
+| Method | URI                                  |
+| ------ | ------------------------------------ |
+| GET    | /v1.5/appKeys/{appKey}/distributions |
 
 
-[파라미터]
+[Parameter]
 
-| 이름 | 타입 | 필수 여부 | 유효 범위 | 설명 |
-| --- | --- | --- | --- | --- |
-| domain | String | 선택 | 최대 255자 | 조회할 도메인(서비스 이름) |
-| status | String | 선택 | CDN 상태 코드 | CDN 상태 ([표] CDN 상태 참고) |
+| Name | Type | Required | Valid Range | Description  |
+| ------ | ------ | --------- | ------------- | ---------------------------- |
+| domain | String | Optional | Up to 255 characters | Domain (service name) to get |
+| status | String | Optional | CDN status codes | CDN status code (see CDN status codes in [Table]) |
 
-[예]
+[Example]
 ```
 curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distributions?domain={domain}" \
  -H "Authorization: {secretKey}" \
  -H "Content-Type: application/json"
 ```
 
-#### 응답
+#### Response
 
 
-[응답 본문]
+[Response Body]
 
 ```json
 {
@@ -268,47 +266,47 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+[Field]
 
-| 필드 |  타입 | 설명|
-| --- | --- | --- |
-| header | Object | 헤더 영역|
-| header.isSuccessful | Boolean| 성공 여부 |
-| header.resultCode | Integer | 결과 코드 |
-| header.resultMessage | String | 결과 메시지 |
-| distributions |   List |  생성된 CDN 오브젝트 리스트|
-| distributions[0].domain|  String| domain 이름(서비스 이름) |
-| distributions[0].domainAlias| String| 소유 도메인 |
-| distributions[0].region|  String| 서비스 지역 ("LOCAL": 대한민국, "GLOBAL" : 글로벌)|
-| distributions[0].description|  String| 설명 |
-| distributions[0].status| String| CDN 상태 ([표] CDN 상태 참고) |
-| distributions[0].createTime|  String| 생성일시 |
-| distributions[0].useOrigin| String| 원본 서버 설정 사용 여부("Y": 원본서버 설정 사용, "ㅜN": 사용자 설정) |
-| distributions[0].maxAge| String| Cache 만료시간(초) |
-| distributions[0].referrerType|  String| Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
-| distributions[0].referrers| String| referrers 리스트 |
-| distributions[0].origins|  List| 원본 서버 오브젝트 리스트 |
-| distributions[0].origins[0].origin|   String| 원본 서버(domain or ip) |
-| distributions[0].origins[0].originPath|   String| 원본 서버 하위 경로 |
-| distributions[0].origins[0].port| Integer| 원본 서버 포트|
-| distributions[0].callback | Object | 서비스 생성 처리결과를 통보 받을 콜백 |
-| distributions[0].callback.httpMethod | String | 콜백의 HTTP Method |
-| distributions[0].callback.url | String | 콜백 URL |
+| Field                                  | Type    | Description                                                  |
+| -------------------------------------- | ------- | ------------------------------------------------------------ |
+| header                                 | Object  | Header area                                                  |
+| header.isSuccessful                    | Boolean | Successful or not                                            |
+| header.resultCode                      | Integer | Result code                                                  |
+| header.resultMessage                   | String  | Result message                                               |
+| distributions                          | List    | List of created CDN objects                                  |
+| distributions[0].domain                | String  | Domain (service) name                                        |
+| distributions[0].domainAlias           | String  | Owned domain                                                 |
+| distributions[0].region                | String  | Service region ("LOCAL": Korea, "GLOBAL": Global)            |
+| distributions[0].description           | String  | Description                                                  |
+| distributions[0].status                | String  | CDN status code (see CDN status codes in [Table])            |
+| distributions[0].createTime            | String  | Date and time of creation                                    |
+| distributions[0].useOrigin             | String  | Whether to use origin server setting <br />("Y": Origin server setting, "N": User-configured) |
+| distributions[0].maxAge                | String  | Cache expiration time (second)                               |
+| distributions[0].referrerType          | String  | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| distributions[0].referrers             | String  | List of referrers                                            |
+| distributions[0].origins               | List    | List of origin server objects                                |
+| distributions[0].origins[0].origin     | String  | Origin server (domain or IP)                                 |
+| distributions[0].origins[0].originPath | String  | Lower paths of origin server                                 |
+| distributions[0].origins[0].port       | Integer | Origin server port                                           |
+| distributions[0].callback              | Object  | Callback to receive service deployment results               |
+| distributions[0].callback.httpMethod   | String  | HTTP method of callback                                      |
+| distributions[0].callback.url          | String  | Callback URL                                                 |
 
 
-### 서비스 수정
+### Modify
 
-#### 요청
+#### Request
 
 
 [URI]
 
-| 메서드 | URI |
-| --- | --- |
-| PUT | /v1.5/appKeys/{appKey}/distributions |
+| Method | URI                                  |
+| ------ | ------------------------------------ |
+| PUT    | /v1.5/appKeys/{appKey}/distributions |
 
 
-[요청 본문]
+[Request Body]
 
 ```json
 {
@@ -333,30 +331,30 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+[Field]
 
-| 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
-| --- | --- | --- | --- | --- | --- |
-| domain | String | 필수 | | 최대 255자 | 수정할 도메인(서비스 이름) |
-| useOrigin|    String | 필수 | | Y / N | Cache 만료 설정 ("Y": 원본 설정 사용, "N":사용자 설정 사용) |
-| referrerType| String | 필수 | | BLACKLIST / WHITELIST | Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
-| description|  String | 선택 | | 최대 255자 | 설명|
-| domainAlias|  String | 선택 | | 최대 255자 | Domain alias (개인 혹은 회사가 소유한 도메인 사용, 여러 개 입력시 \n 토큰으로 분리하여 입력해 주세요.) |
-| maxAge|   Integer |선택| 0 | 0 ~ 2,147,483,647 | Cache 만료 시간(초), 기본 값 0은 604,800초 입니다. |
-| referrers|    String| 선택 | | '\n' 토큰 포함, 최대 1024자 |   Referrers (여러 개 입력시 \\n 토큰으로 분리하여 입력해주세요. )|
-| origins|  List| 필수 | | |원본 서버|
-| origins[0].origin| String| 필수 | | 최대 255자 |원본 서버 (domain or ip)|
-| origins[0].port|  Integer| 필수 | | 0 ~ 65,536 |원본서 버 포트|
-| origins[0].originPath|    String| 선택 | | 최대 8192자 | 원본 서버 하위 경로 |
-| callback | Object | 선택 |  | CDN 생성 처리 결과를 통보받을 콜백 URL (콜백 설정은 선택입력 입니다.) |
-| callback.httpMethod | String | 필수 | | GET/POST/PUT | 콜백의 HTTP Method |
-| callback.url | String | 필수 | | 최대 1024자 | 콜백 URL |
-
-
-#### 응답
+| Name                  | Type    | Required | Default | Valid Range                                                  | Description                                                  |
+| --------------------- | ------- | -------- | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| domain                | String  | Required |         | Up to 255 characters                                         | Domain (service name) to modify                              |
+| useOrigin             | String  | Required |         | Y/N                                                          | Cache expiration setting (Y: Original setting, "N": User-configured) |
+| referrerType          | String  | Required |         | BLACKLIST/WHITELIST                                          | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| description           | String  | Optional |         | Up to 255 characters                                         | Description                                                  |
+| domainAlias           | String  | Optional |         | Up to 255 characters                                         | Domain alias (Personal or company-owned domains; delimit by \n tokens.) |
+| maxAge                | Integer | Optional | 0       | 0 ~ 2,147,483,647                                            | Cache expiration time (second); default 0 refers to 604,800 seconds. |
+| referrers             | String  | Optional |         | Up to 1024 characters, including '\n\' tokens                | Referrers (delimit by \n tokens. )                           |
+| origins               | List    | Required |         |                                                              | Origin server                                                |
+| origins[0].origin     | String  | Required |         | Up to 255 characters                                         | Origin server (domain or IP)                                 |
+| origins[0].port       | Integer | Required |         | 0~65,536                                                     | Origin server port                                           |
+| origins[0].originPath | String  | Optional |         | Up to 8192 characters                                        | Lower paths of origin server                                 |
+| callback              | Object  | Optional |         | Callback URL to receive CDN service deployment results (callback setting is optional.) |                                                              |
+| callback.httpMethod   | String  | Required |         | GET/POST/PUT                                                 | HTTP method of callback                                      |
+| callback.url          | String  | Required |         | Up to 1024 characters                                        | Callback URL                                                 |
 
 
-[응답 본문]
+#### Response
+
+
+[Response Body]
 
 ```json
 {
@@ -369,31 +367,31 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+[Field]
 
-| 필드 |  타입 | 설명|
-| --- | --- | --- |
-| header | Object | 헤더 영역|
-| header.isSuccessful | Boolean| 성공 여부 |
-| header.resultCode | Integer | 결과 코드 |
-| header.resultMessage | String | 결과 메시지 |
+| Field                | Type    | Description       |
+| -------------------- | ------- | ----------------- |
+| header               | Object  | Header area       |
+| header.isSuccessful  | Boolean | Successful or not |
+| header.resultCode    | Integer | Result code       |
+| header.resultMessage | String  | Result message    |
 
 
-### 서비스 부분 수정
+### Patch
 
-서비스 일부 설정을 변경할 경우 부분 수정 API를 이용할 수 있습니다.
+Apply partial modification API to change a part of the service setting.
 
-#### 요청
+#### Request
 
 
 [URI]
 
-| 메서드 | URI |
-| --- | --- |
-| PATCH | /v1.5/appKeys/{appKey}/distributions |
+| Method | URI                                  |
+| ------ | ------------------------------------ |
+| PATCH  | /v1.5/appKeys/{appKey}/distributions |
 
 
-[요청 본문]
+[Request Body]
 
 ```json
 {
@@ -418,32 +416,32 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+[Field]
 
-| 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
-| --- | --- | --- | --- | --- | --- |
-| domain | String | 필수 | | 최대 255자 | 수정할 도메인(서비스 이름) |
-| useOrigin|    String | 선택 | | Y / N | Cache 만료 설정 ("Y": 원본 설정 사용, "N":사용자 설정 사용) |
-| referrerType| String | 선택 | | BLACKLIST / WHITELIST | Referrers 접근 관리 ("BLACKLIST": 블랙 리스트, "WHITELIST": 화이트 리스트) |
-| description|  String | 선택 | | 최대 255자 | 설명|
-| domainAlias|  String | 선택 | | 최대 255자 | Domain alias (개인 혹은 회사가 소유한 도메인 사용, 여러 개 입력시 \n 토큰으로 분리하여 입력해 주세요.) |
-| maxAge|   Integer |선택| 0 | 0 ~ 2,147,483,647 | Cache 만료 시간(초), 기본 값 0은 604,800초 입니다. |
-| referrers|    String| 선택 | | '\n' 토큰 포함, 최대 1024자 |   Referrers (여러 개 입력시 \\n 토큰으로 분리하여 입력해주세요. )|
-| origins|  List| 선택 | | |원본 서버|
-| origins[0].origin| String| 선택 | | 최대 255자 |원본 서버 (domain or ip)|
-| origins[0].port|  Integer| 선택 | | 0 ~ 65,536 |원본서 버 포트|
-| origins[0].originPath|    String| 선택 | | 최대 8192자 | 원본 서버 하위 경로 |
-| callback | Object | 선택 |  | CDN 생성 처리 결과를 통보받을 콜백 URL (콜백 설정은 선택입력 입니다.) |
-| callback.httpMethod | String | 선택 | | GET/POST/PUT | 콜백의 HTTP Method |
-| callback.url | String | 선택 | | 최대 1024자 | 콜백 URL |
+| Name                  | Type    | Required | Default | Valid Range                                                  | Description                                                  |
+| --------------------- | ------- | -------- | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| domain                | String  | Required |         | Up to 255 characters                                         | Domain (service name) to modify                              |
+| useOrigin             | String  | Optional |         | Y/N                                                          | Cache expiration setting (Y: Original setting, N: User-configured) |
+| referrerType          | String  | Optional |         | BLACKLIST / WHITELIST                                        | Referrer access management ("BLACKLIST": Blacklist, "WHITELIST": Whitelist) |
+| description           | String  | Optional |         | Up to 255 characters                                         | Description                                                  |
+| domainAlias           | String  | Optional |         | Up to 255 characters                                         | Domain alias (personal or company-owned domains; delimit by \n tokens.) |
+| maxAge                | Integer | Optional | 0       | 0~2,147,483,647                                              | Cache expiration time (second); default 0 refers to 604,800 seconds. |
+| referrers             | String  | Optional |         | Up to 1024 characters, including '\n' tokens                 | Referrers (delimit by \n tokens. )                           |
+| origins               | List    | Optional |         |                                                              | Origin server                                                |
+| origins[0].origin     | String  | Optional |         | Up to 255 characters                                         | Origin server (domain or IP)                                 |
+| origins[0].port       | Integer | Optional |         | 0 ~ 65,536                                                   | Origin server port                                           |
+| origins[0].originPath | String  | Optional |         | Up to 8192 characters                                        | Lower paths of origin server                                 |
+| callback              | Object  | Optional |         | Callback URL to receive CDN service deployment results (callback setting is optional.) |                                                              |
+| callback.httpMethod   | String  | Optional |         | GET/POST/PUT                                                 | HTTP method of callback                                      |
+| callback.url          | String  | Optional |         | Up to 1024 characters                                        | Callback URL                                                 |
 
-- origins 필드는 설정시 origin, port, originPath 필드는 필수 입력 값입니다. 
-- callback 필드는 설정시 httpMethod, url 필드는 필수 입력 값 입니다. 
+- To set origins field, origin, port, and originPath are required field values.
+- To set callback field, httpMethod and url are required field values.
 
-#### 응답
+#### Response
 
 
-[응답 본문]
+[Response Body]
 
 ```json
 {
@@ -456,29 +454,29 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+[Field]
 
-| 필드 |  타입 | 설명|
-| --- | --- | --- |
-| header | Object | 헤더 영역|
-| header.isSuccessful | Boolean| 성공 여부 |
-| header.resultCode | Integer | 결과 코드 |
-| header.resultMessage | String | 결과 메시지 |
+| Field                | Type    | Description       |
+| -------------------- | ------- | ----------------- |
+| header               | Object  | Header area       |
+| header.isSuccessful  | Boolean | Successful or not |
+| header.resultCode    | Integer | Result code       |
+| header.resultMessage | String  | Result message    |
 
 
-### 서비스 삭제
+### Delete
 
-#### 요청
+#### Request
 
 
 [URI]
 
-| 메서드 | URI |
-| --- | --- |
+| Method | URI                                  |
+| ------ | ------------------------------------ |
 | DELETE | /v1.5/appKeys/{appKey}/distributions |
 
 
-[요청 본문]
+[Request Body]
 
 ```json
 {
@@ -489,18 +487,18 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+[Field]
 
-| 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
-| --- | --- | --- | --- | --- | --- |
-| domains | String | 필수 | | | 삭제할 도메인, 여러 도메인 입력 가능 |
+| Name    | Type   | Required | Default | Valid Range | Description                                 |
+| ------- | ------ | -------- | ------- | ----------- | ------------------------------------------- |
+| domains | String | Y        |         |             | Domains to delete; multiple domains allowed |
 
-**\* 여러 도메인을 입력시, 해당하는 서비스들은 모두 종료처리 됩니다.**
+**\* With the input of many domains, all corresponding services are closed.**
 
-#### 응답
+#### Response
 
 
-[응답 본문]
+[Response Body]
 
 ```json
 {
@@ -513,52 +511,50 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+[Field]
 
-| 필드 |  타입 | 설명|
-| --- | --- | --- |
-| header | Object | 헤더 영역|
-| header.isSuccessful | Boolean| 성공 여부 |
-| header.resultCode | Integer | 결과 코드 |
-| header.resultMessage | String | 결과 지시지 |
+| Field                | Type    | Description       |
+| -------------------- | ------- | ----------------- |
+| header               | Object  | Header area       |
+| header.isSuccessful  | Boolean | Successful or not |
+| header.resultCode    | Integer | Result code       |
+| header.resultMessage | String  | Result message    |
 
-## 캐시 재배포 API
+## Cache Purge API
 
-### 캐시 재배포(Purge)
+### Purge
 
-#### 요청
-
+#### Request
 
 [URI]
 
-| 메서드 | URI |
-| --- | --- |
-|POST|  /v1.5/appKeys/{appKey}/purges|
+| Method | URI                           |
+| ------ | ----------------------------- |
+| POST   | /v1.5/appKeys/{appKey}/purges |
 
 
-[요청 본문]
+[Request Body]
 
 ```json
 {
-    "domain": "sample.cdn.toastcloud.com",
-    "purgeType": "ITEM",
-    "purgeList":"/img_01.png"
+	"domain": "sample.cdn.toastcloud.com",
+	"purgeType": "ITEM",
+	"purgeList":"/img_01.png"
 }
 ```
 
 
-[필드]
+[Field]
 
-| 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
-| --- | --- | --- | --- | --- | --- |
-|domain|    String| 필수 |  | 최대 255자 | 재배포할 도메인(서비스) 이름 |
-|purgeType| List | 필수 |  | ITEM / WILDCARD / ALL | 재배포 타입 ("ITEM", "WILDCARD", "ALL") |
-|purgeList| String| 선택 | | | 재배포 타겟 항목 리스트 (여러 개를 입력할 경우 \\n 토큰으로 분리하여 입력해 주세요, purgeType이 ALL인 경우 입력하지 않아도됩니다.) |
+| Name      | Type   | Required | Default | Valid Range           | Description                                                  |
+| --------- | ------ | -------- | ------- | --------------------- | ------------------------------------------------------------ |
+| domain    | String | Required |         | Up to 255 characters  | Domain (service) name to purge                               |
+| purgeType | List   | Required |         | ITEM / WILDCARD / ALL | Purge type ("ITEM", "WILDCARD", or "ALL")                    |
+| purgeList | String | Optional |         |                       | List of items to purge (delimit by \n tokens; not required, if the purge type is ALL.) |
 
-#### 응답
+#### Response
 
-
-[응답 본문]
+[Response Body]
 
 ```json
 {
@@ -572,37 +568,37 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```
 
 
-[필드]
+[Field]
 
-| 필드 |  타입 | 설명|
-| --- | --- | --- |
-| header | Object | 헤더 영역|
-| header.isSuccessful | Boolean| 성공 여부 |
-| header.resultCode | Integer | 결과 코드 |
-| header.resultMessage | String | 결과 메시지 |
-| purgeSeq | Integer | 재배포 요청 번호 |
+| Field                | Type    | Description             |
+| -------------------- | ------- | ----------------------- |
+| header               | Object  | Header area             |
+| header.isSuccessful  | Boolean | Successful or not       |
+| header.resultCode    | Integer | Result code             |
+| header.resultMessage | String  | Result message          |
+| purgeSeq             | Integer | Purge requesting number |
 
-### 캐시 재배포(Purge) 조회
+### Get Cache Purges
 
-#### 요청
+#### Request
 
 
 [URI]
 
-| 메서드 | URI |
-| --- | --- |
-|GET|   /v1.5/appKeys/{appKey}/purges|
+| Method | URI                           |
+| ------ | ----------------------------- |
+| GET    | /v1.5/appKeys/{appKey}/purges |
 
 
-[파라미터]
+[Parameter]
 
-| 이름 | 타입 | 필수 여부 | 기본값 | 유효 범위 | 설명 |
-| --- | --- | --- | --- | --- | --- |
-| domain | String|  필수 |  | 최대 255자 | 도메인(서비스) 이름 |
-| page | Integer | 선택 | | | 페이지 번호 |
-| itemsPerPage | Integer | 선택 | | | 페이지당 재배포된 항목 개수 |
-| startTime | String | 선택 | | "yyyy-MM-ddTHH:mm:ss.SSSZ" ex)"2018-02-22T09:00:00.000Z" (UTC) | 기간 검색 |
-| endTime | String | 선택 | | "yyyy-MM-ddTHH:mm:ss.SSSZ" ex)"2018-02-22T09:00:00.000Z" (UTC) | 기간 검색  |
+| Name         | Type    | Required | Default | Valid Range                                                  | Description                         |
+| ------------ | ------- | -------- | ------- | ------------------------------------------------------------ | ----------------------------------- |
+| domain       | String  | Required |         | Up to 255 characters                                         | Domain (service) name               |
+| page         | Integer | Optional |         |                                                              | Page number                         |
+| itemsPerPage | Integer | Optional |         |                                                              | Number of purged items on each page |
+| startTime    | String  | Optional |         | "yyyy-MM-ddTHH:mm:ss.SSSZ" e.g.)"2018-02-22T09:00:00.000Z"(UTC) | Search of period                    |
+| endTime      | String  | Optional |         | "yyyy-MM-ddTHH:mm:ss.SSSZ" e.g.)"2018-02-22T09:00:00.000Z"(UTC) | Search of period                    |
 
 
 ```
@@ -611,10 +607,10 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/purges?
  -H "Content-Type: application/json"
 ```
 
-#### 응답
+#### Response
 
 
-[응답 본문]
+[Response Body]
 
 ```json
 {
@@ -650,19 +646,19 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/purges?
 ```
 
 
-[필드]
+[Field]
 
-| 필드 |  타입 | 설명|
-| --- | --- | --- |
-| header | Object | 헤더 영역|
-| header.isSuccessful | Boolean| 성공 여부 |
-| header.resultCode | Integer | 결과 코드 |
-| header.resultMessage | String | 결과 메시지 |
-| totalItems | Integer | 재배포한 총 개수 |
-| purges |  List| 재배포 항목 리스트|
-| purges[0].seq|    Integer| 재배포 요청 번호 |
-| purges[0].progress|   Integer| 재배포 진행률|
-| purges[0].purgeTime|  Long| 재배포 요청 시간 |
-| purges[0].lastCheckTime|  Long| 재배포 수행 마지막 체크 시간 |
-| purges[0].type|   String| 재배포 타입 ("ITEM", "WILDCARD", "ALL") |
-| purges[0].path|   String| 재배포 요청 항목 |
+| Field                 | Type  | Description                     |
+| ----------------------- | ------- | --------------------------------- |
+| header                  | Object  | Header area                  |
+| header.isSuccessful     | Boolean | Successful or not        |
+| header.resultCode       | Integer | Result code                  |
+| header.resultMessage    | String  | Result message             |
+| totalItems              | Integer | Total number of purges  |
+| purges                  | List    | List of purged items   |
+| purges[0].seq           | Integer | Purge requesting number |
+| purges[0].progress      | Integer | Purge progress rate |
+| purges[0].purgeTime     | Long    | Purge requesting time |
+| purges[0].lastCheckTime | Long    | Last confirmed purge time |
+| purges[0].type          | String  | Purge type ("ITEM", "WILDCARD",or "ALL") |
+| purges[0].path          | String  | Requested purge items |
