@@ -4,7 +4,7 @@ This document describes how to configure and use CDN service on a console.
 
 ## Order of Creating CDN Service   
 
-From **Content Delivery (*contents 아닌 content로 변경합니다) > CDN**, click **Create** on **CDN Service** to display a window for **Create CDN Service**.  
+From **Content Delivery > CDN**, click **Create** on **CDN Service** to display a window for **Create CDN Service**.  
 Domain names for CDN service are automatically created. If you own a domain, it can be serviced by using domain alias.  
 
 ### CDN Service
@@ -111,6 +111,7 @@ After service change is completed, its completion status and service information
 
 1. Enter **HTTP Method** and **Callback URL**.
 2. To receive results on CDN service change on query parameter of request URI, include path variables to **Callback URL**.
+
 | Path Variable | Description | Example of Delivered Values |
 | ------------- | --- | ------- |
 | {appKey} | Appkey for CDN service | Appkye issued on console |
@@ -284,5 +285,5 @@ You can find statistics on the network transfer volume, each HTTP status code, a
     ![cdn_08_201812](https://static.toastoven.net/prod_cdn/cdn_08_201812.png)
 2. Select CDN service to check statistics.
 3. Enter search periods.
-4. Data cycle within a search period is automatically selected depending on the period.  
-5. Click **Search**. 
+4. Data cycle within a search period is automatically selected depending on the period.
+5. Click **Search**.
