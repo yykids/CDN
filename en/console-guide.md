@@ -1,168 +1,197 @@
 ## Content Delivery > CDN > Console Guide
 
-This document describes how to configure and use CDN service on a console.
+본 문서에서는 웹 콘솔을 이용하여 CDN 서비스를 구성하고 이용하는 방법을 설명합니다.
 
-## Order of Creating CDN Service   
+## CDN 서비스 생성 순서
 
-From **Content Delivery (*contents 아닌 content로 변경합니다) > CDN**, click **Create** on **CDN Service** to display a window for **Create CDN Service**.  
-Domain names for CDN service are automatically created. If you own a domain, it can be serviced by using domain alias.  
+1.[Contents Delivery] > [CDN] 의 [CDN 서비스] 탭에서 [생성] 버튼을 클릭하면 CDN 서비스를 생성할 수 있는 [그림 1]의 CDN 서비스 생성 화면으로 이동합니다.  
+CDN 서비스에 이용될 도메인 명은 자동으로 생성됩니다. 소유하고 있는 도메인이 있는 경우, Domain Alias 기능을 이용해서 서비스할 수 있습니다.
 
-### CDN Service
-
-![cdn_01_201812](https://static.toastoven.net/prod_cdn/cdn_01_201812.png)
-
-- **Service Region**
-  Select a service region.
-  Choose KOREA or GLOBAL, depending on the service type. GLOBAL allows global service via cache servers in each country, while KOREA provides service within Korea only, at more affordable prices.    
-
-- **Description**
-  Enter additional description for CDN service.
-
-- **Origin Server**
-  Serviceable on TOAST instances or your existing servers. Available in IP or domain format, and ports can be specified.  
-- **Origin Path**
-  Enter lower paths in the format of URL to the origin path, with '/' included. "Origin Path" is optional.  
-
-- **Domain Alias**
-  Domain alias can be configured.
-  When CDN service is created, service domain in the form of *.cdn.toastcloud.com is automatically issued, which can be applied to service.
-  However, to provide service via personal or company-owned domain, you may set **domain alias**.  
-  With **domain alias**, CDN service can be accessed even by personal or company-owned domains, as well as TOAST domains.
-  Enter address of your own domain in **domain alias**, and change its name server setting.
-  Add CDN service address issued by TOAST as CNAME record, and the service becomes available on your own domain.
-
-> [Caution]
-> When CDN service is created, service domain is issued as `*.cdn.toastcloud.com`.
-> If you cannot access resources via`*.cdn.toastcloud.com` , check the following:
->
->
-> 1. See if service status is 'green (in service)'.
-> 2. Check if the origin server allows access of particular hosts only.
-> 3. When user requests resources on a CDN service domain, the `Host` request header is configured as `*.cdn.toastcloud.com` and is requested to the origin server.
-> Therefore, if origin server does not allow access to the `*.cdn.toastcloud.com` host, CDN cache server cannot import resources from the origin server.  
-> In this case, the `*.cdn.toastcloud.com` host must be registered in the virtual host setting at the origin server.
-
-* Example of Domain Alias Use
-
-After CDN service is created, random-exam.cdn.toastcloud.com is issued. Following is an example of service configuration by using alias.nhnentcustomer.com, which is possessed by customer.
-
-    1. Check if random-exam.cdn.toastcloud.com,issued automatically after TOAST CDN creation,is available.
-    2. Enter alias.nhnentcustomer.com, which is the customer domain for service, at Domain Alias of Basic Information Settings.
-    3. Take random-exam.cdn.toastcloud.com to add CNAME record at the nhnentcustomer.com, in the name server management section. (Each domain provider may provide different configuration methods. For more details, ask your domain provider.)
-    4. Now, get ready to start with alias.nhnentcustomer.com.
-
-### Cache
-
-Cache expiration can be configured in Cache.
-![cdn_02_201812](https://static.toastoven.net/prod_cdn/cdn_02_201812.png)
-
-- **Cache Expiration Setting**
-Specify cache expiration time as needed. **Original Setting** is the default.
-
-  * Enable Original Setting: Apply cache expiration of the origin server.
-  * Enable User-Defined Setting: Set cache expiration time as you need.
-
-- **Cache Expiration Time (second)**
-To specify cache expiration time, click **User-Configured** and change cache expiration time in **Cache Expiration Time (second)**.
-
-> [Caution]
-> If the origin server setting includes cache expiration time, the **Cache Expiration Time (second)** configured on console is ignored.
-> To specify expiration time by using the CDN service, remove the cache expiration setting at the origin server.
->
-> [Note]
-> Default for cache expiration time is 0. With 0 as default, the cache expiration time is 604,800 (seconds).  Cache expiration time allows from 0 as default, to 2,147,483,647 (seconds).
-
-- **Referrer Header Access Management **
-  Referrer access management can be set.
-  When a web page requests for resources with user content linkage, the linked URL path is delivered at the referrer header, so as to know the path where it has been requested.
-  Referrer access management can be configured to allow only particular referrers to access user content, in reference of referrer header.  
-  Referrers can be entered in regular expression, and add more lines to control many referrers.
-  * Blacklist Type:
-      * Suitable to restrict access from specific referrers.
-      * If a referrer at the request header is a matching character string with configured regular expression, access to content is restricted: if it is not matching, access is allowed.
-  * Whitelist Type:
-      * Suitable to allow access from specific referrers.
-      * If a referrer at the request header is a matching character string with configured regular expression, access to content is allowed: if it is not matching, access is restricted.
-
-> [Caution]
-> When the request header does not include a referrer, the access control by referrer setting shall not operate.
->
-> [Example]
-> * Type: Whitelist
-> * Regular Expression: `^https://[a-zA-Z0-9._-]*\.toast\.com/.*`
-> Access to content is allowed only when resources are requested from a lower path of a random toast.com sub domain.
->
-> [Note]
-> Some characters are used as special characters in regular expression.
-> To take period(`.`) as an example, period (`.`) serves as a special character representing that it matches all characters, in regular expression.  
-> (e.g: `\.`) To interpret a special character as a general character, add the backslash (`\`) escape character before it.
-> Special characters in the regular expression are: `^ . [ ] $ ( ) | * + ? { } \`
-> To control many referrers, enter them consecutively in the proceeding lines.
-> To set many referrers via API, delimit by \n tokens.
+![[그림 1] CDN 서비스 생성 화면](http://static.toastoven.net/prod_cdn/img_001.png)
+<center>[그림 1] CDN 서비스 생성 화면</center>
 
 
-### Callbacks
+2.'서비스 지역'을 선택합니다.  
+서비스 제공 형태에 따라 KOREA/GLOBAL 리전을 선택할 수 있습니다. 각국에 존재하는 캐시 서버를 이용하여 전세계를 대상으로 서비스 하기를 원하시면 GLOBAL을 선택하고, 한국 내에서만 서비스하는 경우에는 KOREA를 선택하십시오. KOREA를 선택하는 경우 좀 더 낮은 가격에 서비스 이용이 가능합니다.
 
-Changing CDN service (create, modify, suspend/resume, or delete) may require up to tens of minutes, after requested.
-After service change is completed, its completion status and service information can be delivered via pre-defined callback URL.
+3.'설명'을 입력합니다.  
+CDN 서비스에 추가적인 설명을 입력합니다.
 
-![cdn_03_201812](https://static.toastoven.net/prod_cdn/cdn_03_201812.png)
+4.'원본 서버'와 '원본 경로'를 입력합니다.  
+TOAST Cloud의 Infrastructure에서 생성한 인스턴스나 기존에 보유하고 있는 서버를 이용하여 서비스할 수 있습니다.  
+원본 서버는 IP 또는 도메인 형태로 입력이 가능하며, Port를 지정할 수 있습니다.  
+URL Path 형태의 하위 경로는 '/'를 포함하여 원본 경로에 입력해주세요. 원본경로 입력은 선택항목입니다.
+
+5.'Domain Alias'를 설정합니다.  
+CDN 서비스 생성이 완료 되면 \*.cdn.toastcloud.com 형태의 서비스 도메인이 자동으로 발급되며, 발급된 도메인을 그대로 서비스에 이용하실 수 있습니다.  
+하지만 개인 혹은 회사가 소유한 도메인을 이용하여 CDN 서비스를 제공해야 할 경우, 'Domain Alias' 설정을 이용하실 수 있습니다.  
+Domain Alias 란 TOAST Cloud에서 제공하는 도메인 외에 개인 혹은 회사가 소유한 도메인으로도 CDN 서비스가 가능하도록 하는 서비스입니다.  
+Domain Alias 항목에 소유한 도메인 주소를 설정하고, 해당 도메인의 네임서버 설정을 변경해 주세요.  
+TOAST Cloud에서 발급받은 CDN 서비스 주소를 CNAME 레코드로 추가 해주시면 소유한 도메인으로도 서비스가 가능합니다.  
+
+  > [주의]
+  > CDN 서비스 생성이 되면 `*.cdn.toastcloud.com` 서비스 도메인이 발급됩니다. 
+  > `*.cdn.toastcloud.com` 서비스 도메인을 통해 리소스 접근이 안될 경우 아래의 내용을 확인해주세요.
+  > 1. CDN 서비스 상태가 '녹색' (서비스 중) 상태가 되었는지 확인해주세요.
+  > 2. 원본 서버(Origin server)에서 특정 호스트의 접근만 허용하고 있는지 확인해주세요.
+  > - 사용자가 CDN 서비스 도메인을 통해 리소스 요청을 하는 경우 `Host` 요청 헤더는 사용자가 요청한 주소인 `*.cdn.toastcloud.com`으로 설정되어 원본 서버에 요청합니다. 
+  > 따라서, 원본 서버에서 `*.cdn.toastcloud.com` 호스트에 대한 접근이 허용되지 않은 경우 CDN 캐시 서버는 원본 서버로부터 리소스를 가져올 수 없습니다. 
+  > 이 경우 원본 서버의 Virtual host 설정에 `*.cdn.toastcloud.com` 호스트를 등록해주셔야 합니다. 
+
+6.'Cache'를 설정합니다.
+
+- Cache 만료 설정  
+  캐시 만료 설정을 이용하여 캐시 만료 시간을 사용자화 가능합니다. “원본 설정 사용" 옵션이 기본 값입니다. 
+  캐시 만료 시간을 지정하고 싶은 경우 [사용자 설정 사용] 버튼을 클릭하고 "Cache 만료 시간 (초)" 에서 캐시 만료 시간을 변경합니다.
+  
+	> [주의]  
+	> 만일 원본 서버 설정에 캐시 만료 시간이 지정되어 있다면 콘솔에서 설정한 "Cache 만료 시간 (초)" 값은 무시됩니다. 
+  > CDN 서비스를 이용해 만료시간을 지정하고 싶은 경우 원본 서버의 캐시 만료 설정을 제거합니다.
+
+	> [참고]   
+	> 캐시 만료 기본값은 0 입니다. 기본값 0으로 설정한 경우 캐시 만료시간은 604,800(단위/초) 입니다. 
+	> 캐시 만료 시간은 기본값 0을 포함하여 0 ~ 2,147,483,647(단위/초)의 값을 입력할 수 있습니다. 
+
+- Referrers 접근 관리  
+  특정 웹 페이지에서 사용자 콘텐츠를 링크하여 리소스를 요청하는 경우 Referer 헤더에 링크한 URL의 경로가 추가되어 요청되므로 어떤 경로에서 유입되었는지 알 수 있습니다. 
+  Referrer 접근 관리는 요청 헤더의 Referer 헤더의 값에 따라 사용자 콘텐츠에 대한 접근을 제한할 수 있는 기능입니다.
+  Referrer은 정규표현식 형태로 입력할 수 있습니다. 
+
+  - "Blacklist" 타입: 
+    - 특정 Referrer에서의 접근을 제한할 경우 적합한 타입입니다. 
+    - 요청 헤더의 Referrer 값이 설정한 정규 표현식에 매칭 되는 문자열인 경우, 콘텐츠에 대한 접근이 제한됩니다. 매칭 되지 않는 문자인 경우 콘텐츠에 대한 접근이 허용됩니다. 
+
+  - "Whitelist" 타입: 
+    - 특정 Referrer 에서만 접근을 허용할 경우 적합한 타입입니다.
+    - 요청 헤더의 Referrer 값이 정규 표현식에 매칭 되는 문자열인 경우, 콘텐츠에 대한 접근이 허용됩니다. 매칭 되지 않는 문자인 경우 콘텐츠에 대한 접근이 제한됩니다. 
+   
+   > [주의]
+   > 요청 헤더에 Refer가 없는 경우에는 referrer 설정의 접근 제어가 동작하지 않습니다.
+
+   > [예시] 
+   > - 타입: Whitelist 
+   > - 정규 표현식: `^https://[a-zA-Z0-9._-]*\.toast\.com/.*` 
+   > 임의의 toast.com 서브 도메인의 하위 경로에서 리소스를 요청한 경우에만 콘텐츠 접근을 허용하게 됩니다. 
+
+   > [참고] 
+   > 정규 표현식에서 의미를 가지는 문자 (`^ . [ ] $ ( ) | * + ? { } \`)를 문자 자체로의 사용할 경우 이스케이프(`\`)를 해야 합니다. 
+   > 여러 개의 referrer를 제어할 경우 다음 라인에 연속하여 입력합니다.
+   > API를 통해 여러 개의 referrer를 설정하는 경우에는 \n 토큰으로 분리하여 입력합니다. 
+   
+
+7.콜백이 필요한 경우 Callback 정보를 입력합니다. 콜백과 관련한 상세한 내용은 문서의 [콜백 설정]을 참고해주세요.
+
+8.[확인] 버튼을 클릭하면 CDN 서비스 생성 요청이 완료됩니다.  
 
 
-1. Enter **HTTP Method** and **Callback URL**.
-2. To receive results on CDN service change on query parameter of request URI, include path variables to **Callback URL**.
-| Path Variable | Description | Example of Delivered Values |
-| ------------- | --- | ------- |
-| {appKey} | Appkey for CDN service | Appkye issued on console |
-| {domain} | Name of CDN service | xxxxxx.cdn.toastcloud.com |
-| {status} | Current status of CDN service | OPEN, SUSPEND, CLOSE, or ERROR |
-| {isSuccessful} | If service change is successful (API v1.0 is not supported.) | "True" or "False" |
-3. Click **OK** and the request for creating CDN service is completed.
+**생성 요청 이후 서비스 배포가 완료되기까지 수 분 정도 (최대 한 시간) 소요됩니다. 배포가 완료된 후 서비스 이용이 가능합니다.**
 
-> Example
+## CDN 서비스 설정 변경
+
+설정 변경을 통해 추가 설명 및 원본 서버 정보를 변경할 수 있습니다.  
+하지만 서비스 이름과 지역은 변경할 수 없으므로 변경을 원하실 경우 기존 서비스를 삭제한 후 새로운 서비스로 생성해야 합니다.  
+
+1.변경을 원하는 서비스를 CDN 서비스 목록에서 선택합니다.  
+2.화면 하단의 [기본 정보] 탭의 [수정] 버튼을 클릭합니다.  
+
+[그림 2]와 같이 변경 가능한 항목들이 활성화 됩니다.
+
+![[그림 2] 변경 가능한 서비스 기본 정보](http://static.toastoven.net/prod_cdn/img_002.png)
+<center>[그림 2] 변경 가능한 서비스 기본 정보</center>
+
+3.변경 가능한 항목은 설명, 원본 서버 정보, Domain Alias, Callback 설정입니다.  
+4.[확인] 버튼을 클릭해 변경을 완료합니다.  
+
+
+**원본 서버가 변경되면 기존에 캐시되어있던 모든 내용은 재배포되며 콘텐츠 양에 따라 재배포 시간은 달라집니다.**
+
+## CDN 캐시 설정 변경
+
+1.변경을 원하는 서비스를 CDN 서비스 목록에서 선택합니다.   
+2.[그림 3]에서와 같이 [Cache 설정] 탭의 [수정] 버튼을 클릭합니다.   
+
+![[그림 3] Cache 설정 정보](http://static.toastoven.net/prod_cdn/img_03.png)
+<center>[그림 3] Cache 설정 정보</center>
+
+3.Cache 만료 설정에서 만료 설정 방식을 선택합니다.  
+
+ - 원본 설정 사용  
+  원본 서버의 캐시 만료설정을 이용하도록 설정합니다.
+ - 사용자 설정 사용  
+  캐시 만료 시간 값을 이용하여 원하는 시간으로 캐시 만료 설정이 가능합니다.
+  
+	> 주의  
+	> 만일 원본 서버 설정에 캐시 만료 시간이 지정되어 있다면 [그림3]에서 입력한 "Cache 만료 시간 (초)" 값은 무시됩니다. CDN 서비스를 이용해 만료시간을 지정하고 싶은 경우 원본 서버의 캐시 만료 설정을 제거합니다.
+
+4.원하는 경우 Referrer를 이용해 접근 관리를 할 수 있습니다.  
+특정 referrer의 경우 사용자 콘텐츠에 접근 가능 여부를 관리할 수 있습니다. Regular expression 형태로 입력하고 여러 개의 referrer를 제어할 경우 입력 창에 라인을 추가하여 입력합니다.    
+5.캐시 설정 후 특정 URL 호출이 필요한 경우 Callback URL을 설정할 수 있습니다.    
+6.[확인] 버튼을 클릭해 캐시 설정을 변경합니다.  
+
+
+## 콜백 설정
+
+CDN 서비스 변경 작업(생성,수정,정지/재개,삭제 작업)은 변경 요청 후 최대 수십분이 소요될 수있습니다. 
+서비스 변경 작업이 완료된 후 미리 설정한 콜백 URL로 서비스 변경 작업의 완료 여부와 서비스 정보를 전달 받을 수 있습니다. 
+
+1. 콜백 URL 과 콜백 HTTP Method를 입력합니다. 
+2. Request URI의 Query Parameter로 CDN 서비스 변경 작업에 대한 결과를 받으려면 콜백 URL에 Path 변수를 포함하여 입력해주세요. 
+
+| Path Variable | 설명 | 예시 전달 값  |
+| --- | --- |--- |
+| {appKey} | CDN 상품의 앱 키 | 콘솔에서 발급받은 앱 키 |
+| {domain} | CDN 서비스 이름 | xxxxxx.cdn.toastcloud.com |
+| {status} | 현재 CDN 서비스의 상태 | OPEN, SUSPEND, CLOSE, ERROR |
+| {isSuccessful} | 서비스 변경 작업 성공 여부 (API V1.0은 지원 하지 않습니다.) | "true" 또는 "false" |
+
+> 예시 
 > GET http://test.callback.com?appKey={appKey}&domain={domain}&status={status}&deploySuccess={isSuccessful}
->
-> - To deliver callbacks, include information of CDN service in the request body.   
-- To change to API v1.0, the request body should be as follows:
+
+3. 콜백 전달시 CDN 서비스의 정보를 요청 본문(Request Body)로 전달합니다. 
+
+API V1.0을 통해 변경할 경우 요청 본문의 내용은 아래와 같습니다. 
 ```
-    {
-      "seq": Integer,
-      "appKey": String,
-      "domain": String,
-      "domainAlias": String,
-      "type": String,
-      "region": String,
-      "description": String,
-      "status": String,
-      "createTime": DateTime,
-      "useOrigin": String,
-      "maxAge": String,
-      "referrerType": String,
-      "referrers": String,
-      "deleteTime": DateTime,
-      "company": String,
-      "origins":[
-      {
+{  
+   "seq": Integer,
+   "appKey": String,
+   "domain": String,
+   "domainAlias": String,
+   "type": String,
+   "region": String,
+   "description": String,
+   "status": String, 
+   "createTime": DateTime,
+   "useOrigin": String,
+   "maxAge": String,
+   "referrerType": String,
+   "referrers": String,
+   "deleteTime": DateTime,
+   "company": String,
+   "origins":[  
+      {  
          "seq": Integer,
          "distributionSeq": Integer,
          "origin": String,
          "originPath": String,
          "port":Integer,
       }
-      ],
-      "callbackHttpMethod": String,
-      "callbackUrl": String
+   ],
+   "callbackHttpMethod": String,
+   "callbackUrl": String
 }
 ```
-* To change on CDN console or to API v1.5, here is the response format:  
+
+
+
+CDN 콘솔을 통해 변경을 하거나 API V1.5 을 통해 변경할 경우 응답 형식은 아래와 같습니다. 
 ```
-    {
-      "header":{
+{  
+   "header":{  
       "resultCode": Integer,
       "resultMessage": String,
       "isSuccessful": Boolean
-      },
-      "distribution":{
+   },
+   "distribution":{  
       "seq": String,
       "appKey": String,
       "domain": String,
@@ -173,13 +202,13 @@ After service change is completed, its completion status and service information
       "status": String,
       "createTime": DateTime,
       "useOrigin": String,
-      "maxAge": String,
+      "maxAge": String, 
       "referrerType": String,
       "referrers": String,
       "deleteTime": DateTime,
       "company": String,
-      "origins":[
-         {
+      "origins":[  
+         {  
             "seq": Integer,
             "distributionSeq": Integer,
             "origin": String,
@@ -187,102 +216,91 @@ After service change is completed, its completion status and service information
             "port": Integer
          }
       ],
-      "callback":{
+      "callback":{  
          "httpMethod": String,
          "url": String
       }
-      },
-      "successful": Boolean
+   },
+   "successful": Boolean
 }
 ```
-> [Caution]
-> Callback operates differently for each version of API V1.0 and V1.5.  
-> For API V1.0, callback is called only when service is created or modified; for API v1.5, callback is called to create, modify, suspend, resume, or delete.
-> Note that each API version provides different JSON data format in the callback request body.   
 
 
-**It takes minutes (no more than 1 hour) for a service to be completely deployed after it is requested to create. Service is enabled after deployment is completed. **
+> [주의]
+> API V1.0과 V1.5 버전에 따라 콜백 동작이 다르므로 유의해주세요.
+> API V1.0은 CDN 서비스 생성과 수정시에만 콜백이 호출되고, API V1.5는 생성,수정,일시정지와 재개,삭제시 콜백을 호출합니다. 
+> API 버전에 따라 콜백의 요청 본문(Request Body)의 json 데이터 형식이 다르므로 유의해주세요.
 
-## Settings
 
-### Change Settings for CDN Service  
+## Cache 재배포
 
-Further description and origin server information can be changed.
-Nevertheless, service name and region cannot be changed; hence, to change them, delete the existing service and create a new service.
+원본 콘텐츠의 내용이 변경된 경우 기존에 지정된 캐시 만료 시간 이후에는 새로운 콘텐츠로 캐시가 업데이트 됩니다. 하지만 빠르게 캐시 내용을 재배포 하고 싶은 경우 "Cache 재배포" 기능을 이용해 기존 캐시를 새로운 콘텐츠로 업데이트 합니다.
 
-1. Select a service to change on the list of CDN Service.
-2. Click **Modify** on **Basic Information** at the bottom of the page.
+1.변경을 원하는 서비스를 CDN 서비스 목록에서 선택합니다.  
+2.[그림 4]와 같이 [Cache 재배포] 탭을 클릭합니다.  
 
-Then, available items are enabled as below:
+![[그림 4] Cache 재배포](http://static.toastoven.net/prod_cdn/img_04.png)
+<center>[그림 4] Cache 재배포</center>
 
-![cdn_04_201812](https://static.toastoven.net/prod_cdn/cdn_04_201812.png)
+3.캐시 재배포 타입을 선택합니다. 3가지 타입의 캐시 재배포 방식을 제공합니다.  
 
-* Available items to change are Description, Origin Server Information, Domain Alias, and Callback.
-* Click **OK** to complete changes.
+* Item: 정확한 파일명과 경로 설정을 통해 원하는 파일만 재배포 가능합니다.  
+	* 예) /path/to/file1.jpg
+* Wildcard: 파일명과 경로명에 와일드카드 문자를 이용가능합니다.  
+	* \* : 임의의 문자열  
+	* ? : 1개의 문자  
+	* \\ : Escape 문자  
+		* 예) /images/games/\\*.jpg  
+		* /\\*/sports/\\*.jpg  
+		* /images/sports/ac?e/\\*.jpg
+* All: 모든 캐시를 한꺼번에 재배포 합니다.  
 
-**When the origin server is changed, all cached content are purged; purging time depends on the capacity of content.**
+4.선택한 캐시 재배포 타입에 맞게 재배포할 파일을 지정합니다.  
 
-### Change Settings for CDN Cache
+5.[Cache 재배포] 버튼을 클릭해 재배포 요청을 합니다.  
+재배포까지는 수 분의 시간이 소요됩니다. (용량에 따라 소요 시간은 달라질 수 있습니다.)
 
-1. Select a service to change on the list of CDN Service.
-2. Click **Modify** on **Cache Setting**.
+> [주의] 캐시 재배포 사용량 제한    
+> 서비스별로 캐시 재배포 사용 횟수가 제한되므로 제한 사용량을 초과한 경우 사용량이 초기화된 이후에 다시 사용할 수 있습니다.   
+>   - ITEM 타입: 시간당 60회 제한, 한 번에 요청할 수 있는 최대 Path 수: 1000개 제한  
+>   - Wildcard 타입: 시간당 60회 제한, 한 번에 요청할 수 있는 최대 Path : 10개 제한  
+>   - ALL 타입: 시간당 5회 제한  
 
-Then, available items are enabled as below:
 
-![cdn_05_201812](https://static.toastoven.net/prod_cdn/cdn_05_201812.png)
+## 감시설정
 
-* Available items to change are Cache Expiration Setting, Cache Expiration Time, Referrer Header Access Management, and Callback.
-* Click **OK** to complete changes.
+예상치 못한 트래픽이 발생 할 경우를 대비하여, 감시 설정을 등록할 수 있습니다. 지정된 값 이상의 트래픽이 발생할 경우 이메일을 발송하며, 강제 정지 옵션을 설정하면 이메일 발송 후 CDN 서비스를 정지합니다.  
 
-### Purge CDN Cache
+1.변경을 원하는 서비스를 CDN 서비스 목록에서 선택합니다.  
+2.[그림 5]의 [감시 설정] 탭에 있는 [수정] 버튼을 클릭합니다.  
 
-When the original content changes, cache is updated to new content after cache expiration time. However, to purge cache fast, apply **Purge Cache** to update existing caches to new content.
+![[그림 5] 감시 설정](http://static.toastoven.net/prod_cdn/img_007.png)
+<center>[그림 5] 감시 설정</center>
 
-1. Select a service to change on the list of CDN Service.
-2. Click **Purge Cache**.
-    ![cdn_06_201812](https://static.toastoven.net/prod_cdn/cdn_06_201812.png)
-3. Select a purge type, among three.  
-  * Particular Files: Specify file names and paths so as to purge files that are wanted only.
-      * e.g.) /path/to/file1.jpg
-  * Wildcard:  Wildcard characters are available in the file or path name.
-      * \*: Random character strings
-      * ?: 1 character
-      * \: Escape character
-          * e.g.) /images/games/\*.jpg
-          * /\_/sports/\_.jpg
-          * /images/sports/ac?e/\*.jpg
-  * All Files: Purge all caches all at once.
-4. Specify a file to purge, in the selected purge type.
-5. Click **Purge Cache** to request for purge.
+3.누적 트래픽 타입으로 제한 할 트래픽 양을 지정합니다. 단위는 Byte입니다.  
+4.+/- 버튼을 이용해 여러 개의 감시설정을 추가 및 삭제합니다.  
+5.지정한 값 이상의 트래픽이 감지 되었을 경우에 서비스 강제 정지를 원하면 강제 정지 설정을 [예]로 활성화합니다.  
+6.[확인] 버튼을 눌러 변경된 내용을 적용합니다.  
 
-It takes a few minutes to purge: may vary depending on the capacity.
+## 통계 확인하기
 
-> [Caution] Usage Limit of Purge Cache     
-> Since each service limits the usage volume of purge cache, when restricted amount is exceeded, the usage volume is returned to default, and then, the service is resumed.   
->
->
-> * Particular File Type: Restricted to 60 times per hour, with no more than 1000 paths at one request
-> * Wildcard Type: Restricted to 60 times per hour, with no more than 10 paths at one request
-> * All-File Type: Restricted to 5 times per hour  
+네트워크 전송량, HTTP 상태코드 별 통계 및 Top 콘텐츠에 대한 통계를 확인할 수 있습니다. 
 
-### CDN Surveillance Setting
+1.[Contents Delivery] > [CDN] 의 [통계] 탭을 클립합니다.
 
-To prepare against unexpected traffic, surveillance setting can be registered. When traffic occurs more than specified value, email is sent; with forced-stop option, CDN service is suspended after email delivery.
+![[그림 6] CDN 통계 조회](http://static.toastoven.net/prod_cdn/img_006.png)
+<center>[그림 6] CDN 통계 조회</center>
 
-1. Select a service to change on the list of CDN Service.
-2. Click **Modify** on **Surveillance Setting**.
-![cdn_07_201812](https://static.toastoven.net/prod_cdn/cdn_07_201812.png)
-  * Specify traffic volume to restrict in the accumulated traffic type, in bytes.
-  * Click + or -, to add or delete a number of surveillance settings.
-  * To force stop a service in which more traffic than specified is detected, enable **Yes** for Forced Stop.
-3. Click **OK** to apply changes.
+2.통계를 확인하기 원하는 CDN 서비스를 선택합니다.  
+3.검색 기간을 입력합니다.  
+4.검색 기간내 데이터 주기는 선택한 기간에 따라 자동으로 선택됩니다.  
+5.[검색] 버튼을 클릭합니다.  
 
-## Statistics
+## Domain Alias 사용 예
 
-You can find statistics on the network transfer volume, each HTTP status code, and the list of most downloaded content.
-1. Go to **Content Delivery > CDN** and click **Statistics**.
-    ![cdn_08_201812](https://static.toastoven.net/prod_cdn/cdn_08_201812.png)
-2. Select CDN service to check statistics.
-3. Enter search periods.
-4. Data cycle within a search period is automatically selected depending on the period.  
-5. Click **Search**. 
+CDN 서비스 생성 후 random-exam.cdn.toastcloud.com 이라는 도메인이 발급되고, 기존 고객이 소유하던 alias.nhnentcustomer.com을 이용하여 서비스 하기 위한 설정 방법입니다.
+
+1.Toast Cloud CDN 생성 이후 자동으로 발급된 random-exam.cdn.toastcloud.com 확인합니다.  
+2.기본정보 설정 탭의 Domain Alias 항목에 서비스에 사용할 고객 도메인 alias.nhnentcustomer.com 입력합니다.  
+3.nhnentcustomer.com 네임서버 관리 항목에서 random-exam.cdn.toastcloud.com을 이용해 CNAME 레코드를 추가합니다. (도메인 제공 업체에 따라 설정 방법은 다를 수 있습니다. 자세한 사항은 도메인 제공 업체에게 문의해주십시오.)  
+4.alias.nhnentcustomer.com 으로 서비스 시작합니다.  

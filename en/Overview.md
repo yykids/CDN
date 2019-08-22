@@ -1,17 +1,21 @@
 ## Content Delivery > CDN > Overview
 
-The CDN Service helps to save original content, which is to be deployed, in the origin data server, so as the content can be deployed throughout the world's cache servers. End users can fast receive files from their nearest cache servers.  
+CDN 서비스를 이용하여 배포할 원본 콘텐츠를 원본 서버에 저장해두면, 전세계 캐시 서버로 콘텐츠가 배포됩니다. 최종 사용자는 자신에게 가장 가까운 캐시 서버로부터 최소한의 지연시간과 빠른 전송 속도로 파일을 전송 받을 수 있습니다.
 
-Since most traffic can be processed in the cache server with CDN service, potential service failure owing to traffic hikes in the origin server could be prevented, to raise the server availability.  
+또한 서비스 제공자 입장에서 보면, CDN 서비스를 이용할 경우, 대부분의 트래픽을 캐시 서버에서 처리해 주기 때문에, 원본 서버의 트래픽 폭주로 인한 서비스 장애를 사전에 방지하고 가용률을 높일 수 있습니다.
+콘텐츠를 최종 사용자에게 전달할 때, 일반 인터넷망이 아닌 전용선을 사용하여, 보다 좋은 품질의 서비스를 제공할 수 있어 서비스 신뢰도를 높일 수 있습니다.
 
-In addition, content is delivered to end users through dedicated lines, not via common Internet network, so that you can expect higher service quality, which leads into higher credibility on service.  
+## 주요 기능
 
-## Main Features
+- 캐시 설정을 통해 이용자 접근 제어가 가능합니다.  
+Referrer 정보를 이용해 사용자 콘텐츠에 접근 가능 여부를 관리할 수 있습니다. Regular expression 형태의 입력을 지원하며 동시에 여러 Referrer를 제어할 수 있습니다.
+- 캐시 만료 설정을 조정할 수 있습니다.  
+캐시 만료 설정을 통해 캐시 만료 시간을 사용자화 가능합니다.
+- 캐시 재배포
+원본 콘텐츠의 내용이 변경되었을 경우 기존에 지정된 캐시 만료 시간 이후에는 새로운 콘텐츠로 캐시가 업데이트 됩니다. 하지만 빠르게 캐시 내용을 재배포 하고 싶은 경우 캐시 재배포 기능을 이용해 기존 캐시를 새로운 콘텐츠 내용으로 업데이트 할 수 있습니다.
 
-- User access can be controlled with cache configuration.   
-  Referrer information helps to manage access to user content. Regular expression format is available, and many referrers can be controlled all at once.
-- Cache expiration time can be configured.
-- Purge Cache
-  When the original content is changed, cache is updated with new content after specified cache expiration time. However, with 'Purge Cache', existing cache can be fast replaced by a newer one.
-- Global Network <br/>
-Speedy service is available via the world's cache server networks.
+## 글로벌 네트워크
+
+- 전세계 캐시 서버를 이용해 최소의 지연시간과 빠른 전송 속도의 서비스를 제공합니다.
+
+![글로벌 네트워크](http://static.toastoven.net/toastcloud/static/common/img/cms_img/contents/img_05.jpg)
