@@ -122,48 +122,52 @@ After service change is completed, its completion status and service information
 
 > Example
 > GET http://test.callback.com?appKey={appKey}&domain={domain}&status={status}&deploySuccess={isSuccessful}
->
-> - To deliver callbacks, include information of CDN service in the request body.   
-- To change to API v1.0, the request body should be as follows:
+
+3. 콜백 전달시 CDN 서비스의 정보를 요청 본문(Request Body)로 전달합니다. 
+
+API V1.0을 통해 변경할 경우 요청 본문의 내용은 아래와 같습니다. 
 ```
-    {
-      "seq": Integer,
-      "appKey": String,
-      "domain": String,
-      "domainAlias": String,
-      "type": String,
-      "region": String,
-      "description": String,
-      "status": String,
-      "createTime": DateTime,
-      "useOrigin": String,
-      "maxAge": String,
-      "referrerType": String,
-      "referrers": String,
-      "deleteTime": DateTime,
-      "company": String,
-      "origins":[
-      {
+{  
+   "seq": Integer,
+   "appKey": String,
+   "domain": String,
+   "domainAlias": String,
+   "type": String,
+   "region": String,
+   "description": String,
+   "status": String, 
+   "createTime": DateTime,
+   "useOrigin": String,
+   "maxAge": String,
+   "referrerType": String,
+   "referrers": String,
+   "deleteTime": DateTime,
+   "company": String,
+   "origins":[  
+      {  
          "seq": Integer,
          "distributionSeq": Integer,
          "origin": String,
          "originPath": String,
          "port":Integer,
       }
-      ],
-      "callbackHttpMethod": String,
-      "callbackUrl": String
+   ],
+   "callbackHttpMethod": String,
+   "callbackUrl": String
 }
 ```
-* To change on CDN console or to API v1.5, here is the response format:  
+
+
+
+CDN 콘솔을 통해 변경을 하거나 API V1.5 을 통해 변경할 경우 응답 형식은 아래와 같습니다. 
 ```
-    {
-      "header":{
+{  
+   "header":{  
       "resultCode": Integer,
       "resultMessage": String,
       "isSuccessful": Boolean
-      },
-      "distribution":{
+   },
+   "distribution":{  
       "seq": String,
       "appKey": String,
       "domain": String,
@@ -174,13 +178,13 @@ After service change is completed, its completion status and service information
       "status": String,
       "createTime": DateTime,
       "useOrigin": String,
-      "maxAge": String,
+      "maxAge": String, 
       "referrerType": String,
       "referrers": String,
       "deleteTime": DateTime,
       "company": String,
-      "origins":[
-         {
+      "origins":[  
+         {  
             "seq": Integer,
             "distributionSeq": Integer,
             "origin": String,
@@ -188,97 +192,89 @@ After service change is completed, its completion status and service information
             "port": Integer
          }
       ],
-      "callback":{
+      "callback":{  
          "httpMethod": String,
          "url": String
       }
-      },
-      "successful": Boolean
+   },
+   "successful": Boolean
 }
 ```
-> [Caution]
-> Callback operates differently for each version of API V1.0 and V1.5.  
-> For API V1.0, callback is called only when service is created or modified; for API v1.5, callback is called to create, modify, suspend, resume, or delete.
-> Note that each API version provides different JSON data format in the callback request body.   
 
 
-**It takes minutes (no more than 1 hour) for a service to be completely deployed after it is requested to create. Service is enabled after deployment is completed. **
+> [주의]
+> API V1.0과 V1.5 버전에 따라 콜백 동작이 다르므로 유의해주세요.
+> API V1.0은 CDN 서비스 생성과 수정시에만 콜백이 호출되고, API V1.5는 생성,수정,일시정지와 재개,삭제시 콜백을 호출합니다. 
+> API 버전에 따라 콜백의 요청 본문(Request Body)의 json 데이터 형식이 다르므로 유의해주세요.
 
-## Settings
 
-### Change Settings for CDN Service  
+## Cache 재배포
 
-Further description and origin server information can be changed.
-Nevertheless, service name and region cannot be changed; hence, to change them, delete the existing service and create a new service.
+원본 콘텐츠의 내용이 변경된 경우 기존에 지정된 캐시 만료 시간 이후에는 새로운 콘텐츠로 캐시가 업데이트 됩니다. 하지만 빠르게 캐시 내용을 재배포 하고 싶은 경우 "Cache 재배포" 기능을 이용해 기존 캐시를 새로운 콘텐츠로 업데이트 합니다.
 
-1. Select a service to change on the list of CDN Service.
-2. Click **Modify** on **Basic Information** at the bottom of the page.
+1.변경을 원하는 서비스를 CDN 서비스 목록에서 선택합니다.  
+2.[그림 4]와 같이 [Cache 재배포] 탭을 클릭합니다.  
 
-Then, available items are enabled as below:
+![[그림 4] Cache 재배포](http://static.toastoven.net/prod_cdn/img_04.png)
+<center>[그림 4] Cache 재배포</center>
 
-![cdn_04_201812](https://static.toastoven.net/prod_cdn/cdn_04_201812.png)
+3.캐시 재배포 타입을 선택합니다. 3가지 타입의 캐시 재배포 방식을 제공합니다.  
 
-* Available items to change are Description, Origin Server Information, Domain Alias, and Callback.
-* Click **OK** to complete changes.
+* Item: 정확한 파일명과 경로 설정을 통해 원하는 파일만 재배포 가능합니다.  
+	* 예) /path/to/file1.jpg
+* Wildcard: 파일명과 경로명에 와일드카드 문자를 이용가능합니다.  
+	* \* : 임의의 문자열  
+	* ? : 1개의 문자  
+	* \\ : Escape 문자  
+		* 예) /images/games/\\*.jpg  
+		* /\\*/sports/\\*.jpg  
+		* /images/sports/ac?e/\\*.jpg
+* All: 모든 캐시를 한꺼번에 재배포 합니다.  
 
-**When the origin server is changed, all cached content are purged; purging time depends on the capacity of content.**
+4.선택한 캐시 재배포 타입에 맞게 재배포할 파일을 지정합니다.  
 
-### Change Settings for CDN Cache
+5.[Cache 재배포] 버튼을 클릭해 재배포 요청을 합니다.  
+재배포까지는 수 분의 시간이 소요됩니다. (용량에 따라 소요 시간은 달라질 수 있습니다.)
 
-1. Select a service to change on the list of CDN Service.
-2. Click **Modify** on **Cache Setting**.
+> [주의] 캐시 재배포 사용량 제한    
+> 서비스별로 캐시 재배포 사용 횟수가 제한되므로 제한 사용량을 초과한 경우 사용량이 초기화된 이후에 다시 사용할 수 있습니다.   
+>   - ITEM 타입: 시간당 60회 제한, 한 번에 요청할 수 있는 최대 Path 수: 1000개 제한  
+>   - Wildcard 타입: 시간당 60회 제한, 한 번에 요청할 수 있는 최대 Path : 10개 제한  
+>   - ALL 타입: 시간당 5회 제한  
 
-Then, available items are enabled as below:
 
-![cdn_05_201812](https://static.toastoven.net/prod_cdn/cdn_05_201812.png)
+## 감시설정
 
-* Available items to change are Cache Expiration Setting, Cache Expiration Time, Referrer Header Access Management, and Callback.
-* Click **OK** to complete changes.
+예상치 못한 트래픽이 발생 할 경우를 대비하여, 감시 설정을 등록할 수 있습니다. 지정된 값 이상의 트래픽이 발생할 경우 이메일을 발송하며, 강제 정지 옵션을 설정하면 이메일 발송 후 CDN 서비스를 정지합니다.  
 
-### Purge CDN Cache
+1.변경을 원하는 서비스를 CDN 서비스 목록에서 선택합니다.  
+2.[그림 5]의 [감시 설정] 탭에 있는 [수정] 버튼을 클릭합니다.  
 
-When the original content changes, cache is updated to new content after cache expiration time. However, to purge cache fast, apply **Purge Cache** to update existing caches to new content.
+![[그림 5] 감시 설정](http://static.toastoven.net/prod_cdn/img_007.png)
+<center>[그림 5] 감시 설정</center>
 
-1. Select a service to change on the list of CDN Service.
-2. Click **Purge Cache**.
-    ![cdn_06_201812](https://static.toastoven.net/prod_cdn/cdn_06_201812.png)
-3. Select a purge type, among three.  
-  * Particular Files: Specify file names and paths so as to purge files that are wanted only.
-      * e.g.) /path/to/file1.jpg
-  * Wildcard:  Wildcard characters are available in the file or path name.
-      * \*: Random character strings
-      * ?: 1 character
-      * \: Escape character
-          * e.g.) /images/games/\*.jpg
-          * /\_/sports/\_.jpg
-          * /images/sports/ac?e/\*.jpg
-  * All Files: Purge all caches all at once.
-4. Specify a file to purge, in the selected purge type.
-5. Click **Purge Cache** to request for purge.
+3.누적 트래픽 타입으로 제한 할 트래픽 양을 지정합니다. 단위는 Byte입니다.  
+4.+/- 버튼을 이용해 여러 개의 감시설정을 추가 및 삭제합니다.  
+5.지정한 값 이상의 트래픽이 감지 되었을 경우에 서비스 강제 정지를 원하면 강제 정지 설정을 [예]로 활성화합니다.  
+6.[확인] 버튼을 눌러 변경된 내용을 적용합니다.  
 
-It takes a few minutes to purge: may vary depending on the capacity.
+## 통계 확인하기
 
-> [Caution] Usage Limit of Purge Cache     
-> Since each service limits the usage volume of purge cache, when restricted amount is exceeded, the usage volume is returned to default, and then, the service is resumed.   
->
->
-> * Particular File Type: Restricted to 60 times per hour, with no more than 1000 paths at one request
-> * Wildcard Type: Restricted to 60 times per hour, with no more than 10 paths at one request
-> * All-File Type: Restricted to 5 times per hour  
+네트워크 전송량, HTTP 상태코드 별 통계 및 Top 콘텐츠에 대한 통계를 확인할 수 있습니다. 
 
-### CDN Surveillance Setting
+1.[Contents Delivery] > [CDN] 의 [통계] 탭을 클립합니다.
 
-To prepare against unexpected traffic, surveillance setting can be registered. When traffic occurs more than specified value, email is sent; with forced-stop option, CDN service is suspended after email delivery.
+![[그림 6] CDN 통계 조회](http://static.toastoven.net/prod_cdn/img_006.png)
+<center>[그림 6] CDN 통계 조회</center>
 
-1. Select a service to change on the list of CDN Service.
-2. Click **Modify** on **Surveillance Setting**.
-![cdn_07_201812](https://static.toastoven.net/prod_cdn/cdn_07_201812.png)
-  * Specify traffic volume to restrict in the accumulated traffic type, in bytes.
-  * Click + or -, to add or delete a number of surveillance settings.
-  * To force stop a service in which more traffic than specified is detected, enable **Yes** for Forced Stop.
-3. Click **OK** to apply changes.
+2.통계를 확인하기 원하는 CDN 서비스를 선택합니다.  
+3.검색 기간을 입력합니다.  
+4.검색 기간내 데이터 주기는 선택한 기간에 따라 자동으로 선택됩니다.  
+5.[검색] 버튼을 클릭합니다.  
 
-## Statistics
+## Domain Alias 사용 예
+
+CDN 서비스 생성 후 random-exam.cdn.toastcloud.com 이라는 도메인이 발급되고, 기존 고객이 소유하던 alias.nhnentcustomer.com을 이용하여 서비스 하기 위한 설정 방법입니다.
 
 You can find statistics on the network transfer volume, each HTTP status code, and the list of most downloaded content.
 1. Go to **Content Delivery > CDN** and click **Statistics**.
