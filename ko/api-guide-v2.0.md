@@ -95,21 +95,20 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 {
    "distributions":[
    {
-      "region": "GLOBAL",
       "useOriginHttpProtocolDowngrade": false,
       "forwardHostHeader": "ORIGIN_HOSTNAME",
       "domainAlias": ["alias.test.net"],
       "description" : "sample-cdn",
-      "useOriginCacheControl" : "N",      
+      "useOriginCacheControl" : false,      
       "defaultMaxAge": 86400,
       "referrerType" : "BLACKLIST",      
       "referrers" : ["cloud.toast.com"],
       "origins" : [
         {
-        	"origin" : "static.origin.com",
-        	"originPath" : "/resources",       
-          "httpPort": "80",
-          "httpsPort": "443"
+          "origin" : "static.origin.com",
+          "originPath" : "/resources",       
+          "httpPort": 80,
+          "httpsPort": 443
         }
       ],
       "callback": {
@@ -126,8 +125,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | 이름                                   | 타입    | 필수 여부 | 기본값 | 유효 범위                   | 설명                                                         |
 | -------------------------------------- | ------- | --------- | ------ | --------------------------- | ------------------------------------------------------------ |
 | distributions                          | List    | 필수      |        |                              | 생성할 CDN의 오브젝트 목록                                   |
-| distributions[0].region                | String  | 선택      |        | GLOBAL                       | 서비스 지역("GLOBAL" : 중국/러시아를 제외한 전 세계)           |
-| distributions[0].useOriginHttpProtocolDowngrade | Boolean  | 필수     |        | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 |
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean  | 필수     |        | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
 | distributions[0].forwardHostHeader     | String  | 필수      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME" : 원본 서버의 호스트네임으로 설정, "REQUEST_HOST_HEADER" : 클라이언트 요청의 호스트헤더로 설정 |
 | distributions[0].useOriginCacheControl | Boolean | 필수      |        | true/false                  | 캐시 만료 설정(true: 원본 서버 설정 사용, false: 사용자 설정)   |
 | distributions[0].referrerType          | String  | 필수      |        | BLACKLIST/WHITELIST         | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
@@ -138,8 +136,8 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions[0].origins               | List    | 필수      |        |                             | 원본 서버 오브젝트 목록                                      |
 | distributions[0].origins[0].origin     | String  | 필수      |        | 최대 255자                  | 원본 서버(domain 또는 IP)                                     |
 | distributions[0].origins[0].originPath | String  | 선택      |        | 최대 8192자                 | 원본 서버 하위 경로(/를 포함한 경로로 입력해 주세요.)        |
-| distributions[0].origins[0].httpPort   | String  | 필수      |        | 0~65,536                    | 원본 서버 HTTP 프로토콜 포트                                               |
-| distributions[0].origins[0].httpsPort  | String  | 필수      |        | 0~65,536                    | 원본 서버 HTTPS 프로토콜 포트                                               |
+| distributions[0].origins[0].httpPort   | Integer  | 필수      |        | 0~65,536                    | 원본 서버 HTTP 프로토콜 포트                                               |
+| distributions[0].origins[0].httpsPort  | Integer  | 필수      |        | 0~65,536                    | 원본 서버 HTTPS 프로토콜 포트                                               |
 | distributions[0].callback              | Object  | 선택      |        |                             | CDN 생성 처리 결과를 통보받을 콜백 URL(콜백 설정은 선택입력입니다.) |
 | distributions[0].callback.httpMethod   | String  | 필수      |        | GET/POST/PUT                | 콜백의 HTTP Method                                           |
 | distributions[0].callback.url          | String  | 필수      |        | 최대 1024자                 | 콜백 URL                                                     |
@@ -215,9 +213,9 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions[0].origins               | List    | 원본 서버 오브젝트 목록                                      |
 | distributions[0].origins[0].origin     | String  | 원본 서버(domain 또는 IP)                                      |
 | distributions[0].origins[0].originPath | String  | 원본 서버 하위 경로                                          |
-| distributions[0].origins[0].httpPort   | Integer | 원본 서버 포트                                               |
-| distributions[0].origins[0].httpsPort  | Integer | 원본 서버 포트                                               |
-| distributions[0].useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 |
+| distributions[0].origins[0].httpPort   | Integer | 원본 서버 HTTP 프로토콜 포트                                               |
+| distributions[0].origins[0].httpsPort  | Integer | 원본 서버 HTTPS 프로토콜 포트                                               |
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
 | distributions[0].forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME" : 원본 서버의 호스트네임으로 설정, "REQUEST_HOST_HEADER" : 클라이언트 요청의 호스트헤더로 설정 |
 | distributions[0].callback              | Object  | 서비스 생성 처리 결과를 통보받을 콜백                        |
 | distributions[0].callback.httpMethod   | String  | 콜백의 HTTP Method                                           |
@@ -312,7 +310,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 | distributions[0].origins[0].httpPort   | Integer | 원본 서버 포트                                               |
 | distributions[0].origins[0].httpsPort  | Integer | 원본 서버 포트                                               |
 | distributions[0].forwardHostHeader     | String  | 서비스 배포 처리 결과를 통보받을 콜백                        |
-| distributions[0].useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 |
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
 | distributions[0].forwardHostHeader     | String  | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME" : 원본 서버의 호스트네임으로 설정, "REQUEST_HOST_HEADER" : 클라이언트 요청의 호스트헤더로 설정 |
 | distributions[0].callback              | Object  | 서비스 배포 처리 결과를 통보받을 콜백                        |
 | distributions[0].callback.httpMethod   | String  | 콜백의 HTTP Method                                           |
@@ -373,9 +371,9 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 | origins               | List    | 필수      |        |                                                              | 원본 서버                                                    |
 | origins[0].origin     | String  | 필수      |        | 최대 255자                                                   | 원본 서버(domain 또는 IP)                                      |
 | origins[0].originPath | String  | 선택      |        | 최대 8192자                                                  | 원본 서버 하위 경로                                          |
-| origins[0].httpPort   | String  | 필수      |        | 0~65,536                    | 원본 서버 HTTP 프로토콜 포트                                               |
-| origins[0].httpsPort  | String  | 필수      |        | 0~65,536                    | 원본 서버 HTTPS 프로토콜 포트                                               |
-| useOriginHttpProtocolDowngrade | Boolean  | 필수     | true/false       |          | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 |
+| origins[0].httpPort   | Integer  | 필수      |        | 0~65,536                    | 원본 서버 HTTP 프로토콜 포트                                               |
+| origins[0].httpsPort  | Integer  | 필수      |        | 0~65,536                    | 원본 서버 HTTPS 프로토콜 포트                                               |
+| useOriginHttpProtocolDowngrade | Boolean  | 필수     | true/false       |          | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
 | forwardHostHeader     | String  | 필수      |        | ORIGIN_HOSTNAME, REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME" : 원본 서버의 호스트네임으로 설정, "REQUEST_HOST_HEADER" : 클라이언트 요청의 호스트헤더로 설정 |
 | callback              | Object  | 선택      |        | CDN 서비스 배포 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.) |                                                              |
 | callback.httpMethod   | String  | 필수      |        | GET/POST/PUT                                                 | 콜백의 HTTP Method                                           |
