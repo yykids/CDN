@@ -1,6 +1,6 @@
-## Content Delivery > CDN > API 가이드
+## Content Delivery > CDN > API v1.5 가이드
 
-TOAST CDN에서 제공하는 Public API를 설명합니다.
+TOAST CDN에서 제공하는 Public API v1.5를 설명합니다.
 
 ## API 공통 정보
 

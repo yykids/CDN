@@ -1,6 +1,6 @@
-## Content Delivery > CDN > API 가이드
+## Content Delivery > CDN > API v2.0 가이드
 
-TOAST CDN에서 제공하는 Public API V2.0을 설명합니다.
+TOAST CDN에서 제공하는 Public API v2.0을 설명합니다.
 
 ## API 공통 정보
 
@@ -263,7 +263,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
         "resultMessage" :  "SUCCESS",
       "isSuccessful" :  true
     },
-    "domain" :  "lhcsxuo0.cdn.toastcloud.com",
+    "domain" :  "lhcsxuo0.toastcdn.net",
     "domainAlias" :  ["test.domain.com"],
     "region" :  "GLOBAL",
     "status" : "OPEN",
@@ -335,7 +335,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 
 ```json
 {
-        "domain" : "sample.cdn.toastcloud.com",
+        "domain" : "sample.toastcdn.net",
         "useOriginCacheControl" : false,
         "defaultMaxAge": 86400,
         "referrerType" : "BLACKLIST",
@@ -407,6 +407,62 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 | header.resultCode    | Integer | 결과 코드  |
 | header.resultMessage | String  | 결과 메시지 |
 
+### 서비스 삭제
+
+#### 요청
+
+
+[URI]
+
+| 메서드    | URI                                  |
+| ------ | ------------------------------------ |
+| DELETE | /v2.0/appKeys/{appKey}/distributions |
+
+
+[요청 본문]
+
+```json
+{
+    "domains" : [
+        "lhcsxuo0.toastcdn.net"
+    ]
+}
+```
+
+
+[필드]
+
+| 이름      | 타입     | 필수 여부 | 기본값  | 유효 범위 | 설명                    |
+| ------- | ------ | ----- | ---- | ----- | --------------------- |
+| domains | String | 필수    |      |       | 삭제할 도메인, 여러 도메인 입력 가능 |
+
+**\* 여러 도메인 입력 시, 해당하는 서비스는 모두 종료됩니다.**
+
+#### 응답
+
+
+[응답 본문]
+
+```json
+{
+    "header" : {
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS",
+        "isSuccessful" :  true
+    }
+}
+```
+
+
+[필드]
+
+| 필드                   | 타입      | 설명     |
+| -------------------- | ------- | ------ |
+| header               | Object  | 헤더 영역  |
+| header.isSuccessful  | Boolean | 성공 여부  |
+| header.resultCode    | Integer | 결과 코드  |
+| header.resultMessage | String  | 결과 메시지 |
+
 
 ## 캐시 재배포 API
 
@@ -425,9 +481,9 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 
 ```json
 {
-	"domain": "sample.cdn.toastcloud.com",
-	"purgeList":["http://sample.cdn.toastcloud.com/img_01.png",
-  "http://sample.cdn.toastcloud.com/img_02.png"]
+	"domain": "sample.toastcdn.net",
+	"purgeList":["http://sample.toastcdn.net/img_01.png",
+  "http://sample.toastcdn.net/img_02.png"]
 }
 ```
 
@@ -478,7 +534,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 
 ```json
 {
-	"domain": "sample.cdn.toastcloud.com"
+	"domain": "sample.toastcdn.net"
 }
 ```
 
