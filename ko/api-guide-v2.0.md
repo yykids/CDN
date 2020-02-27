@@ -93,8 +93,8 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 
 ```json
 {
-   "distributions":[
-   {
+    "distributions" : [
+    {
       "useOriginHttpProtocolDowngrade": false,
       "forwardHostHeader": "ORIGIN_HOSTNAME",
       "domainAlias": ["alias.test.net"],
@@ -116,7 +116,7 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
           "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
       }
     }
-    ]
+  ]
 }
 ```
 
@@ -333,26 +333,30 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 
 ```json
 {
-        "domain" : "sample.toastcdn.net",
-        "useOriginCacheControl" : false,
-        "defaultMaxAge": 86400,
-        "referrerType" : "BLACKLIST",
-        "referrers" : ["test.com"],
-        "origins" : [
-            {
-                "origin" : "static.resource.com",
-                "httpPort" : 80,
-                "httpsPort" : 443,
-                "originPath" : "/latest/resources"
-            }
-        ],
-        "useOriginHttpProtocolDowngrade": false,
-        "forwardHostHeader": "ORIGIN_HOSTNAME",
-        "callback": {
-            "httpMethod": "GET",
-            "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
-        },
-        "description" : "change contents"   
+    "distributions" : [
+    {
+      "domain" : "sample.toastcdn.net",
+      "useOriginCacheControl" : false,
+      "defaultMaxAge": 86400,
+      "referrerType" : "BLACKLIST",
+      "referrers" : ["test.com"],
+      "origins" : [
+          {
+              "origin" : "static.resource.com",
+              "httpPort" : 80,
+              "httpsPort" : 443,
+              "originPath" : "/latest/resources"
+          }
+      ],
+      "useOriginHttpProtocolDowngrade": false,
+      "forwardHostHeader": "ORIGIN_HOSTNAME",
+      "callback": {
+          "httpMethod": "GET",
+          "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
+      },
+      "description" : "change contents"        
+    }
+  ]
 }
 ```
 
