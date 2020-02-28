@@ -667,3 +667,71 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/purges?
 | purges[0].type          | String  | 재배포 타입("ITEM", "WILDCARD", "ALL") |
 | purges[0].path          | String  | 재배포 요청 항목                         |
 
+## 콜백 응답
+CDN 서비스에 콜백 기능이 설정되어있을 경우, 생성/수정/일시정지/재개/삭제 의 변경 작업 완료 시 콜백 URL에 아래와 같은 응답값을 전달합니다.
+
+[응답 본문]
+``` json
+{
+  "header" : {
+    "resultCode" :  0,
+    "resultMessage" :  "SUCCESS",
+    "isSuccessful" :  true
+  },
+  "distribution":{
+      "appKey": "String",
+      "domain" : "lhcsxuo0.cdn.toastcloud.com",
+      "domainAlias" : "test.domain.com",
+      "region" : "LOCAL",
+      "description" : "api test pad",
+      "status" : "OPENING",
+      "createTime" : 1498613094692,
+      "useOrigin" : "N",
+      "maxAge" : "100",
+      "referrerType" : "BLACKLIST",
+      "referrers" : "test.com",
+      "deleteTime": "DateTime",
+      "origins":[
+         {
+            "origin": "static.toastoven.net",
+            "originPath": "/path",
+            "port": "80"
+         }
+      ],
+      "callback":{
+         "httpMethod": "GET",
+         "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
+      }
+  },
+  "successful": "Boolean"
+}
+```
+
+[필드]
+
+| 필드                                   | 타입    | 설명                                                         |
+| -------------------------------------- | ------- | ------------------------------------------------------------ |
+| header                                 | Object  | 헤더 영역                                                    |
+| header.isSuccessful                    | Boolean | 성공 여부                                                    |
+| header.resultCode                      | Integer | 결과 코드                                                    |
+| header.resultMessage                   | String  | 결과 메시지                                                  |
+| distribution                          | Object    | 변경작업이 완료된 CDN 오브젝트                                     |
+| distribution.appKey                   | String    | 앱키                                  |
+| distribution.domain                | String  | 도메인 이름(서비스 이름)                                     |
+| distribution.domainAlias           | String  | 소유 도메인                                                  |
+| distribution.region                | String  | 서비스 지역("LOCAL": 대한민국, "GLOBAL": 글로벌)             |
+| distribution.description           | String  | 설명                                                         |
+| distribution.status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                                 |
+| distribution.createTime            | String  | 생성 일시                                                    |
+| distribution.deleteTime            | String  | 삭제 일시                                                    |
+| distribution.useOrigin             | String  | 원본 서버 설정 사용 여부("Y": 원본 서버 설정 사용, "N": 사용자 설정) |
+| distribution.maxAge                | String  | 캐시 만료 시간(초)                                           |
+| distribution.referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
+| distribution.referrers             | String  | 리퍼러 목록                                                  |
+| distribution.origins               | List    | 원본 서버 오브젝트 목록                                      |
+| distribution.origins[0].origin     | String  | 원본 서버(domain 또는 IP)                                      |
+| distribution.origins[0].originPath | String  | 원본 서버 하위 경로                                          |
+| distribution.origins[0].port       | Integer | 원본 서버 포트                                               |
+| distribution.callback              | Object  | 서비스 배포 처리 결과를 통보받을 콜백                        |
+| distribution.callback.httpMethod   | String  | 콜백의 HTTP Method                                           |
+| distribution.callback.url          | String  | 콜백 URL                                                     |
