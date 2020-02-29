@@ -5,7 +5,7 @@
 ## CDN 서비스 생성
 
 **Contents Delivery > CDN**의 **CDN 서비스** 탭에서 **생성** 버튼을 클릭하면 **CDN 서비스 생성** 창이 나타납니다.
-CDN 서비스 도메인은 `[서비스ID].toastcdn.net` 형식으로 자동 생성됩니다. 만일 소유하고 있는 도메인을 서비스 도메인으로 이용하려면 **도메인 별칭**(Domain Alias) 기능을 이용해 서비스할 수 있습니다.
+CDN 서비스 도메인은 "[서비스ID].toastcdn.net" 형식으로 자동 생성됩니다. 만일 소유하고 있는 도메인을 서비스 도메인으로 이용하려면 **도메인 별칭**(Domain Alias) 기능을 이용해 서비스할 수 있습니다.
 
 ### 기본 정보 
 ![cdn_01_201812](https://static.toastoven.net/prod_cdn/cdn_01_201812.png)
@@ -18,13 +18,13 @@ CDN 서비스 도메인은 `[서비스ID].toastcdn.net` 형식으로 자동 생�
   CDN 서비스의 설명을 추가합니다.
 
 - **도메인 별칭**
-  TOSAT CDN은 기본으로 `[서비스ID].toastcdn.net` 형식의 CDN 서비스 도메인 주소를 제공하고 있습니다.
+  TOSAT CDN은 기본으로 "[서비스ID].toastcdn.net" 형식의 CDN 서비스 도메인 주소를 제공하고 있습니다.
   기본 서비스 도메인 주소가 아닌 소유한 도메인을 통해 CDN 서비스를 이용하려면 **도메인 별칭**에 소유한 도메인으로 설정하여 이용할 수 있습니다.
-  소유한 도메인으로 HTTPS 프로토콜 서비스를 이용하려면 먼저 `[인증서 관리]` 탭에서 인증서를 발급한 후 도메인 별칭을 설정하시기 바랍니다.
+  소유한 도메인으로 HTTPS 프로토콜 서비스를 이용하려면 먼저 [인증서 관리] 탭에서 인증서를 발급한 후 도메인 별칭을 설정하시기 바랍니다.
   도메인 별칭 설정 후에는 도메인의 DNS 서비스 제공 업체에서 CNAME 레코드를 다음와 같이 등록해야 합니다. (DNS 설정 관련 문의는 DNS 서비스 제공 업체에 문의하시기 바랍니다.)
-    - 레코드 타입: `CNAME`
-    - 레코드 이름: `[도메인 별칭에 등록한 도메인]`
-    - 레코드 값(Rdata): `[서비스ID].toastcdn.net`
+    - 레코드 타입: CNAME
+    - 레코드 이름: [도메인 별칭에 등록한 도메인]
+    - 레코드값(Rdata): [서비스ID].toastcdn.net
     - TTL : 임의의 값
 
 - **콜백**  
@@ -38,102 +38,102 @@ CDN 서비스 도메인은 `[서비스ID].toastcdn.net` 형식으로 자동 생�
 - **원본 서버**
   원본 서버는 CDN 서비스를 통해 배포 할 원본 파일을 제공하는 서버입니다. 원본 서버는 IPv4 또는 도메인(FQDN: Fully Qualified Domain Name) 형식으로 입력할 수 있으며, IP 주소는 변경될 가능성이 높기 때문에 도메인으로 설정하는 것을 권장합니다. 
   운영 중인 원본 서버가 없는 경우, TOAST Compute 서비스의 인스턴스를 사용하거나 TOAST Storage 서비스의 Object Stroage를 이용할 수 있습니다.
-  CDN 서비스 도메인을 통해 보안 전송(HTTPS)를 지원하려면 원본 서버는 HTTPS 응답을 지원해야 합니다. 이는 원본 서버에 TOAST CDN이 신뢰하는 인증서가 설치되어 있어야함을 의미합니다. 신뢰하는 인증서는 다음 표를 참고 하시기 바랍니다.
+  CDN 서비스 도메인을 통해 보안 전송(HTTPS)를 지원하려면 원본 서버는 HTTPS 응답을 지원해야 합니다. 이는 원본 서버에 TOAST CDN이 신뢰하는 인증서가 설치되어 있어야함을 의미합니다. 신뢰하는 인증서는 [표1] 신뢰하는 인증서 목록을 참고 하시기 바랍니다.
 
-| Common name| Expire Date |SHA-1 Fingerprint |
-|---|---|---|
-|SecureTrust CA|1.Jan.30|8782c6c304353bcfd29692d2593e7d44d934ff11|
-|Entrust.net Certification Authority (2048)|24.Jul.29|503006091d97d4f5ae39f7cbe7927d7d652d3431|
-|DigiCert Global Root CA|10.Nov.31|a8985d3a65e5e5c4b2d7d66d40c6dd2fb19c5436|
-||30.Sep.23|36b12b49f9819ed74c9ebc380fc6568f5dacb2f7|
-|QuoVadis Root CA 2 G3|13.Jan.42|093c61f38b8bdc7d55df7538020500e125f5c836|
-|thawte Primary Root CA|17.Jul.36|91c6d6ee3e8ac86384e548c299295c756c817b81|
-|Go Daddy Root Certificate Authority - G2|1.Jan.38|47beabc922eae80e78783462a79f45c254fde68b|
-|GeoTrust Primary Certification Authority|17.Jul.36|323c118e1bf7b8b65254e2e2100dd6029037f096|
-|VeriSign Class 3 Public Primary Certification Authority - G4|19.Jan.38|22d5d8df8f0231d18df79db7cf8a2d64c93f6c3a|
-|Entrust Root Certification Authority|28.Nov.26|b31eb1b740e36c8402dadc37d44df5d4674952f9|
-||29.May.29|5f3b8cf2f810b37d78b4ceec1919c37334b9c774|
-|AffirmTrust Commercial|31.Dec.30|f9b5b632455f9cbeec575f80dce96e2cc7b278b7|
-|Amazon Root CA 4|26.May.40|f6108407d6f8bb67980cc2e244c2ebae1cef63be|
-|Certum CA|11.Jun.27|6252dc40f71143a22fde9ef7348e064251b18118|
-|DST Root CA X3|30.Sep.21|dac9024f54d8f6df94935fb1732638ca6ad77c13|
-|TC TrustCenter Class 2 CA II|1.Jan.26|ae5083ed7cf45cbc8f61c621fe685d794221156e|
-|SwissSign Gold CA - G2|25.Oct.36|d8c5388ab7301b1b6ed47ae645253a6f9f1a2761|
-|USERTrust ECC Certification Authority|19.Jan.38|d1cbca5db2d52a7f693b674de5f05a1d0c957df0|
-|QuoVadis Root CA 2|25.Nov.31|ca3afbcf1240364b44b216208880483919937cf7|
-|COMODO ECC Certification Authority|19.Jan.38|9f744e9f2b4dbaec0f312c50b6563b8e2d93c311|
-|USERTrust RSA Certification Authority|19.Jan.38|2b8f1b57330dbba2d07a6c51f70ee90ddab9ad8e|
-|ISRG Root X1|4.Jun.35|cabd2a79a1076a31f21d253635cb039d4329a5e8|
-|DigiCert High Assurance EV Root CA|10.Nov.31|5fb7ee0633e259dbad0c4c9ae6d38f1a61c7dc25|
-|VeriSign Class 3 Public Primary Certification Authority - G5|17.Jul.36|4eb6d578499b1ccf5f581ead56be3d9b6744a5e5|
-|GlobalSign|15.Dec.21|75e0abb6138512271c04f85fddde38e4b7242efe|
-|QuoVadis Root CA 3|25.Nov.31|1f4914f7d874951dddae02c0befd3a2d82755185|
-|GlobalSign|18.Mar.29|d69b561148f01c77c54578c10926df5b856976ad|
-|Starfield Services Root Certificate Authority - G2|1.Jan.38|925a8f8d2c6d04e0665f596aff22d863e8256f3f|
-|Baltimore CyberTrust Root|13.May.25|d4de20d05e66fc53fe1a50882c78db2852cae474|
-|AAA Certificate Services|1.Jan.29|d1eb23a46d17d68fd92564c2f1f1601764d8e349|
-|Amazon Root CA 3|26.May.40|0d44dd8c3c8c1a1a58756481e90f2e2affb3d26e|
-|VeriSign Class 3 Public Primary Certification Authority - G3|17.Jul.36|132d0d45534b6997cdb2d5c339e25576609b5cc6|
-|GlobalSign Root CA|28.Jan.28|b1bc968bd4f49d622aa89a81f2150152a41d829c|
-|Actalis Authentication Root CA|22.Sep.30|f373b387065a28848af2f34ace192bddc78e9cac|
-|AffirmTrust Networking|31.Dec.30|293621028b20ed02f566c532d1d6ed909f45002f|
-|AffirmTrust Premium|31.Dec.40|d8a6332ce0036fb185f6634f7d6a066526322827|
-|QuoVadis Root Certification Authority|18.Mar.21|de3f40bd5093d39b6c60f6dabc076201008976c9|
-||6.Jun.37|feb8c432dcf9769aceae3dd8908ffd288665647d|
-|GeoTrust Primary Certification Authority - G3|2.Dec.37|039eedb80be7a03c6953893b20d2d9323a4c2afd|
-|thawte Primary Root CA - G2|19.Jan.38|aadbbc22238fc401a127bb38ddf41ddb089ef012|
-|VeriSign Universal Root Certification Authority|2.Dec.37|3679ca35668772304d30a5fb873b0fa77bb70d54|
-|Cybertrust Global Root|15.Dec.21|5f43e5b1bff8788cac1cc7ca4a9ac6222bcc34c6|
-|Global Chambersign Root|1.Oct.37|339b6b1450249b557a01877284d9e02fc3d2d8e9|
-|SwissSign Silver CA - G2|25.Oct.36|9baae59f56ee21cb435abe2593dfa7f040d11dcb|
-|Amazon Root CA 1|17.Jan.38|8da7f965ec5efc37910f1c6e59fdc1cc6a6ede16|
-|Entrust Root Certification Authority - G2|8.Dec.30|8cf427fd790c3ad166068de81e57efbb932272d4|
-|Amazon Root CA 2|26.May.40|5a8cef45d7a69859767a8c8b4496b578cf474b1a|
-|DigiCert Assured ID Root CA|10.Nov.31|0563b8630d62d75abbc8ab1e4bdfb5a899b24d43|
-||30.Jun.34|2796bae63f1801e277261ba0d77770028f20eee4|
-|COMODO Certification Authority|1.Jan.30|6631bf9ef74f9eb6c9d5a60cba6abed1f7bdef7b|
-|AddTrust External CA Root|30.May.20|02faf3e291435468607857694df5e45b68851868|
-|COMODO RSA Certification Authority|19.Jan.38|afe5d244a8d1194230ff479fe2f897bbcd7a8cb4|
-|thawte Primary Root CA - G3|2.Dec.37|f18b538d1be903b6a6f056435b171589caf36bf2|
-|DigiCert Global Root G3|15.Jan.38|7e04de896a3e666d00e687d33ffad93be83d349e|
-|GeoTrust Global CA|21.May.22|de28f4a4ffe5b92fa3c503d1a349a7f9962a8212|
-|DigiCert Global Root G2|15.Jan.38|df3c24f9bfd666761b268073fe06d1cc8d4f82a4|
+  만일, 원본 서버가 HTTP 응답을 지원할 수 없는 경우 **원본 요청 HTTP 프로토콜 다운그레이드** 설정을 이용하시기 바랍니다. 
+  단, **원본 요청 HTTP 프로토콜 다운그레이드**은 제약 사항이 있으므로 원본 서버가 HTTPS 프로토콜을 지원하는 것을 권장합니다.
 
-만일, 원본 서버가 HTTP 응답을 지원할 수 없는 경우 **원본 요청 HTTP 프로토콜 다운그레이드** 설정을 이용하시기 바랍니다. 
-단, **원본 요청 HTTP 프로토콜 다운그레이드**은 제약 사항이 있으므로 원본 서버가 HTTPS 프로토콜을 지원하는 것을 권장합니다.
+  [표1] 신뢰하는 인증서 목록
+  | Common name| Expire Date |SHA-1 Fingerprint |
+  |---|---|---|
+  |SecureTrust CA|1.Jan.30|8782c6c304353bcfd29692d2593e7d44d934ff11|
+  |Entrust.net Certification Authority (2048)|24.Jul.29|503006091d97d4f5ae39f7cbe7927d7d652d3431|
+  |DigiCert Global Root CA|10.Nov.31|a8985d3a65e5e5c4b2d7d66d40c6dd2fb19c5436|
+  ||30.Sep.23|36b12b49f9819ed74c9ebc380fc6568f5dacb2f7|
+  |QuoVadis Root CA 2 G3|13.Jan.42|093c61f38b8bdc7d55df7538020500e125f5c836|
+  |thawte Primary Root CA|17.Jul.36|91c6d6ee3e8ac86384e548c299295c756c817b81|
+  |Go Daddy Root Certificate Authority - G2|1.Jan.38|47beabc922eae80e78783462a79f45c254fde68b|
+  |GeoTrust Primary Certification Authority|17.Jul.36|323c118e1bf7b8b65254e2e2100dd6029037f096|
+  |VeriSign Class 3 Public Primary Certification Authority - G4|19.Jan.38|22d5d8df8f0231d18df79db7cf8a2d64c93f6c3a|
+  |Entrust Root Certification Authority|28.Nov.26|b31eb1b740e36c8402dadc37d44df5d4674952f9|
+  ||29.May.29|5f3b8cf2f810b37d78b4ceec1919c37334b9c774|
+  |AffirmTrust Commercial|31.Dec.30|f9b5b632455f9cbeec575f80dce96e2cc7b278b7|
+  |Amazon Root CA 4|26.May.40|f6108407d6f8bb67980cc2e244c2ebae1cef63be|
+  |Certum CA|11.Jun.27|6252dc40f71143a22fde9ef7348e064251b18118|
+  |DST Root CA X3|30.Sep.21|dac9024f54d8f6df94935fb1732638ca6ad77c13|
+  |TC TrustCenter Class 2 CA II|1.Jan.26|ae5083ed7cf45cbc8f61c621fe685d794221156e|
+  |SwissSign Gold CA - G2|25.Oct.36|d8c5388ab7301b1b6ed47ae645253a6f9f1a2761|
+  |USERTrust ECC Certification Authority|19.Jan.38|d1cbca5db2d52a7f693b674de5f05a1d0c957df0|
+  |QuoVadis Root CA 2|25.Nov.31|ca3afbcf1240364b44b216208880483919937cf7|
+  |COMODO ECC Certification Authority|19.Jan.38|9f744e9f2b4dbaec0f312c50b6563b8e2d93c311|
+  |USERTrust RSA Certification Authority|19.Jan.38|2b8f1b57330dbba2d07a6c51f70ee90ddab9ad8e|
+  |ISRG Root X1|4.Jun.35|cabd2a79a1076a31f21d253635cb039d4329a5e8|
+  |DigiCert High Assurance EV Root CA|10.Nov.31|5fb7ee0633e259dbad0c4c9ae6d38f1a61c7dc25|
+  |VeriSign Class 3 Public Primary Certification Authority - G5|17.Jul.36|4eb6d578499b1ccf5f581ead56be3d9b6744a5e5|
+  |GlobalSign|15.Dec.21|75e0abb6138512271c04f85fddde38e4b7242efe|
+  |QuoVadis Root CA 3|25.Nov.31|1f4914f7d874951dddae02c0befd3a2d82755185|
+  |GlobalSign|18.Mar.29|d69b561148f01c77c54578c10926df5b856976ad|
+  |Starfield Services Root Certificate Authority - G2|1.Jan.38|925a8f8d2c6d04e0665f596aff22d863e8256f3f|
+  |Baltimore CyberTrust Root|13.May.25|d4de20d05e66fc53fe1a50882c78db2852cae474|
+  |AAA Certificate Services|1.Jan.29|d1eb23a46d17d68fd92564c2f1f1601764d8e349|
+  |Amazon Root CA 3|26.May.40|0d44dd8c3c8c1a1a58756481e90f2e2affb3d26e|
+  |VeriSign Class 3 Public Primary Certification Authority - G3|17.Jul.36|132d0d45534b6997cdb2d5c339e25576609b5cc6|
+  |GlobalSign Root CA|28.Jan.28|b1bc968bd4f49d622aa89a81f2150152a41d829c|
+  |Actalis Authentication Root CA|22.Sep.30|f373b387065a28848af2f34ace192bddc78e9cac|
+  |AffirmTrust Networking|31.Dec.30|293621028b20ed02f566c532d1d6ed909f45002f|
+  |AffirmTrust Premium|31.Dec.40|d8a6332ce0036fb185f6634f7d6a066526322827|
+  |QuoVadis Root Certification Authority|18.Mar.21|de3f40bd5093d39b6c60f6dabc076201008976c9|
+  ||6.Jun.37|feb8c432dcf9769aceae3dd8908ffd288665647d|
+  |GeoTrust Primary Certification Authority - G3|2.Dec.37|039eedb80be7a03c6953893b20d2d9323a4c2afd|
+  |thawte Primary Root CA - G2|19.Jan.38|aadbbc22238fc401a127bb38ddf41ddb089ef012|
+  |VeriSign Universal Root Certification Authority|2.Dec.37|3679ca35668772304d30a5fb873b0fa77bb70d54|
+  |Cybertrust Global Root|15.Dec.21|5f43e5b1bff8788cac1cc7ca4a9ac6222bcc34c6|
+  |Global Chambersign Root|1.Oct.37|339b6b1450249b557a01877284d9e02fc3d2d8e9|
+  |SwissSign Silver CA - G2|25.Oct.36|9baae59f56ee21cb435abe2593dfa7f040d11dcb|
+  |Amazon Root CA 1|17.Jan.38|8da7f965ec5efc37910f1c6e59fdc1cc6a6ede16|
+  |Entrust Root Certification Authority - G2|8.Dec.30|8cf427fd790c3ad166068de81e57efbb932272d4|
+  |Amazon Root CA 2|26.May.40|5a8cef45d7a69859767a8c8b4496b578cf474b1a|
+  |DigiCert Assured ID Root CA|10.Nov.31|0563b8630d62d75abbc8ab1e4bdfb5a899b24d43|
+  ||30.Jun.34|2796bae63f1801e277261ba0d77770028f20eee4|
+  |COMODO Certification Authority|1.Jan.30|6631bf9ef74f9eb6c9d5a60cba6abed1f7bdef7b|
+  |AddTrust External CA Root|30.May.20|02faf3e291435468607857694df5e45b68851868|
+  |COMODO RSA Certification Authority|19.Jan.38|afe5d244a8d1194230ff479fe2f897bbcd7a8cb4|
+  |thawte Primary Root CA - G3|2.Dec.37|f18b538d1be903b6a6f056435b171589caf36bf2|
+  |DigiCert Global Root G3|15.Jan.38|7e04de896a3e666d00e687d33ffad93be83d349e|
+  |GeoTrust Global CA|21.May.22|de28f4a4ffe5b92fa3c503d1a349a7f9962a8212|
+  |DigiCert Global Root G2|15.Jan.38|df3c24f9bfd666761b268073fe06d1cc8d4f82a4|
   
 - **원본 서버 포트**
+  원본 서버는 웹 프로토콜을 지원하는 서비스로 운영해야합니다. 운영 중인 HTTP/HTTPS 프로토콜의 서비스 포트 번호를 설정 할 수 있습니다. 
+  원본 서버 포트는 HTTP 또는 HTTPS 포트 중 하나를 반드시 입력 해야 하며, 설정하지 않은 포트는 기본 포트 HTTP:80, HTTPS:443으로 설정됩니다.
+  원본 서버 포트는 제한된 포트만 설정 가능합니다. 설정 가능한 포트 번호는 [표2]사용 가능한 원본 서버 포트 번호를 참고하시기 바랍니다.
 
-원본 서버는 웹 프로토콜을 지원하는 서비스로 운영해야합니다. 운영 중인 HTTP/HTTPS 프로토콜의 서비스 포트 번호를 설정 할 수 있습니다. 
-원본 서버 포트는 HTTP 또는 HTTPS 포트 중 하나를 반드시 입력 해야 하며, 설정하지 않은 포트는 기본 포트 HTTP:80, HTTPS:443으로 설정됩니다.
-원본 서버 포트는 제한된 포트만 설정 가능합니다. 설정 가능한 포트 번호는 다음의 표를 참고하시기 바랍니다.
-  
-|사용 가능한 원본 서버 포트 번호|
-|---|
-|72, 488, 1080, 1443, 7070|
-|8000-9001|
-|11080-11110|
-|80-89|
-|591, 1088, 2080, 7612|
-|12900-12949|
-|443, 777, 1111, 7001, 7777|
-|9901-9908|
-|45002|
+  [표2] 사용 가능한 원본 서버 포트 번호
+  |사용 가능한 원본 서버 포트 번호|
+  |---|
+  |72, 488, 1080, 1443, 7070|
+  |8000-9001|
+  |11080-11110|
+  |80-89|
+  |591, 1088, 2080, 7612|
+  |12900-12949|
+  |443, 777, 1111, 7001, 7777|
+  |9901-9908|
+  |45002|
 
 - **원본 경로**
-
-원본 경로는 원본 파일의 경로 중 하위 경로를 설정합니다. 원본 경로로 지정된 경로는 CDN 서비스 URL에서 생략하여 콘텐츠를 요청할 수 있습니다.
+  원본 경로는 원본 파일의 경로 중 하위 경로를 설정합니다. 원본 경로로 지정된 경로는 CDN 서비스 URL에서 생략하여 콘텐츠를 요청할 수 있습니다.
   - 예시: 원본 경로를 `/files/images` 로 설정한 경우  
     - 원본 파일 URL: http://your.origin.com/`files/images`/logo.png 
     - CDN 서비스 URL: http://[서비스ID].toastcdn.net/logo.png
 
 - **원본 요청 HTTP 프로토콜 다운그레이드**
 
-CDN 에지 서버는 원본 서버에 원본 파일을 요청할 때 원본 요청(client의 원본 Request)의 서비스 프로토콜(HTTP/HTTPS)로 요청합니다.
-즉, 클라이언트가 HTTPS로 요청하고 원본 서버가 HTTPS 응답을 지원하지 않는 경우, CDN 에지 서버에서 원본 서버의 요청시 HTTPS 프로토콜로 요청을 하기 때문에 원본 서버가 HTTPS 응답을 지원하지 않으면 원본 파일을 응답 받을 수 없습니다.
-원본 서버가 HTTP 프로토콜만 운영 중인 경우 **원본 서버 HTTP 프로토콜 다운그레이드** 설정을 사용하면 CDN 에지 서버에서 원본 서버 요청시 HTTPS 프로토콜을 HTTP 프로토콜 다운그레이드하여 파일을 요청 할 수 있습니다. 
-이는 client -> CDN 에지 서버는 HTTPS 프로토콜로 통신하고, CDN 에지 서버 -> 원본 서버 구간은 HTTP 프로토콜로 통신함을 의미합니다.
-단, 원본 요청 HTTP 프로토콜 다운그레이드는 제약사항이 있으므로 반드시 참고 후 사용하시기 바랍니다.
+  CDN 에지 서버는 원본 서버에 원본 파일을 요청할 때 원본 요청(client의 원본 Request)의 서비스 프로토콜(HTTP/HTTPS)로 요청합니다.
+  즉, 클라이언트가 HTTPS로 요청하고 원본 서버가 HTTPS 응답을 지원하지 않는 경우, CDN 에지 서버에서 원본 서버의 요청시 HTTPS 프로토콜로 요청을 하기 때문에 원본 서버가 HTTPS 응답을 지원하지 않으면 원본 파일을 응답 받을 수 없습니다.
+  원본 서버가 HTTP 프로토콜만 운영 중인 경우 **원본 서버 HTTP 프로토콜 다운그레이드** 설정을 사용하면 CDN 에지 서버에서 원본 서버 요청시 HTTPS 프로토콜을 HTTP 프로토콜 다운그레이드하여 파일을 요청 할 수 있습니다. 
+  이는 client -> CDN 에지 서버는 HTTPS 프로토콜로 통신하고, CDN 에지 서버 -> 원본 서버 구간은 HTTP 프로토콜로 통신함을 의미합니다.
+  단, 원본 요청 HTTP 프로토콜 다운그레이드는 제약사항이 있으므로 반드시 참고 후 사용하시기 바랍니다.
 
 > [주의] 원본 요청 HTTP 프로토콜 다운그레이드 제약 사항
 > 1. 전체 사이트 주소는 프로토콜 다운 그레이드가 불가합니다. (예: 원본 서버의 전체 사이트 주소인 "www.toast.com"는 다운그레이드 불가합니다.)
@@ -142,11 +142,10 @@ CDN 에지 서버는 원본 서버에 원본 파일을 요청할 때 원본 요�
 >    Origin, Referer, Cookie, Cookie2, sec-\*, proxy-\*
 
 - **Forward Host Header**
-CDN 서버가 원본 서버에 원본 파일을 요청시 전달 할 `Host` 헤더 값을 설정합니다. 
-원본 서버가 Name-based virtual host로 운영 중이라면 `Request Host Header` 설정이 필요할 수 있습니다. 원본 서버의 운영 형태에 따라 적합한 설정 값을 선택하시기 바랍니다.
-
-  - Origin Hostname: 원본 서버의 호스트네임을 Host 헤더로 설정합니다. 
-  - Request Host Header: 클라이언트 요청의 Host 헤더로 설정합니다.
+  CDN 서버가 원본 서버에 원본 파일을 요청시 전달 할 `Host` 헤더 값을 설정합니다. 
+  원본 서버가 Name-based virtual host로 운영 중이라면 `Request Host Header` 설정이 필요할 수 있습니다. 원본 서버의 운영 형태에 따라 적합한 설정 값을 선택하시기 바랍니다.
+    - Origin Hostname: 원본 서버의 호스트네임을 Host 헤더로 설정합니다. 
+    - Request Host Header: 클라이언트 요청의 Host 헤더로 설정합니다.
 
 ### 캐시
 
@@ -154,24 +153,23 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 ![cdn_02_201812](https://static.toastoven.net/prod_cdn/cdn_02_201812.png)
 
 - **캐시 만료 설정**
-
-원본 서버의 Cache Control 응답 헤더를 통해 캐시를 설정 할 수 있습니다. 
-  - **원본 설정 사용**: 원본 서버의 응답에서 제공한 캐시 제어 헤더(Cache-Control, Expires)를 우선하여 적용합니다. 만일 원본 서버의 응답에 캐시 제어 헤더(Cache-Control, Expires)가 유효하지 않거나 없는 경우, 캐시 만료 시간(초)에 지정한 시간 동안 캐싱합니다.  **원본 설정 사용** 옵션이 기본값입니다.
-  - **사용자 설정 사용**: 캐시 만료 시간(초)에 지정한 시간 동안 캐싱합니다. 
+  원본 서버의 Cache Control 응답 헤더를 통해 캐시를 설정 할 수 있습니다. 
+    - **원본 설정 사용**: 원본 서버의 응답에서 제공한 캐시 제어 헤더(Cache-Control, Expires)를 우선하여 적용합니다. 만일 원본 서버의 응답에 캐시 제어 헤더(Cache-Control, Expires)가 유효하지 않거나 없는 경우, 캐시 만료 시간(초)에 지정한 시간 동안 캐싱합니다.  **원본 설정 사용** 옵션이 기본값입니다.
+    - **사용자 설정 사용**: 캐시 만료 시간(초)에 지정한 시간 동안 캐싱합니다. 
 
 > [참고]
 > 캐시 만료 시간 기본값은 0입니다. 기본값을 0으로 설정하면 캐시 만료 시간은 604,800(단위/초)=1주일 입니다.
 > 캐시 만료 시간은 기본값인 0부터 2,147,483,647(단위/초)까지 입력할 수 있습니다.
 
 ### 리퍼러(Referer) 헤더 접근 관리
-리퍼러(Referer) 요청 헤더는 현재 요청된 페이지의 링크 이전의 웹 페이지 주소를 포함합니다. Referer 헤더를 통해 어떤 경로에서 요청이 유입되었는지 알 수 있습니다. 리퍼러 접근 관리는 리퍼러 헤더를 참고하여 특정 리퍼러만 사용자 콘텐츠에 접근할 수 있도록 설정할 수 있습니다.
-리퍼러는 정규 표현식 형태로 입력할 수 있으며, 여러 개의 리퍼러를 제어할 경우 입력 창에 라인을 추가하여 입력합니다.
-  - **Blacklist(블랙 리스트) 타입**:
-      * 특정 리퍼러에서의 접근을 제한할 때 적합합니다.
-      * 요청 Referer 헤더 값이 설정한 정규 표현식에 매칭되는 문자열이면 콘텐츠 접근이 제한됩니다. 매칭되지 않는 문자열이면 콘텐츠 접근이 허용됩니다.
-  - **Whitelist(화이트 리스트) 타입**:
-      * 특정 리퍼러에서만 접근을 허용할 때 적합합니다.
-      * 요청 헤더의 리퍼러값이 정규 표현식에 매칭되는 문자열이면 콘텐츠 접근이 허용됩니다. 매칭되지 않는 문자열이면 콘텐츠 접근이 제한됩니다.
+  리퍼러(Referer) 요청 헤더는 현재 요청된 페이지의 링크 이전의 웹 페이지 주소를 포함합니다. Referer 헤더를 통해 어떤 경로에서 요청이 유입되었는지 알 수 있습니다. 리퍼러 접근 관리는 리퍼러 헤더를 참고하여 특정 리퍼러만 사용자 콘텐츠에 접근할 수 있도록 설정할 수 있습니다.
+  리퍼러는 정규 표현식 형태로 입력할 수 있으며, 여러 개의 리퍼러를 제어할 경우 입력 창에 라인을 추가하여 입력합니다.
+    - **Blacklist(블랙 리스트) 타입**:
+        * 특정 리퍼러에서의 접근을 제한할 때 적합합니다.
+        * 요청 Referer 헤더 값이 설정한 정규 표현식에 매칭되는 문자열이면 콘텐츠 접근이 제한됩니다. 매칭되지 않는 문자열이면 콘텐츠 접근이 허용됩니다.
+    - **Whitelist(화이트 리스트) 타입**:
+        * 특정 리퍼러에서만 접근을 허용할 때 적합합니다.
+        * 요청 헤더의 리퍼러값이 정규 표현식에 매칭되는 문자열이면 콘텐츠 접근이 허용됩니다. 매칭되지 않는 문자열이면 콘텐츠 접근이 제한됩니다.
 
 > [주의]
 > 요청 Referer 헤더가 없는 경우 접근 제어는 동작하지 않습니다.
