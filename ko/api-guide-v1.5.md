@@ -702,8 +702,7 @@ CDN 서비스에 콜백 기능이 설정되어있을 경우, 생성/수정/일�
          "httpMethod": "GET",
          "url": "http://test.callback.com/cdn?=appKey={appKey}&status={status}&domain={domain}"
       }
-  },
-  "successful": "Boolean"
+  }
 }
 ```
 
