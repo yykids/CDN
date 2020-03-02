@@ -27,7 +27,7 @@ CDN 서비스 도메인은 "[서비스ID].toastcdn.net" 형식으로 자동 생�
     - 레코드값(Rdata): [서비스ID].toastcdn.net
     - TTL : 임의의 값
 
-- **콜백**  
+- **콜백**
   CDN 서비스 생성과 변경 작업(수정, 정지/재개, 삭제)은 몇 시간이 걸립니다. 
   작업이 완료된 후 설정한 콜백URL로 변경 상태와 CDN 설정 정보를 전달 받으려면 콜백을 설정하시기 바랍니다. 콜백을 통해 전달되는 정보는 API 가이드 문서를 참고하시기 바랍니다. 
   1. **HTTP Method**와 **콜백 URL**을 입력합니다.
@@ -39,87 +39,86 @@ CDN 서비스 도메인은 "[서비스ID].toastcdn.net" 형식으로 자동 생�
   원본 서버는 CDN 서비스를 통해 배포 할 원본 파일을 제공하는 서버입니다. 원본 서버는 IPv4 또는 도메인(FQDN: Fully Qualified Domain Name) 형식으로 입력할 수 있으며, IP 주소는 변경될 가능성이 높기 때문에 도메인으로 설정하는 것을 권장합니다. 
   운영 중인 원본 서버가 없는 경우, TOAST Compute 서비스의 인스턴스를 사용하거나 TOAST Storage 서비스의 Object Stroage를 이용할 수 있습니다.
   CDN 서비스 도메인을 통해 보안 전송(HTTPS)를 지원하려면 원본 서버는 HTTPS 응답을 지원해야 합니다. 이는 원본 서버에 TOAST CDN이 신뢰하는 인증서가 설치되어 있어야함을 의미합니다. 신뢰하는 인증서는 [표1] 신뢰하는 인증서 목록을 참고 하시기 바랍니다.
-
   만일, 원본 서버가 HTTP 응답을 지원할 수 없는 경우 **원본 요청 HTTP 프로토콜 다운그레이드** 설정을 이용하시기 바랍니다. 
   단, **원본 요청 HTTP 프로토콜 다운그레이드**은 제약 사항이 있으므로 원본 서버가 HTTPS 프로토콜을 지원하는 것을 권장합니다.
 
-  [표1] 신뢰하는 인증서 목록
-  | Common name| Expire Date |SHA-1 Fingerprint |
-  |---|---|---|
-  |SecureTrust CA|1.Jan.30|8782c6c304353bcfd29692d2593e7d44d934ff11|
-  |Entrust.net Certification Authority (2048)|24.Jul.29|503006091d97d4f5ae39f7cbe7927d7d652d3431|
-  |DigiCert Global Root CA|10.Nov.31|a8985d3a65e5e5c4b2d7d66d40c6dd2fb19c5436|
-  ||30.Sep.23|36b12b49f9819ed74c9ebc380fc6568f5dacb2f7|
-  |QuoVadis Root CA 2 G3|13.Jan.42|093c61f38b8bdc7d55df7538020500e125f5c836|
-  |thawte Primary Root CA|17.Jul.36|91c6d6ee3e8ac86384e548c299295c756c817b81|
-  |Go Daddy Root Certificate Authority - G2|1.Jan.38|47beabc922eae80e78783462a79f45c254fde68b|
-  |GeoTrust Primary Certification Authority|17.Jul.36|323c118e1bf7b8b65254e2e2100dd6029037f096|
-  |VeriSign Class 3 Public Primary Certification Authority - G4|19.Jan.38|22d5d8df8f0231d18df79db7cf8a2d64c93f6c3a|
-  |Entrust Root Certification Authority|28.Nov.26|b31eb1b740e36c8402dadc37d44df5d4674952f9|
-  ||29.May.29|5f3b8cf2f810b37d78b4ceec1919c37334b9c774|
-  |AffirmTrust Commercial|31.Dec.30|f9b5b632455f9cbeec575f80dce96e2cc7b278b7|
-  |Amazon Root CA 4|26.May.40|f6108407d6f8bb67980cc2e244c2ebae1cef63be|
-  |Certum CA|11.Jun.27|6252dc40f71143a22fde9ef7348e064251b18118|
-  |DST Root CA X3|30.Sep.21|dac9024f54d8f6df94935fb1732638ca6ad77c13|
-  |TC TrustCenter Class 2 CA II|1.Jan.26|ae5083ed7cf45cbc8f61c621fe685d794221156e|
-  |SwissSign Gold CA - G2|25.Oct.36|d8c5388ab7301b1b6ed47ae645253a6f9f1a2761|
-  |USERTrust ECC Certification Authority|19.Jan.38|d1cbca5db2d52a7f693b674de5f05a1d0c957df0|
-  |QuoVadis Root CA 2|25.Nov.31|ca3afbcf1240364b44b216208880483919937cf7|
-  |COMODO ECC Certification Authority|19.Jan.38|9f744e9f2b4dbaec0f312c50b6563b8e2d93c311|
-  |USERTrust RSA Certification Authority|19.Jan.38|2b8f1b57330dbba2d07a6c51f70ee90ddab9ad8e|
-  |ISRG Root X1|4.Jun.35|cabd2a79a1076a31f21d253635cb039d4329a5e8|
-  |DigiCert High Assurance EV Root CA|10.Nov.31|5fb7ee0633e259dbad0c4c9ae6d38f1a61c7dc25|
-  |VeriSign Class 3 Public Primary Certification Authority - G5|17.Jul.36|4eb6d578499b1ccf5f581ead56be3d9b6744a5e5|
-  |GlobalSign|15.Dec.21|75e0abb6138512271c04f85fddde38e4b7242efe|
-  |QuoVadis Root CA 3|25.Nov.31|1f4914f7d874951dddae02c0befd3a2d82755185|
-  |GlobalSign|18.Mar.29|d69b561148f01c77c54578c10926df5b856976ad|
-  |Starfield Services Root Certificate Authority - G2|1.Jan.38|925a8f8d2c6d04e0665f596aff22d863e8256f3f|
-  |Baltimore CyberTrust Root|13.May.25|d4de20d05e66fc53fe1a50882c78db2852cae474|
-  |AAA Certificate Services|1.Jan.29|d1eb23a46d17d68fd92564c2f1f1601764d8e349|
-  |Amazon Root CA 3|26.May.40|0d44dd8c3c8c1a1a58756481e90f2e2affb3d26e|
-  |VeriSign Class 3 Public Primary Certification Authority - G3|17.Jul.36|132d0d45534b6997cdb2d5c339e25576609b5cc6|
-  |GlobalSign Root CA|28.Jan.28|b1bc968bd4f49d622aa89a81f2150152a41d829c|
-  |Actalis Authentication Root CA|22.Sep.30|f373b387065a28848af2f34ace192bddc78e9cac|
-  |AffirmTrust Networking|31.Dec.30|293621028b20ed02f566c532d1d6ed909f45002f|
-  |AffirmTrust Premium|31.Dec.40|d8a6332ce0036fb185f6634f7d6a066526322827|
-  |QuoVadis Root Certification Authority|18.Mar.21|de3f40bd5093d39b6c60f6dabc076201008976c9|
-  ||6.Jun.37|feb8c432dcf9769aceae3dd8908ffd288665647d|
-  |GeoTrust Primary Certification Authority - G3|2.Dec.37|039eedb80be7a03c6953893b20d2d9323a4c2afd|
-  |thawte Primary Root CA - G2|19.Jan.38|aadbbc22238fc401a127bb38ddf41ddb089ef012|
-  |VeriSign Universal Root Certification Authority|2.Dec.37|3679ca35668772304d30a5fb873b0fa77bb70d54|
-  |Cybertrust Global Root|15.Dec.21|5f43e5b1bff8788cac1cc7ca4a9ac6222bcc34c6|
-  |Global Chambersign Root|1.Oct.37|339b6b1450249b557a01877284d9e02fc3d2d8e9|
-  |SwissSign Silver CA - G2|25.Oct.36|9baae59f56ee21cb435abe2593dfa7f040d11dcb|
-  |Amazon Root CA 1|17.Jan.38|8da7f965ec5efc37910f1c6e59fdc1cc6a6ede16|
-  |Entrust Root Certification Authority - G2|8.Dec.30|8cf427fd790c3ad166068de81e57efbb932272d4|
-  |Amazon Root CA 2|26.May.40|5a8cef45d7a69859767a8c8b4496b578cf474b1a|
-  |DigiCert Assured ID Root CA|10.Nov.31|0563b8630d62d75abbc8ab1e4bdfb5a899b24d43|
-  ||30.Jun.34|2796bae63f1801e277261ba0d77770028f20eee4|
-  |COMODO Certification Authority|1.Jan.30|6631bf9ef74f9eb6c9d5a60cba6abed1f7bdef7b|
-  |AddTrust External CA Root|30.May.20|02faf3e291435468607857694df5e45b68851868|
-  |COMODO RSA Certification Authority|19.Jan.38|afe5d244a8d1194230ff479fe2f897bbcd7a8cb4|
-  |thawte Primary Root CA - G3|2.Dec.37|f18b538d1be903b6a6f056435b171589caf36bf2|
-  |DigiCert Global Root G3|15.Jan.38|7e04de896a3e666d00e687d33ffad93be83d349e|
-  |GeoTrust Global CA|21.May.22|de28f4a4ffe5b92fa3c503d1a349a7f9962a8212|
-  |DigiCert Global Root G2|15.Jan.38|df3c24f9bfd666761b268073fe06d1cc8d4f82a4|
+[표1] 신뢰하는 인증서 목록
+| Common name| Expire Date |SHA-1 Fingerprint |
+|---|---|---|
+|SecureTrust CA|1.Jan.30|8782c6c304353bcfd29692d2593e7d44d934ff11|
+|Entrust.net Certification Authority (2048)|24.Jul.29|503006091d97d4f5ae39f7cbe7927d7d652d3431|
+|DigiCert Global Root CA|10.Nov.31|a8985d3a65e5e5c4b2d7d66d40c6dd2fb19c5436|
+||30.Sep.23|36b12b49f9819ed74c9ebc380fc6568f5dacb2f7|
+|QuoVadis Root CA 2 G3|13.Jan.42|093c61f38b8bdc7d55df7538020500e125f5c836|
+|thawte Primary Root CA|17.Jul.36|91c6d6ee3e8ac86384e548c299295c756c817b81|
+|Go Daddy Root Certificate Authority - G2|1.Jan.38|47beabc922eae80e78783462a79f45c254fde68b|
+|GeoTrust Primary Certification Authority|17.Jul.36|323c118e1bf7b8b65254e2e2100dd6029037f096|
+|VeriSign Class 3 Public Primary Certification Authority - G4|19.Jan.38|22d5d8df8f0231d18df79db7cf8a2d64c93f6c3a|
+|Entrust Root Certification Authority|28.Nov.26|b31eb1b740e36c8402dadc37d44df5d4674952f9|
+||29.May.29|5f3b8cf2f810b37d78b4ceec1919c37334b9c774|
+|AffirmTrust Commercial|31.Dec.30|f9b5b632455f9cbeec575f80dce96e2cc7b278b7|
+|Amazon Root CA 4|26.May.40|f6108407d6f8bb67980cc2e244c2ebae1cef63be|
+|Certum CA|11.Jun.27|6252dc40f71143a22fde9ef7348e064251b18118|
+|DST Root CA X3|30.Sep.21|dac9024f54d8f6df94935fb1732638ca6ad77c13|
+|TC TrustCenter Class 2 CA II|1.Jan.26|ae5083ed7cf45cbc8f61c621fe685d794221156e|
+|SwissSign Gold CA - G2|25.Oct.36|d8c5388ab7301b1b6ed47ae645253a6f9f1a2761|
+|USERTrust ECC Certification Authority|19.Jan.38|d1cbca5db2d52a7f693b674de5f05a1d0c957df0|
+|QuoVadis Root CA 2|25.Nov.31|ca3afbcf1240364b44b216208880483919937cf7|
+|COMODO ECC Certification Authority|19.Jan.38|9f744e9f2b4dbaec0f312c50b6563b8e2d93c311|
+|USERTrust RSA Certification Authority|19.Jan.38|2b8f1b57330dbba2d07a6c51f70ee90ddab9ad8e|
+|ISRG Root X1|4.Jun.35|cabd2a79a1076a31f21d253635cb039d4329a5e8|
+|DigiCert High Assurance EV Root CA|10.Nov.31|5fb7ee0633e259dbad0c4c9ae6d38f1a61c7dc25|
+|VeriSign Class 3 Public Primary Certification Authority - G5|17.Jul.36|4eb6d578499b1ccf5f581ead56be3d9b6744a5e5|
+|GlobalSign|15.Dec.21|75e0abb6138512271c04f85fddde38e4b7242efe|
+|QuoVadis Root CA 3|25.Nov.31|1f4914f7d874951dddae02c0befd3a2d82755185|
+|GlobalSign|18.Mar.29|d69b561148f01c77c54578c10926df5b856976ad|
+|Starfield Services Root Certificate Authority - G2|1.Jan.38|925a8f8d2c6d04e0665f596aff22d863e8256f3f|
+|Baltimore CyberTrust Root|13.May.25|d4de20d05e66fc53fe1a50882c78db2852cae474|
+|AAA Certificate Services|1.Jan.29|d1eb23a46d17d68fd92564c2f1f1601764d8e349|
+|Amazon Root CA 3|26.May.40|0d44dd8c3c8c1a1a58756481e90f2e2affb3d26e|
+|VeriSign Class 3 Public Primary Certification Authority - G3|17.Jul.36|132d0d45534b6997cdb2d5c339e25576609b5cc6|
+|GlobalSign Root CA|28.Jan.28|b1bc968bd4f49d622aa89a81f2150152a41d829c|
+|Actalis Authentication Root CA|22.Sep.30|f373b387065a28848af2f34ace192bddc78e9cac|
+|AffirmTrust Networking|31.Dec.30|293621028b20ed02f566c532d1d6ed909f45002f|
+|AffirmTrust Premium|31.Dec.40|d8a6332ce0036fb185f6634f7d6a066526322827|
+|QuoVadis Root Certification Authority|18.Mar.21|de3f40bd5093d39b6c60f6dabc076201008976c9|
+||6.Jun.37|feb8c432dcf9769aceae3dd8908ffd288665647d|
+|GeoTrust Primary Certification Authority - G3|2.Dec.37|039eedb80be7a03c6953893b20d2d9323a4c2afd|
+|thawte Primary Root CA - G2|19.Jan.38|aadbbc22238fc401a127bb38ddf41ddb089ef012|
+|VeriSign Universal Root Certification Authority|2.Dec.37|3679ca35668772304d30a5fb873b0fa77bb70d54|
+|Cybertrust Global Root|15.Dec.21|5f43e5b1bff8788cac1cc7ca4a9ac6222bcc34c6|
+|Global Chambersign Root|1.Oct.37|339b6b1450249b557a01877284d9e02fc3d2d8e9|
+|SwissSign Silver CA - G2|25.Oct.36|9baae59f56ee21cb435abe2593dfa7f040d11dcb|
+|Amazon Root CA 1|17.Jan.38|8da7f965ec5efc37910f1c6e59fdc1cc6a6ede16|
+|Entrust Root Certification Authority - G2|8.Dec.30|8cf427fd790c3ad166068de81e57efbb932272d4|
+|Amazon Root CA 2|26.May.40|5a8cef45d7a69859767a8c8b4496b578cf474b1a|
+|DigiCert Assured ID Root CA|10.Nov.31|0563b8630d62d75abbc8ab1e4bdfb5a899b24d43|
+||30.Jun.34|2796bae63f1801e277261ba0d77770028f20eee4|
+|COMODO Certification Authority|1.Jan.30|6631bf9ef74f9eb6c9d5a60cba6abed1f7bdef7b|
+|AddTrust External CA Root|30.May.20|02faf3e291435468607857694df5e45b68851868|
+|COMODO RSA Certification Authority|19.Jan.38|afe5d244a8d1194230ff479fe2f897bbcd7a8cb4|
+|thawte Primary Root CA - G3|2.Dec.37|f18b538d1be903b6a6f056435b171589caf36bf2|
+|DigiCert Global Root G3|15.Jan.38|7e04de896a3e666d00e687d33ffad93be83d349e|
+|GeoTrust Global CA|21.May.22|de28f4a4ffe5b92fa3c503d1a349a7f9962a8212|
+|DigiCert Global Root G2|15.Jan.38|df3c24f9bfd666761b268073fe06d1cc8d4f82a4|
   
 - **원본 서버 포트**
   원본 서버는 웹 프로토콜을 지원하는 서비스로 운영해야합니다. 운영 중인 HTTP/HTTPS 프로토콜의 서비스 포트 번호를 설정 할 수 있습니다. 
   원본 서버 포트는 HTTP 또는 HTTPS 포트 중 하나를 반드시 입력 해야 하며, 설정하지 않은 포트는 기본 포트 HTTP:80, HTTPS:443으로 설정됩니다.
   원본 서버 포트는 제한된 포트만 설정 가능합니다. 설정 가능한 포트 번호는 [표2]사용 가능한 원본 서버 포트 번호를 참고하시기 바랍니다.
 
-  [표2] 사용 가능한 원본 서버 포트 번호
-  |사용 가능한 원본 서버 포트 번호|
-  |---|
-  |72, 488, 1080, 1443, 7070|
-  |8000-9001|
-  |11080-11110|
-  |80-89|
-  |591, 1088, 2080, 7612|
-  |12900-12949|
-  |443, 777, 1111, 7001, 7777|
-  |9901-9908|
-  |45002|
+[표2] 사용 가능한 원본 서버 포트 번호
+|사용 가능한 원본 서버 포트 번호|
+|---|
+|72, 488, 1080, 1443, 7070|
+|8000-9001|
+|11080-11110|
+|80-89|
+|591, 1088, 2080, 7612|
+|12900-12949|
+|443, 777, 1111, 7001, 7777|
+|9901-9908|
+|45002|
 
 - **원본 경로**
   원본 경로는 원본 파일의 경로 중 하위 경로를 설정합니다. 원본 경로로 지정된 경로는 CDN 서비스 URL에서 생략하여 콘텐츠를 요청할 수 있습니다.
@@ -128,7 +127,6 @@ CDN 서비스 도메인은 "[서비스ID].toastcdn.net" 형식으로 자동 생�
     - CDN 서비스 URL: http://[서비스ID].toastcdn.net/logo.png
 
 - **원본 요청 HTTP 프로토콜 다운그레이드**
-
   CDN 에지 서버는 원본 서버에 원본 파일을 요청할 때 원본 요청(client의 원본 Request)의 서비스 프로토콜(HTTP/HTTPS)로 요청합니다.
   즉, 클라이언트가 HTTPS로 요청하고 원본 서버가 HTTPS 응답을 지원하지 않는 경우, CDN 에지 서버에서 원본 서버의 요청시 HTTPS 프로토콜로 요청을 하기 때문에 원본 서버가 HTTPS 응답을 지원하지 않으면 원본 파일을 응답 받을 수 없습니다.
   원본 서버가 HTTP 프로토콜만 운영 중인 경우 **원본 서버 HTTP 프로토콜 다운그레이드** 설정을 사용하면 CDN 에지 서버에서 원본 서버 요청시 HTTPS 프로토콜을 HTTP 프로토콜 다운그레이드하여 파일을 요청 할 수 있습니다. 
