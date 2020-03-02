@@ -613,8 +613,7 @@ CDN 서비스에 콜백 기능이 설정되어있을 경우, 생성/수정/일�
           "httpMethod": "GET",
           "url": "http"
       }
-  },
-  "successful": true
+  }
 }
 ```
 
@@ -648,4 +647,3 @@ CDN 서비스에 콜백 기능이 설정되어있을 경우, 생성/수정/일�
 | distribution.callback              | Object  | 서비스 배포 처리 결과를 통보받을 콜백                        |
 | distribution.callback.httpMethod   | String  | 콜백의 HTTP Method                                           |
 | distribution.callback.url          | String  | 콜백 URL                                                     |
-| successful        | Boolean  | 변경 수행 성공 여부                                                     |
