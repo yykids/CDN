@@ -369,7 +369,7 @@ TOAST CDN 인증서 관리 다음과 같은 기능을 제공합니다.
 2. nslookup 명령어를 통해 추가한 TXT 레코드가 질의되는지 확인합니다. (DNS 전파시간에 따라 질의되기 까지 시간이 소요될 수 있습니다.)
   `nslookup -type=TXT **_acme-challenge.[발급 요청한 인증서 도메인].**`
 
-다음 화면은 TOAST DNS+ 서비스에서 설정한 예시 입니다. 
+다음 화면은 TOAST DNS+ 서비스에서 설정한 예시 입니다. DNS 서비스 제공 업체에 따라 설정 방법은 다를 수 있습니다.
 ![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation-dns.png)
 
 
@@ -402,6 +402,7 @@ TOAST CDN 인증서 관리 다음과 같은 기능을 제공합니다.
     - TTL : 임의의 값 (잦은 변경이 예상되는 경우 작게 설정하시기를 권장합니다. 레코드 변경시 캐시 DNS 서버에 TTL 시간 동안 캐시될 수 있습니다.)
     - 레코드 이름:  **[인증서 도메인].** (예시: test.alias.com.com.)
     - 레코드값:  **[연동 할 CDN 서비스 도메인]** (예시: xxxxxxxx.toastcdn.net)
+다음 화면은 TOAST DNS+ 서비스에서 설정한 예시 입니다. DNS 서비스 제공 업체에 따라 설정 방법은 다를 수 있습니다.
 ![CDN서비스연동-CNAME위임](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-cname.png)
 
 2. **도메인 별칭 설정**: 인증서를 이용할 CDN 서비스에 도메인 별칭 설정을 추가합니다. 
