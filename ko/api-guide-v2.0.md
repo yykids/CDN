@@ -571,6 +571,7 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v2.0/appKeys/{appKey}/distrib
 | header.resultCode    | Integer | 결과 코드     |
 | header.resultMessage | String  | 결과 메시지    |
 
+- CDN 서비스를 신규로 생성한 후 약 1시간 이내에는 캐시 재배포 요청이 실패할 수 있습니다. 이후에도 실패가 지속되는 경우 고객센터로 문의해주시기 바랍니다.
 - 퍼지 API 사용량 제한 정책이 있습니다. 자세한 내용은 [콘솔 사용 가이드] > [[CDN 캐시재배포](https://docs.toast.com/ko/Contents%20Delivery/CDN/ko/console-guide/#cdn_3)의 캐시 재배포 사용량 제한] 내용을 확인해주세요.
 
 ### 캐시 재배포(Purge) 조회
