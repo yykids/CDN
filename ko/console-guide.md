@@ -8,7 +8,8 @@
 CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 생성됩니다. 만일 소유하고 있는 도메인을 서비스 도메인으로 이용하려면 **도메인 별칭**(Domain Alias) 기능을 이용해 서비스할 수 있습니다.
 
 ### 기본 정보 
-![cdn_01_201812](https://static.toastoven.net/prod_cdn/cdn_01_201812.png)
+기본 정보를 설정합니다.
+![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-default.png)
 
 - **서비스 지역**
   GLOBAL 서비스 지역은 전 세계 거점에 위치한 CDN 에지 서버를 통해 CDN 서비스를 제공합니다.
@@ -34,6 +35,8 @@ CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 �
     2. Request URI의 Query Parameter로 CDN 서비스 변경 작업에 대한 결과를 받으려면 **콜백 URL**에 Path 변수를 포함해 입력해 주세요.
 
 ### 원본 서버
+CDN 서비스를 통해 배포 할 원본 파일을 제공하는 서버를 설정합니다.
+![CDN서비스생성-기본정보](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-origin.png)
 
 - **원본 서버**
   원본 서버는 CDN 서비스를 통해 배포 할 원본 파일을 제공하는 서버입니다. 원본 서버는 IPv4 또는 도메인(FQDN: Fully Qualified Domain Name) 형식으로 입력할 수 있으며, IP 주소는 변경될 가능성이 높기 때문에 도메인으로 설정하는 것을 권장합니다.  
@@ -155,7 +158,7 @@ CDN 서비스 도메인은 **[서비스ID].toastcdn.net** 형식으로 자동 �
 ### 캐시
 
 CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다. 
-![cdn_02_201812](https://static.toastoven.net/prod_cdn/cdn_02_201812.png)
+![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
 
 - **캐시 만료 설정**
   원본 서버의 Cache Control 응답 헤더를 통해 캐시를 설정 할 수 있습니다. 
@@ -167,6 +170,8 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 > 캐시 만료 시간은 기본값인 0부터 2,147,483,647(단위/초)까지 입력할 수 있습니다.
 
 ### 리퍼러(Referer) 헤더 접근 관리
+리퍼러(Referer) 헤더로 콘텐츠의 접근 관리를 설정합니다.
+![CDN서비스생성-캐시](https://static.toastoven.net/prod_cdn/v2/console-cdn-create-cache.png)
 
 리퍼러(Referer) 요청 헤더는 현재 요청된 페이지의 링크 이전의 웹 페이지 주소를 포함합니다. Referer 헤더를 통해 어떤 경로에서 요청이 유입되었는지 알 수 있습니다. 리퍼러 접근 관리는 리퍼러 헤더를 참고하여 특정 리퍼러만 사용자 콘텐츠에 접근할 수 있도록 설정할 수 있습니다.
 리퍼러는 정규 표현식 형태로 입력할 수 있으며, 여러 개의 리퍼러를 제어할 경우 입력 창에 라인을 추가하여 입력합니다.
@@ -200,13 +205,12 @@ CDN 캐시 동작 설정과 만료 시간을 설정할 수 있습니다.
 
 ### CDN 서비스 설정 변경
 서비스 도메인 이름과 지역을 제외한 CDN 서비스 설정을 변경 할 수 있습니다. 
-
+![CDN서비스수정활성화](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify1.png)
 1. 변경할 CDN 서비스를 CDN 서비스 목록에서 선택합니다.
 2. 화면 아래 **설정** 탭의 **수정** 버튼을 클릭합니다.
 
 다음과 같이 변경할 수 있는 항목이 활성화됩니다.
-
-![cdn_04_201812](https://static.toastoven.net/prod_cdn/cdn_04_201812.png)
+![CDN서비스수정확인](https://static.toastoven.net/prod_cdn/v2/console-cdn-modify2.png)
 
 * 변경할 설정 내용을 수정합니다. 
 * **확인** 버튼을 클릭해 변경을 완료합니다.
@@ -225,7 +229,8 @@ CDN 캐시 서버는 캐시 설정에 따라 지정된 만료 시간 동안 원�
 
 1. 변경을 원하는 서비스를 CDN 서비스 목록에서 선택합니다.
 2. **캐시 재배포** 탭을 클릭합니다.
-![cdn_06_201812](https://static.toastoven.net/prod_cdn/cdn_06_201812.png)
+![CDN캐시재배포](https://static.toastoven.net/prod_cdn/v2/console-cdn-purge.png)
+
 3. 캐시 재배포 타입을 선택합니다.
   - CDN 서비스 도메인에 따라 지원되는 캐시 재배포 타입과 요청 양식이 다르므로 유의 하시기 바랍니다. 
   - **[서비스ID].toastcdn.net** 서비스 도메인의 재배포 타입과 요청 양식
@@ -274,7 +279,7 @@ CDN 캐시 서버는 캐시 설정에 따라 지정된 만료 시간 동안 원�
 > CDN 서비스를 생성한 후 약 1시간 이내에는 캐시 재배포 요청이 실패할 수 있습니다. 이후에도 실패가 지속되는 경우 고객센터로 문의해주시기 바랍니다.
 
 ## 인증서 관리 
-소유한 도메인으로 HTTPS 프로토콜의 CDN 서비스를 이용하려면 CDN 서버에 도메인의 인증서가 배포되어야 합니다. 인증서가 배포되어 있지 않으면 Client(browser)와 CDN 에지 서버 간 SSL 통신이 불가하여 인증서 오류가 발생합니다.
+소유한 도메인으로 콘텐츠를 보안 전송(HTTPS)하려면 CDN 서버에 소유한 도메인의 인증서가 배포되어야 합니다. 인증서가 배포되어 있지 않으면 Client(browser)와 CDN 에지 서버 간 보안 통신(HTTPS)이 불가하여 인증서 오류가 발생합니다.
 TOAST CDN 인증서 관리 다음과 같은 기능을 제공합니다. 
 
 - 단일 도메인 타입의 인증서 발급
@@ -282,6 +287,9 @@ TOAST CDN 인증서 관리 다음과 같은 기능을 제공합니다.
 - 인증서 만료 전 자동 갱신
 
 ### 신규 인증서 발급 
+인증서를 발급하려면 **인증서 관리** 탭으로 이동하여 신규 발급 요청을 할 수 있습니다.
+![CDN신규인증서발급](https://static.toastoven.net/prod_cdn/v2/console-certificate-create.png)
+
 
 1. **인증서 관리** 탭의 **신규 인증서 발급** 버튼을 클릭합니다.
 2. 발급할 인증서의 도메인을 전체 도메인 주소(FQDN, fully qualified domain name)형식으로 입력합니다.
@@ -296,9 +304,16 @@ TOAST CDN 인증서 관리 다음과 같은 기능을 제공합니다.
 > 5. 신규 인증서 발급 요청 후 도메인 검증 단계는 수 십분(최대 1~2시간) 후 변경될 수 있습니다. 인증서 상태가 도메인 검증 상태로 변경되면 TOAST 프로젝트 멤버를 대상으로 이메일 발송이 됩니다. 만일 시스템 오류로 인해 이메일이 발송되지 않은 경우, 콘솔에서 상태를 확인 하시기 바랍니다. 
 
 ### 도메인 검증 
+신규 인증서 발급 요청 후 인증서 상태가 '도메인 검증' 상태가 되면 도메인 검증을 하시기 바랍니다.
+도메인 검증 방법은 콘솔에서 도메인을 선택하여 확인하거나, 프로젝트 멤버에게 전송된 도메인 검증 가이드 메일의 내용을 참고하시기 바랍니다.
+
+![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation.png)
+
 도메인 검증은 발급 요청한 인증서 도메인의 실제 소유자 인지 확인하는 단계 입니다. 도메인 검증을 진행하지 않으면 인증서 발급이 불가합니다.
 도메인 소유자인지 확인하기 위해 도메인 검증 방식을 통해 도메인의 제어 권한을 확인합니다. 
 도메인 검증 방식은 **DNS TXT 레코드 추가** 또는 **HTTP 페이지 추가** 방식이 있으며 **두 가지 방식 중 하나만 진행**하면 됩니다.
+
+![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation2.png)
 
 #### DNS TXT 레코드 추가 방식 
 도메인의 DNS 제어 권한을 확인하여 도메인 검증을 합니다. 
@@ -311,6 +326,10 @@ TOAST CDN 인증서 관리 다음과 같은 기능을 제공합니다.
 
 2. nslookup 명령어를 통해 추가한 TXT 레코드가 질의되는지 확인합니다. (DNS 전파시간에 따라 질의되기 까지 시간이 소요될 수 있습니다.)
   - nslookup -type=TXT **_acme-challenge.[발급 요청한 인증서 도메인].**
+
+다음 화면은 TOAST DNS+ 서비스에서 설정한 예시 입니다. 
+![CDN도메인검증](https://static.toastoven.net/prod_cdn/v2/console-certificate-domain-validation-dns.png)
+
 
 #### HTTP 페이지 추가 방식 
 도메인이 연결된 웹 서버에 HTTP 페이지를 추가하여 도메인 검증을 합니다. 
@@ -337,12 +356,16 @@ TOAST CDN 인증서 관리 다음과 같은 기능을 제공합니다.
 이 작업을 진행하지 않거나 작업 내용을 유지하지 않으면 발급된 인증서가 만료될 수 있으므로 주의 하시기 바랍니다. 
 
 1. **CNAME 레코드 설정**: 인증서 도메인의 DNS 서비스 제공 업체의 DNS 관리에서 다음의 CNAME 레코드를 추가합니다. 
-    - 레코드 타입:  **CNAME **
+    - 레코드 타입:  **CNAME**
     - TTL : 임의의 값 (잦은 변경이 예상되는 경우 작게 설정하시기를 권장합니다. 레코드 변경시 캐시 DNS 서버에 TTL 시간 동안 캐시될 수 있습니다.)
-    - 레코드 이름:  **[인증서 도메인]. ** (예시: cdn.toast.com.)
-    - 레코드값:  **[연동 할 CDN 서비스 도메인] ** (예시: xxxx.toastcdn.net)
+    - 레코드 이름:  **[인증서 도메인].** (예시: cdn.toast.com.)
+    - 레코드값:  **[연동 할 CDN 서비스 도메인]** (예시: xxxx.toastcdn.net)
+![CDN서비스연동-CNAME위임](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-cname.png)
+
 2. **도메인 별칭 설정**: 인증서를 이용할 CDN 서비스에 도메인 별칭 설정을 추가합니다. 
-    -  **CDN 서비스** 탭 > 연동할 CDN 서비스 선택 >  **수정 ** 버튼 > 도메인 별칭에 인증서 도메인 추가 후  **확인** 버튼을 클릭하여 수정합니다.
+    -  **CDN 서비스** 탭 > 연동할 CDN 서비스 선택 >  **수정** 버튼 > 도메인 별칭에 인증서 도메인 추가 후  **확인** 버튼을 클릭하여 수정합니다.
+![CDN서비스연동-도메인별칭](https://static.toastoven.net/prod_cdn/v2/console-certificate-service-alias.png)
+
 
 >  **[주의] 인증서 만료 주의 사항**
 > TOAST CDN 에서 제공하는 인증서는 인증서 만료 전 자동으로 인증서를 갱신 합니다. 
@@ -354,6 +377,9 @@ TOAST CDN 인증서 관리 다음과 같은 기능을 제공합니다.
 > 2. 연동할 CDN 서비스의 도메인 별칭에 인증서 도메인이 설정되어 있어야 합니다.
 > 3. CDN 서비스가 일시 정지 상태이면 안됩니다. 인증서 갱신 시작일 이전에 재시작을 하거나 다른 운영 중인 CDN 서비스에 인증서를 연동하시기 바랍니다.
 > 4. 인증서 도메인이 연동된 CDN 서비스를 삭제하면 안됩니다. 삭제하시기 전 다른 운영 중인 CDN 서비스에 인증서를 연동하시기 바랍니다. 
+
+CDN 서비스 연동 작업이 완료되면 인증서 상태가 '정상' 상태로 표시됩니다.
+![CDN인증서정상상태](https://static.toastoven.net/prod_cdn/v2/console-certificate-active.png)
 
 ## 통계
 

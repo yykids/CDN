@@ -13,18 +13,19 @@ CDN 서비스를 계속 이용하려면 아래 가이드를 참고하여 마이�
 ## 마이그레이션 진행 순서
 
 ### 1. CDN 서비스 마이그레이션
-
 1. TOAST CDN 콘솔 페이지의 **CDN 서비스** 탭으로 이동합니다. 
 2. 서비스 도메인이 **[서비스ID].cdn.toastcloud.com** 인 경우 마이그레이션이 필요한 CDN 서비스 입니다.
+    ![마이그레이션대상](https://static.toastoven.net/prod_cdn/v2/migration-target-list.png)
 3. 서비스 이름 옆에 위치한 **마이그레이션** 버튼을 클릭합니다. 
 4. **마이그레이션** 버튼을 클릭하면 CDN 서비스 생성 화면이 표시됩니다. CDN 서비스 생성화면은 기존 CDN 서비스 설정 정보가 기본으로 설정되어 있습니다. 
 
 ### 2. CDN 서비스 설정 확인
 
 1. CDN 서비스 생성 화면에서 CDN 서비스 설정 내용을 확인합니다.
-2. **확인** 버튼을 클릭하여 CDN 서비스를 생성합니다. 
-3. 새로 생성된 CDN 서비스는 **[서비스ID].toastcdn.net** 도메인으로 생성되며, 파란색 느낌표 아이콘이 표시됩니다.
+    ![마이그레이션서비스생성](https://static.toastoven.net/prod_cdn/v2/migration-create-modal.png)
 
+    ![마이그레이션서비스생성](https://static.toastoven.net/prod_cdn/v2/migration-create-modal-options.png)    
+    
     1. **서비스 지역** 
         - KOREA(한국) 서비스 지역을 지원하지 않습니다. 
         - 한국 지역을 포함하고 있는 GLOBAL 서비스 지역만 제공됩니다. 
@@ -59,12 +60,17 @@ CDN 서비스를 계속 이용하려면 아래 가이드를 참고하여 마이�
         - 원본 호스트 이름: 원본 서버의 호스트네임을 Host 헤더로 설정합니다. 
         - 요청 호스트 헤더: 클라이언트 요청의 Host 헤더로 설정합니다.
 
-    6. 캐시 
+    6. **캐시** 
     CDN 캐시 서버의 캐시 운영 방법과 만료시간을 설정합니다. 
         - **원본 설정 사용**: 원본 서버의 응답에서 제공한 캐시 제어 헤더(Cache-Control, Expires)를 우선하여 적용합니다. 만일 원본 서버의 응답에 캐시 제어 헤더(Cache-Control, Expires)가 유효하지 않거나 없는 경우, 캐시 만료 시간(초)에 지정한 시간 동안 캐싱합니다.  **원본 설정 사용** 옵션이 기본값입니다.
         - **사용자 설정 사용**: 캐시 만료 시간(초)에 지정한 시간 동안 캐싱합니다. 
         - **캐시 만료 시간(초)**: CDN 캐시 서버에 원본 파일을 얼마나 오래 캐시할 것인지 TTL을 설정합니다.
 
+2. **확인** 버튼을 클릭하여 CDN 서비스를 생성합니다. 
+3. 새로 생성된 CDN 서비스는 **[서비스ID].toastcdn.net** 도메인으로 생성되며, 파란색 느낌표 아이콘이 표시됩니다.
+    ![마이그레이션서비스생성후목록](https://static.toastoven.net/prod_cdn/v2/migration-new-create.png)
+
+    
 ### 3.신규 생성한 CDN 서비스 테스트
 [신규 CDN 서비스 테스트 방법 내용]
 
@@ -73,3 +79,4 @@ CDN 서비스를 계속 이용하려면 아래 가이드를 참고하여 마이�
 
 ### 5.기존 CDN 서비스 삭제 
 모든 마이그레이션 작업이 완료되면 **[서비스ID].cdn.toastcloud.com** 서비스를 삭제합니다.
+  ![마이그레이션완료후삭제](https://static.toastoven.net/prod_cdn/v2/migration-old-delete.png)
