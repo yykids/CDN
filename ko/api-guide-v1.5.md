@@ -95,7 +95,9 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 {
    "distributions":[
        {
-			"region": "LOCAL",
+			"region": "GLOBAL",
+      "useOriginHttpProtocolDowngrade": false,
+      "forwardHostHeader": "ORIGIN_HOSTNAME",
 			"useOrigin" : "N",
 			"referrerType" : "BLACKLIST",
 			"description" : "sample-cdn",
@@ -122,7 +124,9 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | 이름                                   | 타입    | 필수 여부 | 기본값 | 유효 범위                   | 설명                                                         |
 | -------------------------------------- | ------- | --------- | ------ | --------------------------- | ------------------------------------------------------------ |
 | distributions                          | List    | 필수      |        |                             | 생성할 CDN의 오브젝트 목록                                   |
-| distributions[0].region                | String  | 필수      |        | LOCAL/GLOBAL                | 서비스 지역("LOCAL": 대한민국, "GLOBAL" : 글로벌)           |
+| distributions[0].region                | String  | 필수      |        | GLOBAL                | 서비스 지역("GLOBAL": 글로벌)           |
+| distributions[0].useOriginHttpProtocolDowngrade | Boolean  | 필수     |        | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
+| distributions[0].forwardHostHeader     | String  | 필수      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME" : 원본 서버의 호스트네임으로 설정, "REQUEST_HOST_HEADER" : 클라이언트 요청의 호스트헤더로 설정)|
 | distributions[0].useOrigin             | String  | 필수      |        | Y/N                         | 캐시 만료 설정("Y": 원본 설정 사용, "N":사용자 설정 사용)   |
 | distributions[0].referrerType          | String  | 필수      |        | BLACKLIST/WHITELIST         | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | distributions[0].description           | String  | 선택      |        | 최대 255자                  | 설명                                                         |
@@ -131,12 +135,15 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | distributions[0].referrers             | String  | 선택      |        | '\n' 토큰 포함, 최대 1024자 | 리퍼러(여러 개 입력 시 \n 토큰으로 구분해 입력해 주세요.)    |
 | distributions[0].origins               | List    | 필수      |        |                             | 원본 서버 오브젝트 목록                                      |
 | distributions[0].origins[0].origin     | String  | 필수      |        | 최대 255자                  | 원본 서버(domain 또는 IP)                                     |
-| distributions[0].origins[0].port       | String  | 필수      |        | 0~65,536                    | 원본 서버 포트                                               |
+| distributions[0].origins[0].port       | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
+| distributions[0].origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
+| distributions[0].origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고 | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
 | distributions[0].origins[0].originPath | String  | 선택      |        | 최대 8192자                 | 원본 서버 하위 경로(/를 포함한 경로로 입력해 주세요.)        |
 | distributions[0].callback              | Object  | 선택      |        |                             | CDN 생성 처리 결과를 통보받을 콜백 URL(콜백 설정은 선택입력입니다.) |
 | distributions[0].callback.httpMethod   | String  | 필수      |        | GET/POST/PUT                | 콜백의 HTTP Method                                           |
-| distributions[0].callback.url          | String  | 필수      |        | 최대 1024자                 | 콜백 URL                                                     |
+| distributions[0].callback.url          | String  | 필수      |        | 최대 1024자                 | 콜백 URL            |
 
+- forwardHostHeader 필드와 useOriginHttpProtocolDowngrade 필드는 *.toastcdn.net 도메인을 사용할 경우 설정 가능하며, *.cdn.toastcloud.com 도메인은 설정 불가능합니다.
 
 
 
@@ -154,8 +161,10 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
     },
     "distributions": [
         {
-            "region" :  "LOCAL",
+            "domain" : "lhcsxuo0.toastcdn.net"
+            "region" :  "GLOBAL",
             "description" :  "api test pad",
+            "status" : "OPENING",
             "useOrigin" :  "N",
             "domainAlias" :  "test.domain.com",
             "referrerType" :  "BLACKLIST",
@@ -187,11 +196,10 @@ API를 사용하려면 앱 키(Appkey)와 보안 키(SecretKey)가 필요합니�
 | header.resultMessage                   | String  | 결과 메시지                                                  |
 | distributions                          | List    | 생성된 CDN 오브젝트 목록                                   |
 | distributions[0].domain                | String  | 생성된 도메인(서비스) 이름                                   |
-| distributions[0].domainAlias           | String  | 소유 도메인                                                  |
-| distributions[0].region                | String  | 서비스 지역("LOCAL": 대한민국, "GLOBAL": 글로벌)            |
+| distributions[0].domainAlias           | String  | 도메인 별칭 목록(개인 혹은 회사가 소유한 도메인 사용)              |
+| distributions[0].region                | String  | 서비스 지역("GLOBAL": 글로벌)            |
 | distributions[0].description           | String  | 설명                                                         |
 | distributions[0].status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                                 |
-| distributions[0].createTime            | String  | 생성 일시                                                    |
 | distributions[0].useOrigin             | String  | 원본 서버 설정 사용 여부("Y": 원본 서버 설정 사용, "N": 사용자 설정) |
 | distributions[0].maxAge                | String  | 캐시 만료 시간(초)                                           |
 | distributions[0].referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
@@ -243,12 +251,11 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
         "resultMessage" :  "SUCCESS",
       "isSuccessful" :  true
     },
-    "domain" :  "lhcsxuo0.cdn.toastcloud.com",
+    "domain" :  "lhcsxuo0.toastcdn.com",
     "domainAlias" :  "test.domain.com",
-    "region" :  "LOCAL",
+    "region" :  "GLOBAL",
     "description" :  "api test pad",
     "status" :  "OPENING",
-    "createTime" :  1498613094692,
     "useOrigin" :  "N",
     "maxAge" :  "100",
     "referrerType" :  "BLACKLIST",
@@ -277,11 +284,10 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | header.resultMessage                   | String  | 결과 메시지                                                  |
 | distributions                          | List    | 생성된 CDN 오브젝트 목록                                     |
 | distributions[0].domain                | String  | 도메인 이름(서비스 이름)                                     |
-| distributions[0].domainAlias           | String  | 소유 도메인                                                  |
-| distributions[0].region                | String  | 서비스 지역("LOCAL": 대한민국, "GLOBAL": 글로벌)             |
+| distributions[0].domainAlias           | String  | 도메인 별칭 목록(개인 혹은 회사가 소유한 도메인 사용)              |
+| distributions[0].region                | String  | 서비스 지역("GLOBAL": 글로벌)             |
 | distributions[0].description           | String  | 설명                                                         |
 | distributions[0].status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                                 |
-| distributions[0].createTime            | String  | 생성 일시                                                    |
 | distributions[0].useOrigin             | String  | 원본 서버 설정 사용 여부("Y": 원본 서버 설정 사용, "N": 사용자 설정) |
 | distributions[0].maxAge                | String  | 캐시 만료 시간(초)                                           |
 | distributions[0].referrerType          | String  | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
@@ -312,6 +318,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 ```json
 {
         "domain" : "sample.cdn.toastcloud.com",
+        "useOriginHttpProtocolDowngrade": false,
+        "forwardHostHeader": "ORIGIN_HOSTNAME",
         "useOrigin" : "N",
         "maxAge": 86400,
         "referrerType" : "BLACKLIST",
@@ -337,6 +345,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | 이름                  | 타입    | 필수 여부 | 기본값 | 유효 범위                                                    | 설명                                                         |
 | --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | domain                | String  | 필수      |        | 최대 255자                                                   | 수정할 도메인(서비스 이름)                                   |
+| useOriginHttpProtocolDowngrade | Boolean  | 필수     |        | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
+| forwardHostHeader     | String  | 필수      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME" : 원본 서버의 호스트네임으로 설정, "REQUEST_HOST_HEADER" : 클라이언트 요청의 호스트헤더로 설정 |
 | useOrigin             | String  | 필수      |        | Y/N                                                          | 캐시 만료 설정(Y: 원본 설정 사용, "N":사용자 설정 사용)      |
 | referrerType          | String  | 필수      |        | BLACKLIST/WHITELIST                                          | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | description           | String  | 선택      |        | 최대 255자                                                   | 설명                                                         |
@@ -345,12 +355,15 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | referrers             | String  | 선택      |        | '\n' 토큰 포함, 최대 1024자                                  | 리퍼러(여러 개 입력 시 \\n 토큰으로 구분해 입력해 주세요. )  |
 | origins               | List    | 필수      |        |                                                              | 원본 서버                                                    |
 | origins[0].origin     | String  | 필수      |        | 최대 255자                                                   | 원본 서버(domain 또는 IP)                                      |
-| origins[0].port       | Integer | 필수      |        | 0~65,536                                                     | 원본 서버 포트                                               |
+| origins[0].port       | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
+| origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
+| origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고 | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
 | origins[0].originPath | String  | 선택      |        | 최대 8192자                                                  | 원본 서버 하위 경로                                          |
 | callback              | Object  | 선택      |        | CDN 서비스 배포 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.) |                                                              |
 | callback.httpMethod   | String  | 필수      |        | GET/POST/PUT                                                 | 콜백의 HTTP Method                                           |
-| callback.url          | String  | 필수      |        | 최대 1024자                                                  | 콜백 URL                                                     |
+| callback.url          | String  | 필수      |        | 최대 1024자                                                  | 콜백 URL                   |
 
+- forwardHostHeader 필드와 useOriginHttpProtocolDowngrade 필드는 *.toastcdn.net 도메인을 사용할 경우 설정 가능하며, *.cdn.toastcloud.com 도메인은 설정 불가능합니다.
 
 #### 응답
 
@@ -422,6 +435,8 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | 이름                  | 타입    | 필수 여부 | 기본값 | 유효 범위                                                    | 설명                                                         |
 | --------------------- | ------- | --------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | domain                | String  | 필수      |        | 최대 255자                                                   | 수정할 도메인(서비스 이름)                                   |
+| useOriginHttpProtocolDowngrade | Boolean  | 선택     |        | true/false         | 원본 서버가 HTTP 응답만 가능한 경우, CDN 서버에서 원본 서버로 요청 시 HTTPS 요청을 HTTP 요청으로 다운그레이드하기 위한 설정 사용 여부 |
+| forwardHostHeader     | String  | 선택      |        | ORIGIN_HOSTNAME/REQUEST_HOST_HEADER   | CDN 서버가 원본 서버로 콘텐츠 요청 시 전달 할 호스트 헤더 설정("ORIGIN_HOSTNAME" : 원본 서버의 호스트네임으로 설정, "REQUEST_HOST_HEADER" : 클라이언트 요청의 호스트헤더로 설정 |
 | useOrigin             | String  | 선택      |        | Y/N                                                          | 캐시 만료 설정(Y: 원본 설정 사용, N:사용자 설정 사용)        |
 | referrerType          | String  | 선택      |        | BLACKLIST / WHITELIST                                        | 리퍼러 접근 관리("BLACKLIST": 블랙리스트, "WHITELIST": 화이트리스트) |
 | description           | String  | 선택      |        | 최대 255자                                                   | 설명                                                         |
@@ -430,14 +445,17 @@ curl -X GET "https://api-gw.cloud.toast.com/tc-cdn/v1.5/appKeys/{appKey}/distrib
 | referrers             | String  | 선택      |        | '\n' 토큰 포함, 최대 1024자                                  | 리퍼러(여러 개 입력 시 \\n 토큰으로 분리하여 입력해주세요. )  |
 | origins               | List    | 선택      |        |                                                              | 원본 서버                                                    |
 | origins[0].origin     | String  | 선택      |        | 최대 255자                                                   | 원본 서버(domain 또는 IP)                                     |
-| origins[0].port       | Integer | 선택      |        | 0 ~ 65,536                                                   | 원본 서버 포트                                               |
+| origins[0].port       | Integer | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 설정 시 origins[0].httpPort와 origins[0].httpsPort는 입력하지 않습니다.)|
+| origins[0].httpPort   | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고| 원본 서버 HTTP 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.)  |
+| origins[0].httpsPort  | Integer  | 선택      |        |[콘솔 사용 가이드] > [[원본서버](./console-guide/#_2)의 [표2] 사용 가능한 원본 서버 포트 번호] 참고 | 원본 서버 HTTPS 프로토콜 포트<br>(origins[0].port 미설정 시 origins[0].httpPort와 origins[0].httpsPort 중 하나는 필수 입력해야 합니다.) |
 | origins[0].originPath | String  | 선택      |        | 최대 8192자                                                  | 원본 서버 하위 경로                                          |
 | callback              | Object  | 선택      |        | CDN 서비스 배포 결과를 통보받을 콜백 URL(콜백 설정은 선택 입력입니다.) |                                                              |
 | callback.httpMethod   | String  | 선택      |        | GET/POST/PUT                                                 | 콜백의 HTTP Method                                           |
 | callback.url          | String  | 선택      |        | 최대 1024자                                                  | 콜백 URL                                                     |
 
-- origins 필드를 설정할 때 origin, port, originPath 필드는 필수 입력값입니다. 
-- callback 필드를 설정할 때 httpMethod, url 필드는 필수 입력값입니다. 
+- origins 필드를 설정할 때 origin, originPath 필드는 필수 입력값이며, port 필드나 httpPort, httpsPort 필드 중 하나는 필수로 입력해야 합니다.
+- callback 필드를 설정할 때 httpMethod, url 필드는 필수 입력값입니다.
+- forwardHostHeader 필드와 useOriginHttpProtocolDowngrade 필드는 *.toastcdn.net 도메인을 사용할 경우 설정 가능하며, *.cdn.toastcloud.com 도메인은 설정 불가능합니다.
 
 #### 응답
 
@@ -681,9 +699,9 @@ CDN 서비스에 콜백 기능이 설정되어있을 경우, 생성/수정/일�
   },
   "distribution":{
       "appKey": "String",
-      "domain" : "lhcsxuo0.cdn.toastcloud.com",
+      "domain" : "lhcsxuo0.toastcdn.net",
       "domainAlias" : "test.domain.com",
-      "region" : "LOCAL",
+      "region" : "GLOBAL",
       "description" : "api test pad",
       "status" : "OPENING",
       "createTime" : 1498613094692,
@@ -719,7 +737,7 @@ CDN 서비스에 콜백 기능이 설정되어있을 경우, 생성/수정/일�
 | distribution.appKey                   | String    | 앱키                                  |
 | distribution.domain                | String  | 도메인 이름(서비스 이름)                                     |
 | distribution.domainAlias           | String  | 소유 도메인                                                  |
-| distribution.region                | String  | 서비스 지역("LOCAL": 대한민국, "GLOBAL": 글로벌)             |
+| distribution.region                | String  | 서비스 지역("GLOBAL": 글로벌)             |
 | distribution.description           | String  | 설명                                                         |
 | distribution.status                | String  | CDN 상태 코드([표] CDN 상태 코드 참고)                                 |
 | distribution.createTime            | String  | 생성 일시                                                    |
