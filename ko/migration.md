@@ -101,9 +101,9 @@ CDN 서비스를 계속 이용하려면 아래 가이드를 참고하여 마이�
 
     ![nslookup-IP확인](https://static.toastoven.net/prod_cdn/v2/migration-nslookup.png)
 
-2. 테스트를 수행 할 로컬 또는 개발 환경의 hosts 파일에 도메인과 확인한 IP 주소를 입력합니다.
+2. 테스트를 수행 할 로컬 또는 개발 환경의 hosts 파일에 확인한 에지 IP 주소와 도메인을 입력합니다.
     ```
-    your-alias.domain.com xxx.xxx.xxx.xxx
+    xxx.xxx.xxx.xxx your-alias.domain.com
     ```
 3. 로컬 또는 개발환경에서 서비스를 구동하여 동작에 문제가 없는지 테스트합니다.
    ![도메인별칭-hosts파일변조](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-hosts-before.png)
