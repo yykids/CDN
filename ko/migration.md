@@ -54,7 +54,7 @@ CDN 서비스를 계속 이용하려면 아래 가이드를 참고하여 마이�
             1. 전체 사이트 주소는 프로토콜 다운 그레이드가 불가합니다. (예: 원본 서버의 전체 사이트 주소인 "www.toast.com"는 다운그레이드가 불가합니다.)
             2. GET, HEAD 및 OPTIONS 메소드 외 메서드는 지원되지 않습니다. 
             3. CDN 서버에서 원본 서버로 다운그레이드 요청시 다음의 헤더는 제외될 수 있습니다.
-                - Origin, Referer, Cookie, Cookie2, sec-, proxy-
+                - Origin, Referer, Cookie, Cookie2, sec-\*, proxy-\*
 
     5. **Forward Host Header** 
     CDN 서버가 원본 서버에 원본 파일을 요청시 전달 할 **Host** 헤더 값을 설정합니다. 
@@ -73,17 +73,18 @@ CDN 서비스를 계속 이용하려면 아래 가이드를 참고하여 마이�
     ![마이그레이션서비스생성후목록](https://static.toastoven.net/prod_cdn/v2/migration-new-create.png)
 
     
-### 3.신규 생성한 CDN 서비스 테스트와 운영 서비스 적용
+### 3. 신규 생성한 CDN 서비스 테스트와 운영 서비스 적용
 
-신규 생성한 **[서비스ID].toastcdn.net** 서비스를 운영 중인 서비스에 적용하기 전에 테스트를 진행하고 서비스에 적용합니다.
+신규 생성한 **[서비스ID].toastcdn.net** 서비스를 운영 중인 서비스에 적용하기 전에 테스트를 진행하고 서비스에 배포합니다.
 
 
 #### 3.1 기본 서비스 도메인([서비스ID].cdn.toastcloud.com)으로 서비스 중인 경우 
 1. 신규 생성한 CDN 서비스를 테스트 하기 위한 테스트용 빌드를 생성합니다. 
     - 테스트용 빌드는 기존 **[서비스ID].cdn.toastcloud.com** 의 서비스 도메인 대신, 신규 생성한 CDN 서비스의 **[서비스ID].toastcdn.net** 서비스 도메인 주소로 빌드합니다. 
 3. 테스트용 빌드를 로컬 환경 또는 개발 환경 서버에서 서비스를 구동하여 동작에 문제가 없는지 테스트 합니다. 
+    ![기본서비스도메인-테스트환경](https://static.toastoven.net/prod_cdn/v2/migration-test-test-build-before.png)
 4. 테스트가 완료되면 운영 중인 서비스 빌드에 신규 생성한 CDN 서비스 도메인 **[서비스ID].toastcdn.net** 을 적용하여 배포합니다.
-
+    ![기본서비스도메인-테스트환경-적용](https://static.toastoven.net/prod_cdn/v2/migration-test-test-build-after.png)
 
 #### 3.2 도메인 별칭(domain alias)으로 서비스 중인 경우 
 도메인 별칭은 기본으로 제공하는 서비스 도메인 주소 **[서비스ID].cdn.toastcloud.com** 이 아닌 소유한 도메인으로 CDN 서비스를 이용하는 경우 입니다.
@@ -94,29 +95,32 @@ CDN 서비스를 계속 이용하려면 아래 가이드를 참고하여 마이�
     - **CNAME 레코드 설정은 운영 중인 서비스에 영향이 발생하므로 테스트가 완료 된 후 진행해야 합니다.**
 
 ##### 테스트 방법 1: 로컬 PC 환경의 hosts 파일을 변조하여 확인 하는 방법
-1. nslookup 명령어을 통해 **[서비스ID].toastcdn.net**의 A 레코드에 설정된 IP 주소를 확인합니다.  
+1. nslookup 명령어을 통해 **[서비스ID].toastcdn.net**의 A 레코드에 설정된 CDN 에지(edge) 서버의 IP 주소를 확인합니다.  
     - nslookup 명령어는 운영체제에 따라 명령어가 다르거나 결과 형식이 다를 수 있습니다.
     A 레코드의 IP 주소를 확인 합니다. 아래 예시와 같이 복수 개가 등록되어 있을 수 있습니다. 복 수개가 조회되는 경우 임의의 하나 IP만 사용하면 됩니다.
 
     ![nslookup-IP확인](https://static.toastoven.net/prod_cdn/v2/migration-nslookup.png)
 
-2. 테스트를 수행 할 로컬 또는 개발 환경의 hosts 파일에 도메인과 확인한 IP 주소를 입력합니다.
+2. 테스트를 수행 할 로컬 또는 개발 환경의 hosts 파일에 확인한 에지 IP 주소와 도메인을 입력합니다.
     ```
-    example.alias.com xxx.xxx.xxx.xxx
+    xxx.xxx.xxx.xxx your-alias.domain.com
     ```
-
-    
 3. 로컬 또는 개발환경에서 서비스를 구동하여 동작에 문제가 없는지 테스트합니다.
-4. 테스트가 완료되면 도메인 별칭의 CNAME 레코드를 **서비스ID.toastcdn.net** 으로 위임합니다. 
+   ![도메인별칭-hosts파일변조](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-hosts-before.png)
+4. 테스트가 완료되면 운영 중인 도메인 별칭의 CNAME 레코드를 **[서비스ID].toastcdn.net** 으로 위임합니다. 
+   ![도메인별칭-hosts파일변조-적용](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-hosts-after.png)
+
 
 ##### 테스트 방법 2: 새로운 Domain Alias 생성하여 테스트 하는 방법 
-1. hosts 파일 변경이 불가한 경우(모바일 애플리케이션 등)에는 새로운 도메인 별칭을 테스트 용도로 생성하여 확인합니다. (예: test.alias.com)
-6. 임의의 새로운 도메인 별칭도 인증서 발급이 필요하므로 인증서 관리에서 먼저 인증서 발급과 배포를 진행하시기 바랍니다. (**[인증서 발급] 클라이언트와 CDN 에지(edge) 구간에 보안 전송(HTTPS)을 지원하려면 먼저 이 작업을 진행합니다.** 문서의 내용을 참고합니다.)
-7. 테스트용 빌드를 만들어 임의의 새로운 도메인 별칭으로 설정합니다. 
-3. 로컬 또는 개발환경에 서비스를 구동하여 서비스 동작에 문제가 없는지 테스트합니다.
-4. 테스트가 완료되면 도메인 별칭의 CNAME 레코드를 **서비스ID.toastcdn.net** 으로 위임합니다. 
+1. hosts 파일 변경이 불가한 경우(모바일 애플리케이션 등)에는 새로운 도메인 별칭을 테스트 용도로 생성하여 확인합니다. (예: alias-for-test.doamin.com)
+2. 임의의 새로운 도메인 별칭도 인증서 발급이 필요하므로 인증서 관리에서 먼저 인증서 발급과 배포를 진행하시기 바랍니다. (문서 상단의 **[인증서 발급] 클라이언트와 CDN 에지(edge) 구간에 보안 전송(HTTPS)을 지원하려면 먼저 이 작업을 진행합니다.** 내용을 참고합니다.)
+3. 테스트용 빌드를 만들어 임의의 새로운 도메인 별칭으로 설정하여 테스트용 빌드를 생성합니다. 
+4. 로컬 또는 개발환경에 서비스를 구동하여 서비스 동작에 문제가 없는지 테스트합니다.
+   ![도메인별칭-테스트빌드](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-build-before.png)
+5. 테스트가 완료되면 도메인 별칭의 CNAME 레코드를 **[서비스ID].toastcdn.net** 으로 위임합니다. 
+   ![도메인별칭-테스트빌드-적용](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-build-after.png)
 
-### 4.기존 CDN 서비스 삭제 
+### 4. 기존 CDN 서비스 삭제 
 1. 모든 마이그레이션 작업이 완료되면 **통계** 탭에서 통계를 조회합니다. 
-2. 통계를 확인하여 더 이상 트래픽 유입이 없다면 기존 **[서비스ID].cdn.toastcloud.com** 서비스를 삭제합니다. 통계 데이터는 약 30분의 지연 생성되므로 충분한 시간을 두고 트래픽 유입을 확인합니다.
+2. 통계를 확인하여 더 이상 트래픽 유입이 없다면 기존 **[서비스ID].cdn.toastcloud.com** 서비스를 삭제합니다. 통계 데이터는 약 30분의 지연 후 생성되므로 충분한 시간을 두고 트래픽 유입을 확인합니다.
   ![마이그레이션완료후삭제](https://static.toastoven.net/prod_cdn/v2/migration-old-delete.png)
