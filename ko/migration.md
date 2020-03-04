@@ -82,8 +82,9 @@ CDN 서비스를 계속 이용하려면 아래 가이드를 참고하여 마이�
 1. 신규 생성한 CDN 서비스를 테스트 하기 위한 테스트용 빌드를 생성합니다. 
     - 테스트용 빌드는 기존 **[서비스ID].cdn.toastcloud.com** 의 서비스 도메인 대신, 신규 생성한 CDN 서비스의 **[서비스ID].toastcdn.net** 서비스 도메인 주소로 빌드합니다. 
 3. 테스트용 빌드를 로컬 환경 또는 개발 환경 서버에서 서비스를 구동하여 동작에 문제가 없는지 테스트 합니다. 
+    ![기본서비스도메인-테스트환경](https://static.toastoven.net/prod_cdn/v2/migration-test-test-build-before.png)
 4. 테스트가 완료되면 운영 중인 서비스 빌드에 신규 생성한 CDN 서비스 도메인 **[서비스ID].toastcdn.net** 을 적용하여 배포합니다.
-
+    ![기본서비스도메인-테스트환경-적용](https://static.toastoven.net/prod_cdn/v2/migration-test-test-build-after.png)
 
 #### 3.2 도메인 별칭(domain alias)으로 서비스 중인 경우 
 도메인 별칭은 기본으로 제공하는 서비스 도메인 주소 **[서비스ID].cdn.toastcloud.com** 이 아닌 소유한 도메인으로 CDN 서비스를 이용하는 경우 입니다.
@@ -104,17 +105,20 @@ CDN 서비스를 계속 이용하려면 아래 가이드를 참고하여 마이�
     ```
     example.alias.com xxx.xxx.xxx.xxx
     ```
-
-    
 3. 로컬 또는 개발환경에서 서비스를 구동하여 동작에 문제가 없는지 테스트합니다.
+   ![도메인별칭-hosts파일변조](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-hosts-before.png)
 4. 테스트가 완료되면 도메인 별칭의 CNAME 레코드를 **서비스ID.toastcdn.net** 으로 위임합니다. 
+   ![도메인별칭-hosts파일변조-적용](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-hosts-after.png)
+
 
 ##### 테스트 방법 2: 새로운 Domain Alias 생성하여 테스트 하는 방법 
 1. hosts 파일 변경이 불가한 경우(모바일 애플리케이션 등)에는 새로운 도메인 별칭을 테스트 용도로 생성하여 확인합니다. (예: test.alias.com)
 6. 임의의 새로운 도메인 별칭도 인증서 발급이 필요하므로 인증서 관리에서 먼저 인증서 발급과 배포를 진행하시기 바랍니다. (**[인증서 발급] 클라이언트와 CDN 에지(edge) 구간에 보안 전송(HTTPS)을 지원하려면 먼저 이 작업을 진행합니다.** 문서의 내용을 참고합니다.)
 7. 테스트용 빌드를 만들어 임의의 새로운 도메인 별칭으로 설정합니다. 
 3. 로컬 또는 개발환경에 서비스를 구동하여 서비스 동작에 문제가 없는지 테스트합니다.
+   ![도메인별칭-테스트빌드](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-build-before.png)
 4. 테스트가 완료되면 도메인 별칭의 CNAME 레코드를 **서비스ID.toastcdn.net** 으로 위임합니다. 
+   ![도메인별칭-테스트빌드-적용](https://static.toastoven.net/prod_cdn/v2/migration-test-alias-build-after.png)
 
 ### 4.기존 CDN 서비스 삭제 
 1. 모든 마이그레이션 작업이 완료되면 **통계** 탭에서 통계를 조회합니다. 
